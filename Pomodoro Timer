@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .timer-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 320px;
+        }
+
+        .mode-display {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .time-display {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-ring {
+            margin: 20px 0;
+        }
+
+        .progress-circle {
+            transform: rotate(-90deg);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .progress-path {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 8;
+        }
+
+        .progress-bar {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .session-counter {
+            margin-top: 20px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+
+        .mode-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .time-up {
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="work">Work</button>
+            <button class="mode-btn" data-mode="short">Short Break</button>
+            <button class="mode-btn" data-mode="long">Long Break</button>
+        </div>
+        
+        <div class="mode-display" id="modeDisplay">Work Session</div>
+        
+        <div class="progress-ring">
+            <svg width="200" height="200" class="progress-circle">
+                <circle cx="100" cy="100" r="90" class="progress-path"></circle>
+                <circle cx="100" cy="100" r="90" class="progress-bar" id="progressBar"></circle>
+            </svg>
+        </div>
+        
+        <div class="time-display" id="timeDisplay">25:00</div>
+        
+        <div class="controls">
+            <button id="startBtn">Start</button>
+            <button id="pauseBtn" disabled>Pause</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+        
+        <div class="session-counter">
+            Sessions completed: <span id="sessionCount">0</span>
+        </div>
+    </div>
+
+    <script>
+        class PomodoroTimer {
+            constructor() {
+                this.modes = {
+                    work: { duration: 25 * 60, label: 'Work Session' },
+                    short: { duration: 5 * 60, label: 'Short Break' },
+                    long: { duration: 15 * 60, label: 'Long Break' }
+                };
+                
+                this.currentMode = 'work';
+                this.timeLeft = this.modes[this.currentMode].duration;
+                this.totalTime = this.modes[this.currentMode].duration;
+                this.isRunning = false;
+                this.timer = null;
+                this.sessions = 0;
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.updateDisplay();
+                this.updateProgress();
+            }
+            
+            initializeElements() {
+                this.timeDisplay = document.getElementById('timeDisplay');
+                this.modeDisplay = document.getElementById('modeDisplay');
+                this.startBtn = document.getElementById('startBtn');
+                this.pauseBtn = document.getElementById('pauseBtn');
+                this.resetBtn = document.getElementById('resetBtn');
+                this.sessionCount = document.getElementById('sessionCount');
+                this.progressBar = document.getElementById('progressBar');
+                this.modeButtons = document.querySelectorAll('.mode-btn');
+                
+                // Set up progress circle
+                const circumference = 2 * Math.PI * 90;
+                this.progressBar.style.strokeDasharray = circumference;
+                this.progressBar.style.strokeDashoffset = circumference;
+            }
+            
+            setupEventListeners() {
+                this.startBtn.addEventListener('click', () => this.start());
+                this.pauseBtn.addEventListener('click', () => this.pause());
+                this.resetBtn.addEventListener('click', () => this.reset());
+                
+                this.modeButtons.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if (!this.isRunning) {
+                            this.switchMode(e.target.dataset.mode);
+                        }
+                    });
+                });
+            }
+            
+            start() {
+                this.isRunning = true;
+                this.startBtn.disabled = true;
+                this.pauseBtn.disabled = false;
+                
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    this.updateDisplay();
+                    this.updateProgress();
+                    
+                    if (this.timeLeft <= 0) {
+                        this.complete();
+                    }
+                }, 1000);
+            }
+            
+            pause() {
+                this.isRunning = false;
+                this.startBtn.disabled = false;
+                this.pauseBtn.disabled = true;
+                clearInterval(this.timer);
+            }
+            
+            reset() {
+                this.pause();
+                this.timeLeft = this.modes[this.currentMode].duration;
+                this.totalTime = this.modes[this.currentMode].duration;
+                this.updateDisplay();
+                this.updateProgress();
+                this.timeDisplay.classList.remove('time-up');
+            }
+            
+            complete() {
+                this.pause();
+                this.timeDisplay.classList.add('time-up');
+                
+                if (this.currentMode === 'work') {
+                    this.sessions++;
+                    this.sessionCount.textContent = this.sessions;
+                }
+                
+                // Auto-switch to break after work session
+                setTimeout(() => {
+                    if (this.currentMode === 'work') {
+                        const breakType = this.sessions % 4 === 0 ? 'long' : 'short';
+                        this.switchMode(breakType);
+                    }
+                    this.timeDisplay.classList.remove('time-up');
+                }, 2000);
+            }
+            
+            switchMode(mode) {
+                this.currentMode = mode;
+                this.timeLeft = this.modes[mode].duration;
+                this.totalTime = this.modes[mode].duration;
+                this.modeDisplay.textContent = this.modes[mode].label;
+                
+                // Update active button
+                this.modeButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.mode === mode);
+                });
+                
+                this.updateDisplay();
+                this.updateProgress();
+            }
+            
+            updateDisplay() {
+                const minutes = Math.floor(this.timeLeft / 60);
+                const seconds = this.timeLeft % 60;
+                this.timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            updateProgress() {
+                const circumference = 2 * Math.PI * 90;
+                const progress = (this.totalTime - this.timeLeft) / this.totalTime;
+                const offset = circumference - (progress * circumference);
+                this.progressBar.style.strokeDashoffset = offset;
+            }
+        }
+        
+        // Initialize the timer when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new PomodoroTimer();
+        });
+    </script>
+</body>
+</html>
