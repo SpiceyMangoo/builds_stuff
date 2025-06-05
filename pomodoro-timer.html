@@ -12,130 +12,207 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #191919;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: white;
+            color: #e9e9e7;
+            line-height: 1.5;
         }
 
         .timer-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
+            background: #2f2f2f;
+            border-radius: 12px;
+            padding: 48px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            min-width: 320px;
+            box-shadow: 
+                0 1px 3px rgba(0, 0, 0, 0.3),
+                0 1px 2px rgba(0, 0, 0, 0.4);
+            border: 1px solid #3f3f3f;
+            min-width: 380px;
+            max-width: 420px;
         }
 
         .mode-display {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            opacity: 0.9;
+            font-size: 16px;
+            margin-bottom: 32px;
+            color: #9b9b9b;
             font-weight: 500;
+            letter-spacing: -0.01em;
         }
 
         .time-display {
-            font-size: 4em;
-            font-weight: bold;
-            margin: 30px 0;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            font-size: 72px;
+            font-weight: 600;
+            margin: 40px 0;
+            color: #ffffff;
             font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
         }
 
         .controls {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin: 30px 0;
+            margin: 40px 0;
         }
 
         button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
+            background: #3f3f3f;
+            border: 1px solid #525252;
+            color: #e9e9e7;
+            padding: 12px 20px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 14px;
             font-weight: 500;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.15s ease;
+            font-family: inherit;
+            letter-spacing: -0.01em;
+            min-width: 80px;
         }
 
         button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: #4a4a4a;
+            border-color: #626262;
         }
 
         button:active {
-            transform: translateY(0);
+            background: #404040;
+            transform: translateY(1px);
         }
 
         button:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none;
+            background: #3f3f3f;
+        }
+
+        button:disabled:hover {
+            background: #3f3f3f;
+            border-color: #525252;
         }
 
         .progress-ring {
-            margin: 20px 0;
+            margin: 32px 0;
         }
 
         .progress-circle {
             transform: rotate(-90deg);
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         .progress-path {
             fill: none;
-            stroke: rgba(255, 255, 255, 0.2);
-            stroke-width: 8;
+            stroke: #404040;
+            stroke-width: 6;
         }
 
         .progress-bar {
             fill: none;
             stroke: #ffffff;
-            stroke-width: 8;
+            stroke-width: 6;
             stroke-linecap: round;
             transition: stroke-dashoffset 1s ease;
         }
 
         .session-counter {
-            margin-top: 20px;
-            font-size: 1.1em;
-            opacity: 0.9;
+            margin-top: 32px;
+            font-size: 14px;
+            color: #9b9b9b;
+            font-weight: 500;
+            letter-spacing: -0.01em;
         }
 
         .mode-selector {
             display: flex;
-            gap: 10px;
+            gap: 4px;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 32px;
+            background: #262626;
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid #3f3f3f;
         }
 
         .mode-btn {
             padding: 8px 16px;
-            font-size: 0.9em;
+            font-size: 13px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            min-width: auto;
+        }
+
+        .mode-btn:hover {
+            background: #3f3f3f;
+            border: none;
         }
 
         .mode-btn.active {
-            background: rgba(255, 255, 255, 0.4);
+            background: #4a4a4a;
+            color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            border: 1px solid #626262;
+        }
+
+        .mode-btn.active:hover {
+            background: #4a4a4a;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% { 
+                transform: scale(1);
+                color: #ffffff;
+            }
+            50% { 
+                transform: scale(1.02);
+                color: #f0f0f0;
+            }
         }
 
         .time-up {
-            animation: pulse 0.5s ease-in-out infinite;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        /* Subtle focus states for accessibility */
+        button:focus {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        .mode-btn:focus {
+            outline: 1px solid #ffffff;
+            outline-offset: 1px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .timer-container {
+                margin: 20px;
+                padding: 32px 24px;
+                min-width: auto;
+            }
+            
+            .time-display {
+                font-size: 56px;
+            }
+            
+            .mode-selector {
+                flex-direction: column;
+                gap: 2px;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -150,9 +227,9 @@
         <div class="mode-display" id="modeDisplay">Work Session</div>
         
         <div class="progress-ring">
-            <svg width="200" height="200" class="progress-circle">
-                <circle cx="100" cy="100" r="90" class="progress-path"></circle>
-                <circle cx="100" cy="100" r="90" class="progress-bar" id="progressBar"></circle>
+            <svg width="180" height="180" class="progress-circle">
+                <circle cx="90" cy="90" r="80" class="progress-path"></circle>
+                <circle cx="90" cy="90" r="80" class="progress-bar" id="progressBar"></circle>
             </svg>
         </div>
         
@@ -202,7 +279,7 @@
                 this.modeButtons = document.querySelectorAll('.mode-btn');
                 
                 // Set up progress circle
-                const circumference = 2 * Math.PI * 90;
+                const circumference = 2 * Math.PI * 80;
                 this.progressBar.style.strokeDasharray = circumference;
                 this.progressBar.style.strokeDashoffset = circumference;
             }
@@ -294,7 +371,7 @@
             }
             
             updateProgress() {
-                const circumference = 2 * Math.PI * 90;
+                const circumference = 2 * Math.PI * 80;
                 const progress = (this.totalTime - this.timeLeft) / this.totalTime;
                 const offset = circumference - (progress * circumference);
                 this.progressBar.style.strokeDashoffset = offset;
