@@ -12,213 +12,253 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1a1a;
-            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #191919;
+            color: #e6e6e6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .container {
-            background: #2f2f2f;
-            border: 1px solid #3f3f3f;
-            border-radius: 8px;
-            padding: 48px;
-            max-width: 520px;
+            background-color: #2f3437;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #3f4447;
+            max-width: 480px;
             width: 90%;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 32px;
+            font-weight: 700;
             color: #ffffff;
+            margin-bottom: 8px;
             text-align: center;
         }
 
         .subtitle {
-            color: #9b9b9b;
-            margin-bottom: 32px;
+            color: #9b9a97;
+            margin-bottom: 24px;
             font-size: 14px;
             text-align: center;
-        }
-
-        .timer-display {
-            font-size: 72px;
-            font-weight: 300;
-            margin: 32px 0;
-            text-align: center;
-            color: #ffffff;
-            font-variant-numeric: tabular-nums;
-            transition: color 0.3s ease;
-        }
-
-        .timer-display.paused {
-            color: #ffa500;
-        }
-
-        .session-type {
-            font-size: 14px;
-            margin-bottom: 24px;
-            color: #9b9b9b;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .config-section {
-            margin-bottom: 24px;
-            padding: 16px;
-            background: #252525;
-            border: 1px solid #3f3f3f;
-            border-radius: 6px;
         }
 
         .config-toggle {
             font-size: 12px;
-            color: #9b9b9b;
+            color: #787774;
             cursor: pointer;
-            text-decoration: underline;
             margin-bottom: 16px;
-            display: block;
+            text-align: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
         }
 
         .config-toggle:hover {
-            color: #ffffff;
+            background-color: #37393d;
         }
 
         .api-config {
-            display: none;
-        }
-
-        .api-config.show {
-            display: block;
+            background-color: #37393d;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #454749;
         }
 
         .api-config h3 {
+            color: #ffffff;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 16px;
-            color: #ffffff;
-        }
-
-        .input-group {
             margin-bottom: 12px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            color: #9b9b9b;
-            margin-bottom: 4px;
-            font-weight: 500;
         }
 
         .api-config input {
             width: 100%;
             padding: 8px 12px;
-            border: 1px solid #3f3f3f;
-            border-radius: 4px;
-            background: #1a1a1a;
-            color: #ffffff;
+            margin-bottom: 8px;
+            background-color: #2f3437;
+            border: 1px solid #454749;
+            border-radius: 6px;
+            color: #e6e6e6;
             font-size: 14px;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.2s;
         }
 
         .api-config input:focus {
             outline: none;
-            border-color: #0066cc;
+            border-color: #0f7b0f;
         }
 
         .api-config input::placeholder {
-            color: #6b6b6b;
+            color: #787774;
+        }
+
+        .template-selector {
+            margin-bottom: 20px;
+        }
+
+        .template-selector label {
+            display: block;
+            color: #9b9a97;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .template-selector select {
+            width: 100%;
+            padding: 12px;
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 6px;
+            color: #e6e6e6;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .template-selector select:focus {
+            outline: none;
+            border-color: #0f7b0f;
+        }
+
+        .template-selector option {
+            background-color: #37393d;
+            color: #e6e6e6;
+        }
+
+        .session-type {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #9b9a97;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-display {
+            font-size: 64px;
+            font-weight: 300;
+            color: #ffffff;
+            text-align: center;
+            margin: 24px 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-display.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #454749;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #0f7b0f;
+            transition: width 1s ease;
+            border-radius: 2px;
         }
 
         .goal-selector {
-            margin: 24px 0;
+            margin: 20px 0;
         }
 
         .goal-selector label {
             display: block;
-            font-size: 14px;
-            color: #ffffff;
-            margin-bottom: 8px;
+            color: #9b9a97;
+            font-size: 12px;
             font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .goal-selector select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #3f3f3f;
+            background-color: #37393d;
+            border: 1px solid #454749;
             border-radius: 6px;
-            background: #252525;
-            color: #ffffff;
+            color: #e6e6e6;
             font-size: 14px;
             cursor: pointer;
-            transition: border-color 0.2s ease;
         }
 
         .goal-selector select:focus {
             outline: none;
-            border-color: #0066cc;
+            border-color: #0f7b0f;
         }
 
-        .goal-selector select option {
-            background: #252525;
-            color: #ffffff;
-            padding: 8px;
-        }
-
-        .goal-info {
-            margin: 16px 0;
-            padding: 12px;
-            background: #252525;
-            border: 1px solid #3f3f3f;
-            border-radius: 6px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .goal-info.show {
-            display: block;
-        }
-
-        .goal-info strong {
-            color: #ffffff;
-        }
-
-        .goal-info span {
-            color: #9b9b9b;
+        .goal-selector option {
+            background-color: #37393d;
+            color: #e6e6e6;
         }
 
         .controls {
             display: flex;
-            gap: 12px;
-            margin: 32px 0;
-            justify-content: center;
+            gap: 8px;
+            margin: 24px 0;
         }
 
         button {
-            padding: 12px 24px;
-            border: 1px solid #3f3f3f;
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
             border-radius: 6px;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
-            background: #252525;
-            color: #ffffff;
-            min-width: 90px;
+            min-height: 44px;
         }
 
-        button:hover:not(:disabled) {
-            background: #3f3f3f;
-            border-color: #5f5f5f;
+        .btn-primary {
+            background-color: #0f7b0f;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: #0d6b0d;
+        }
+
+        .btn-secondary {
+            background-color: #37393d;
+            color: #e6e6e6;
+            border: 1px solid #454749;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #454749;
+        }
+
+        .btn-danger {
+            background-color: #eb5757;
+            color: #ffffff;
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background-color: #d84545;
         }
 
         button:disabled {
@@ -226,119 +266,90 @@
             cursor: not-allowed;
         }
 
-        .btn-primary {
-            background: #0066cc;
-            border-color: #0066cc;
-            color: #ffffff;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            background: #0052a3;
-            border-color: #0052a3;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            border-color: #dc3545;
-            color: #ffffff;
-        }
-
-        .btn-danger:hover:not(:disabled) {
-            background: #c82333;
-            border-color: #c82333;
-        }
-
         .stats {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin: 32px 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 24px 0;
         }
 
         .stat-item {
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 8px;
+            padding: 16px;
             text-align: center;
-            padding: 16px 8px;
-            background: #252525;
-            border: 1px solid #3f3f3f;
-            border-radius: 6px;
         }
 
         .stat-value {
+            display: block;
             font-size: 24px;
             font-weight: 600;
-            display: block;
             color: #ffffff;
             margin-bottom: 4px;
         }
 
         .stat-label {
-            font-size: 12px;
-            color: #9b9b9b;
+            font-size: 11px;
+            color: #9b9a97;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 500;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #3f3f3f;
-            border-radius: 2px;
-            margin: 24px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #0066cc;
-            transition: width 0.3s ease;
-            border-radius: 2px;
-        }
-
         .session-info {
-            background: #252525;
-            border: 1px solid #3f3f3f;
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 8px;
             padding: 16px;
-            border-radius: 6px;
-            margin: 24px 0;
-            font-size: 14px;
-            display: none;
-        }
-
-        .session-info.show {
-            display: block;
+            margin: 20px 0;
         }
 
         .session-info h3 {
-            font-size: 16px;
+            color: #ffffff;
+            font-size: 14px;
             font-weight: 600;
             margin-bottom: 12px;
-            color: #ffffff;
         }
 
         .session-info p {
-            margin-bottom: 8px;
-            color: #9b9b9b;
+            color: #9b9a97;
+            font-size: 13px;
+            margin-bottom: 6px;
         }
 
         .session-info strong {
-            color: #ffffff;
+            color: #e6e6e6;
+        }
+
+        .template-info {
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #9b9a97;
+        }
+
+        .hidden {
+            display: none;
         }
 
         .notification {
             position: fixed;
-            top: 24px;
-            right: 24px;
-            padding: 12px 20px;
-            background: #252525;
-            border: 1px solid #3f3f3f;
-            color: #ffffff;
-            border-radius: 6px;
-            font-size: 14px;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            background-color: #2f3437;
+            border: 1px solid #454749;
+            color: #e6e6e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transform: translateX(100%);
             transition: transform 0.3s ease;
             z-index: 1000;
-            max-width: 300px;
+            font-size: 14px;
         }
 
         .notification.show {
@@ -346,61 +357,31 @@
         }
 
         .notification.success {
-            border-color: #28a745;
-            background: #1e4d20;
+            border-color: #0f7b0f;
+            background-color: #1a4d1a;
         }
 
         .notification.error {
-            border-color: #dc3545;
-            background: #4d1e20;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #3f3f3f;
-            border-radius: 50%;
-            border-top-color: #ffffff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .connection-status {
-            font-size: 12px;
-            color: #9b9b9b;
-            text-align: center;
-            margin-top: 16px;
-        }
-
-        .connection-status.connected {
-            color: #28a745;
-        }
-
-        .connection-status.error {
-            color: #dc3545;
+            border-color: #eb5757;
+            background-color: #4d1a1a;
         }
 
         @media (max-width: 600px) {
             .container {
-                padding: 24px;
-                margin: 16px;
+                padding: 20px;
+                margin: 20px;
             }
             
             .timer-display {
-                font-size: 56px;
-            }
-            
-            .controls {
-                flex-direction: column;
+                font-size: 48px;
             }
             
             .stats {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .controls {
+                flex-direction: column;
             }
         }
     </style>
@@ -410,61 +391,56 @@
         <h1>FocusFlow</h1>
         <p class="subtitle">Pomodoro Timer with Smart Tracking</p>
         
-        <div class="config-section">
-            <span class="config-toggle" onclick="toggleConfig()">⚙️ API Configuration</span>
-            
-            <div id="apiConfig" class="api-config">
-                <h3>Connect to Notion & n8n</h3>
-                
-                <div class="input-group">
-                    <label for="notionToken">Notion Integration Token</label>
-                    <input type="password" id="notionToken" placeholder="secret_...">
-                </div>
-                
-                <div class="input-group">
-                    <label for="notionDatabase">Notion Database ID</label>
-                    <input type="text" id="notionDatabase" placeholder="32-character database ID">
-                </div>
-                
-                <div class="input-group">
-                    <label for="n8nWebhook">n8n Webhook URL</label>
-                    <input type="url" id="n8nWebhook" placeholder="https://your-n8n.app/webhook/...">
-                </div>
-                
-                <button class="btn-primary" onclick="saveConfig()">
-                    <span id="saveConfigText">Save & Connect</span>
-                </button>
-            </div>
-            
-            <div class="connection-status" id="connectionStatus">
-                Not connected - Configure API settings above
-            </div>
+        <div class="config-toggle" onclick="toggleConfig()">⚙️ Configuration</div>
+        
+        <div id="apiConfig" class="api-config hidden">
+            <h3>API Configuration</h3>
+            <input type="text" id="notionToken" placeholder="Notion Integration Token">
+            <input type="text" id="notionDatabase" placeholder="Notion Database ID">
+            <input type="text" id="n8nWebhook" placeholder="n8n Webhook URL">
+            <button class="btn-secondary" onclick="saveConfig()">Save Configuration</button>
+        </div>
+
+        <div class="template-selector">
+            <label>Template</label>
+            <select id="templateSelect" onchange="selectTemplate()">
+                <option value="standard">🍅 Standard Pomodoro (25/5)</option>
+                <option value="deep">🧠 Deep Work (50/15)</option>
+                <option value="quick">⚡ Quick Tasks (15/5)</option>
+                <option value="extended">🔥 Extended Focus (90/30)</option>
+            </select>
+        </div>
+
+        <div id="templateInfo" class="template-info">
+            <strong>Standard Pomodoro:</strong> 25 minutes of focused work followed by a 5-minute break. Perfect for most tasks and maintaining consistent productivity throughout the day.
         </div>
 
         <div class="session-type" id="sessionType">FOCUS SESSION</div>
         
         <div class="timer-display" id="timerDisplay">25:00</div>
         
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
         </div>
 
         <div class="goal-selector">
-            <label for="goalSelect">Select Goal to Work On</label>
-            <select id="goalSelect" onchange="onGoalSelect()">
-                <option value="">Choose a goal from your Notion database...</option>
+            <label>Current Goal</label>
+            <select id="goalSelect">
+                <option value="">Select a goal to work on...</option>
+                <option value="demo-1">📝 Write blog post</option>
+                <option value="demo-2">💻 Code new feature</option>
+                <option value="demo-3">📚 Study JavaScript</option>
+                <option value="demo-4">🎨 Design mockups</option>
             </select>
         </div>
 
-        <div class="goal-info" id="goalInfo">
-            <strong>Working on:</strong> <span id="currentGoalTitle">None selected</span>
-        </div>
-
         <div class="controls">
-            <button class="btn-primary" id="startBtn" onclick="startTimer()">Start</button>
-            <button id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
-            <button class="btn-danger" id="stopBtn" onclick="stopSession()" disabled>Stop & Save</button>
-            <button id="resetBtn" onclick="resetTimer()">Reset</button>
+            <button class="btn-primary" id="startBtn" onclick="startTimer()">Start Focus</button>
+            <button class="btn-secondary" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
+            <button class="btn-danger" id="stopBtn" onclick="stopSession()" disabled>Stop</button>
+            <button class="btn-secondary" id="resetBtn" onclick="resetTimer()">Reset</button>
         </div>
 
         <div class="stats">
@@ -478,7 +454,7 @@
             </div>
             <div class="stat-item">
                 <span class="stat-value" id="interruptions">0</span>
-                <span class="stat-label">Pauses</span>
+                <span class="stat-label">Interruptions</span>
             </div>
             <div class="stat-item">
                 <span class="stat-value" id="currentStreak">0</span>
@@ -486,33 +462,65 @@
             </div>
         </div>
 
-        <div class="session-info" id="sessionInfo">
+        <div class="session-info hidden" id="sessionInfo">
             <h3>Current Session</h3>
             <p><strong>Started:</strong> <span id="sessionStart">-</span></p>
+            <p><strong>Template:</strong> <span id="sessionTemplate">-</span></p>
             <p><strong>Goal:</strong> <span id="sessionGoal">-</span></p>
             <p><strong>Elapsed:</strong> <span id="sessionElapsed">0 min</span></p>
-            <p><strong>Interruptions:</strong> <span id="sessionInterruptions">0</span></p>
+            <p><strong>Pauses:</strong> <span id="sessionPauses">0</span></p>
         </div>
     </div>
 
     <div class="notification" id="notification"></div>
 
     <script>
+        // Template configurations
+        const templates = {
+            standard: {
+                name: 'Standard Pomodoro',
+                focus: 25 * 60,
+                shortBreak: 5 * 60,
+                longBreak: 15 * 60,
+                description: '25 minutes of focused work followed by a 5-minute break. Perfect for most tasks and maintaining consistent productivity throughout the day.'
+            },
+            deep: {
+                name: 'Deep Work',
+                focus: 50 * 60,
+                shortBreak: 15 * 60,
+                longBreak: 30 * 60,
+                description: '50 minutes of deep, uninterrupted work followed by a 15-minute break. Ideal for complex tasks requiring sustained concentration.'
+            },
+            quick: {
+                name: 'Quick Tasks',
+                focus: 15 * 60,
+                shortBreak: 5 * 60,
+                longBreak: 10 * 60,
+                description: '15 minutes of focused work followed by a 5-minute break. Perfect for quick tasks, emails, or when you have limited time.'
+            },
+            extended: {
+                name: 'Extended Focus',
+                focus: 90 * 60,
+                shortBreak: 30 * 60,
+                longBreak: 45 * 60,
+                description: '90 minutes of extended focus followed by a 30-minute break. Based on ultradian rhythms for maximum deep work sessions.'
+            }
+        };
+
         // Timer state
         let timerState = {
             isRunning: false,
             isPaused: false,
-            currentTime: 25 * 60, // 25 minutes in seconds
+            currentTime: 25 * 60,
             originalTime: 25 * 60,
-            sessionType: 'focus',
+            sessionType: 'focus', // 'focus', 'shortBreak', 'longBreak'
             currentGoal: null,
+            currentTemplate: 'standard',
             sessionId: null,
             startTime: null,
             interruptions: [],
             totalPauses: 0,
-            sessionData: {},
-            actualWorkTime: 0,
-            pauseStartTime: null
+            sessionData: {}
         };
 
         // Session statistics
@@ -531,208 +539,52 @@
         };
 
         let timerInterval;
-        let goals = [];
 
         // Initialize app
         function init() {
             updateDisplay();
             updateStats();
             loadConfig();
+            selectTemplate(); // Set initial template
             
             // Load configuration into inputs
             document.getElementById('notionToken').value = config.notionToken;
             document.getElementById('notionDatabase').value = config.notionDatabase;
             document.getElementById('n8nWebhook').value = config.n8nWebhook;
-            
-            // Check connection status
-            updateConnectionStatus();
-            
-            // Load goals if configured
-            if (config.notionToken && config.notionDatabase) {
-                loadGoalsFromNotion();
-            }
         }
 
         function toggleConfig() {
             const configDiv = document.getElementById('apiConfig');
-            configDiv.classList.toggle('show');
+            configDiv.classList.toggle('hidden');
         }
 
-        async function saveConfig() {
-            const saveBtn = document.getElementById('saveConfigText');
-            const originalText = saveBtn.textContent;
-            
-            saveBtn.innerHTML = '<div class="loading"></div>Connecting...';
-            
-            config.notionToken = document.getElementById('notionToken').value.trim();
-            config.notionDatabase = document.getElementById('notionDatabase').value.trim();
-            config.n8nWebhook = document.getElementById('n8nWebhook').value.trim();
+        function saveConfig() {
+            config.notionToken = document.getElementById('notionToken').value;
+            config.notionDatabase = document.getElementById('notionDatabase').value;
+            config.n8nWebhook = document.getElementById('n8nWebhook').value;
 
-            // Save to localStorage
             localStorage.setItem('notionToken', config.notionToken);
             localStorage.setItem('notionDatabase', config.notionDatabase);
             localStorage.setItem('n8nWebhook', config.n8nWebhook);
 
-            // Test connections
-            let notionConnected = false;
-            let n8nConnected = false;
+            showNotification('Configuration saved!', 'success');
+            toggleConfig();
+            loadGoalsFromNotion();
+        }
 
-            // Test Notion connection
-            if (config.notionToken && config.notionDatabase) {
-                try {
-                    await loadGoalsFromNotion();
-                    notionConnected = true;
-                } catch (error) {
-                    console.error('Notion connection failed:', error);
-                }
-            }
-
-            // Test n8n connection (simple ping)
-            if (config.n8nWebhook) {
-                try {
-                    const response = await fetch(config.n8nWebhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ test: true, timestamp: new Date().toISOString() })
-                    });
-                    n8nConnected = response.ok;
-                } catch (error) {
-                    console.error('n8n connection failed:', error);
-                }
-            }
-
-            // Update UI
-            saveBtn.textContent = originalText;
-            updateConnectionStatus();
+        function selectTemplate() {
+            const templateSelect = document.getElementById('templateSelect');
+            const selectedTemplate = templateSelect.value;
+            const template = templates[selectedTemplate];
             
-            if (notionConnected || n8nConnected) {
-                showNotification('Configuration saved and connected!', 'success');
-                toggleConfig();
-            } else {
-                showNotification('Configuration saved but connection failed. Check your settings.', 'error');
-            }
-        }
-
-        function updateConnectionStatus() {
-            const statusEl = document.getElementById('connectionStatus');
-            const hasNotion = config.notionToken && config.notionDatabase;
-            const hasN8n = config.n8nWebhook;
+            timerState.currentTemplate = selectedTemplate;
+            timerState.currentTime = template.focus;
+            timerState.originalTime = template.focus;
             
-            if (hasNotion && hasN8n) {
-                statusEl.textContent = '✓ Connected to Notion & n8n';
-                statusEl.className = 'connection-status connected';
-            } else if (hasNotion || hasN8n) {
-                statusEl.textContent = '⚠ Partially connected - check configuration';
-                statusEl.className = 'connection-status error';
-            } else {
-                statusEl.textContent = '✗ Not connected - configure API settings above';
-                statusEl.className = 'connection-status error';
-            }
-        }
-
-        function loadConfig() {
-            updateConnectionStatus();
-        }
-
-        async function loadGoalsFromNotion() {
-            if (!config.notionToken || !config.notionDatabase) {
-                throw new Error('Notion configuration incomplete');
-            }
-
-            const response = await fetch(`https://api.notion.com/v1/databases/${config.notionDatabase}/query`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${config.notionToken}`,
-                    'Content-Type': 'application/json',
-                    'Notion-Version': '2022-06-28'
-                },
-                body: JSON.stringify({
-                    page_size: 100,
-                    filter: {
-                        property: 'Status',
-                        select: {
-                            does_not_equal: 'Completed'
-                        }
-                    }
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`Notion API error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            goals = data.results;
-            populateGoalSelector(goals);
+            document.getElementById('templateInfo').innerHTML = 
+                `<strong>${template.name}:</strong> ${template.description}`;
             
-            return goals;
-        }
-
-        function populateGoalSelector(goals) {
-            const select = document.getElementById('goalSelect');
-            select.innerHTML = '<option value="">Choose a goal from your Notion database...</option>';
-
-            if (goals.length === 0) {
-                const option = document.createElement('option');
-                option.value = '';
-                option.textContent = 'No active goals found in your database';
-                option.disabled = true;
-                select.appendChild(option);
-                return;
-            }
-
-            goals.forEach(goal => {
-                const option = document.createElement('option');
-                option.value = goal.id;
-                
-                // Extract title from various possible property names
-                let title = 'Untitled Goal';
-                const titleProps = ['Name', 'Title', 'Goal', 'Task'];
-                
-                for (const prop of titleProps) {
-                    if (goal.properties[prop] && goal.properties[prop].title) {
-                        const titleArray = goal.properties[prop].title;
-                        if (titleArray.length > 0) {
-                            title = titleArray[0].plain_text;
-                            break;
-                        }
-                    }
-                }
-
-                // Add category or status for context
-                let context = '';
-                if (goal.properties.Category && goal.properties.Category.select) {
-                    context = ` (${goal.properties.Category.select.name})`;
-                } else if (goal.properties.Status && goal.properties.Status.select) {
-                    context = ` - ${goal.properties.Status.select.name}`;
-                }
-
-                option.textContent = title + context;
-                option.dataset.goalData = JSON.stringify({
-                    id: goal.id,
-                    title: title,
-                    properties: goal.properties,
-                    url: goal.url
-                });
-                
-                select.appendChild(option);
-            });
-
-            showNotification(`Loaded ${goals.length} goals from Notion`, 'success');
-        }
-
-        function onGoalSelect() {
-            const select = document.getElementById('goalSelect');
-            const goalInfo = document.getElementById('goalInfo');
-            const goalTitle = document.getElementById('currentGoalTitle');
-            
-            if (select.value) {
-                const selectedOption = select.options[select.selectedIndex];
-                goalTitle.textContent = selectedOption.textContent;
-                goalInfo.classList.add('show');
-            } else {
-                goalInfo.classList.remove('show');
-            }
+            updateDisplay();
         }
 
         function startTimer() {
@@ -753,26 +605,25 @@
                 timerState.currentGoal = selectedGoal;
                 timerState.totalPauses = 0;
                 timerState.interruptions = [];
-                timerState.actualWorkTime = 0;
 
                 // Get goal data
                 const selectedOption = goalSelect.options[goalSelect.selectedIndex];
-                const goalData = JSON.parse(selectedOption.dataset.goalData || '{}');
                 timerState.sessionData = {
                     goalId: selectedGoal,
-                    goalTitle: goalData.title || selectedOption.textContent,
-                    goalData: goalData
+                    goalTitle: selectedOption.textContent,
+                    template: timerState.currentTemplate,
+                    templateName: templates[timerState.currentTemplate].name
                 };
 
-                // Update UI
                 document.getElementById('startBtn').textContent = 'Running...';
                 document.getElementById('startBtn').disabled = true;
                 document.getElementById('pauseBtn').disabled = false;
                 document.getElementById('stopBtn').disabled = false;
+                document.getElementById('templateSelect').disabled = true;
                 document.getElementById('goalSelect').disabled = true;
 
                 showSessionInfo();
-                showNotification(`Started working on: ${timerState.sessionData.goalTitle}`, 'success');
+                showNotification(`Started ${templates[timerState.currentTemplate].name}: ${selectedOption.textContent}`, 'success');
             }
 
             timerInterval = setInterval(updateTimer, 1000);
@@ -782,29 +633,32 @@
             if (timerState.isRunning && !timerState.isPaused) {
                 // Pause
                 timerState.isPaused = true;
-                timerState.pauseStartTime = new Date();
                 clearInterval(timerInterval);
                 
+                const pauseStart = new Date();
+                timerState.interruptions.push({
+                    type: 'pause',
+                    timestamp: pauseStart,
+                    duration: null
+                });
                 timerState.totalPauses++;
 
                 document.getElementById('pauseBtn').textContent = 'Resume';
-                document.getElementById('timerDisplay').classList.add('paused');
+                document.getElementById('timerDisplay').classList.add('pulse');
                 showNotification('Timer paused', 'success');
                 updateStats();
             } else if (timerState.isRunning && timerState.isPaused) {
                 // Resume
-                const pauseDuration = new Date() - timerState.pauseStartTime;
-                timerState.interruptions.push({
-                    type: 'pause',
-                    timestamp: timerState.pauseStartTime,
-                    duration: pauseDuration
-                });
-
                 timerState.isPaused = false;
-                timerState.pauseStartTime = null;
+                
+                // Calculate pause duration
+                const lastInterruption = timerState.interruptions[timerState.interruptions.length - 1];
+                if (lastInterruption && lastInterruption.duration === null) {
+                    lastInterruption.duration = new Date() - lastInterruption.timestamp;
+                }
 
                 document.getElementById('pauseBtn').textContent = 'Pause';
-                document.getElementById('timerDisplay').classList.remove('paused');
+                document.getElementById('timerDisplay').classList.remove('pulse');
                 showNotification('Timer resumed', 'success');
                 
                 timerInterval = setInterval(updateTimer, 1000);
@@ -813,70 +667,69 @@
 
         function stopSession() {
             if (!timerState.isRunning) return;
-
+            
+            clearInterval(timerInterval);
+            
+            // Record as interruption
+            const stopTime = new Date();
+            timerState.interruptions.push({
+                type: 'manual_stop',
+                timestamp: stopTime,
+                duration: 0
+            });
+            
             // Calculate actual work time
-            const totalElapsed = (new Date() - timerState.startTime) / 1000;
-            const totalPauseTime = timerState.interruptions.reduce((sum, int) => sum + (int.duration || 0), 0) / 1000;
-            timerState.actualWorkTime = Math.max(0, totalElapsed - totalPauseTime);
-
-            // Update statistics
-            const workMinutes = Math.round(timerState.actualWorkTime / 60);
-            stats.sessionsCompleted++;
-            stats.totalFocusTime += workMinutes;
-            stats.totalInterruptions += timerState.totalPauses;
-            stats.currentStreak++;
+            const actualWorkTime = Math.round((timerState.originalTime - timerState.currentTime) / 60);
+            
+            // Update stats for interrupted session
+            stats.totalInterruptions++;
+            stats.totalFocusTime += actualWorkTime;
+            stats.currentStreak = 0; // Reset streak on manual stop
             
             saveStats();
             updateStats();
             
-            // Send session data
-            sendSessionData(false); // Not completed naturally, but stopped intentionally
+            // Send session data as interrupted
+            sendSessionData(false, 'manual_stop');
             
-            // Reset UI
+            showNotification(`Session stopped. Worked for ${actualWorkTime} minutes.`, 'success');
             resetTimer();
-            
-            showNotification(`Session saved! Worked for ${workMinutes} minutes`, 'success');
         }
 
         function resetTimer() {
             clearInterval(timerInterval);
             
-            // Reset state
             timerState.isRunning = false;
             timerState.isPaused = false;
-            timerState.currentTime = timerState.originalTime;
+            timerState.currentTime = templates[timerState.currentTemplate].focus;
+            timerState.originalTime = templates[timerState.currentTemplate].focus;
             timerState.currentGoal = null;
             timerState.sessionId = null;
             timerState.startTime = null;
             timerState.interruptions = [];
             timerState.totalPauses = 0;
-            timerState.actualWorkTime = 0;
-            timerState.pauseStartTime = null;
 
-            // Reset UI
-            document.getElementById('startBtn').textContent = 'Start';
+            document.getElementById('startBtn').textContent = 'Start Focus';
             document.getElementById('startBtn').disabled = false;
             document.getElementById('pauseBtn').disabled = true;
             document.getElementById('pauseBtn').textContent = 'Pause';
             document.getElementById('stopBtn').disabled = true;
+            document.getElementById('templateSelect').disabled = false;
             document.getElementById('goalSelect').disabled = false;
             document.getElementById('goalSelect').value = '';
-            document.getElementById('timerDisplay').classList.remove('paused');
+            document.getElementById('timerDisplay').classList.remove('pulse');
 
             hideSessionInfo();
-            document.getElementById('goalInfo').classList.remove('show');
             updateDisplay();
         }
 
         function updateTimer() {
             if (timerState.currentTime <= 0) {
-                // Session completed naturally
                 completeSession();
                 return;
             }
 
             timerState.currentTime--;
-            timerState.actualWorkTime++;
             updateDisplay();
             updateSessionInfo();
         }
@@ -884,60 +737,194 @@
         function completeSession() {
             clearInterval(timerInterval);
             
-            // Update statistics
-            const workMinutes = Math.round(timerState.actualWorkTime / 60);
+            // Update statistics for completed session
             stats.sessionsCompleted++;
-            stats.totalFocusTime += workMinutes;
+            stats.totalFocusTime += Math.round(timerState.originalTime / 60);
             stats.totalInterruptions += timerState.totalPauses;
             stats.currentStreak++;
             
             saveStats();
             updateStats();
             
-            // Send session data
-            sendSessionData(true);
+            // Send session data as completed
+            sendSessionData(true, 'completed');
             
-            // Show completion
             showNotification('🎉 Focus session completed!', 'success');
             playCompletionSound();
             
-            // Reset and suggest break
+            // Suggest break
             setTimeout(() => {
-                resetTimer();
-                if (confirm('Great job! Take a 5-minute break?')) {
-                    // Could implement break timer here
-                    showNotification('Enjoy your break!', 'success');
+                const template = templates[timerState.currentTemplate];
+                const breakTime = Math.round(template.shortBreak / 60);
+                if (confirm(`Great work! Take a ${breakTime}-minute break?`)) {
+                    startBreak();
+                } else {
+                    resetTimer();
                 }
-            }, 1500);
+            }, 1000);
         }
 
-        async function sendSessionData(completed) {
+        function startBreak() {
+            const template = templates[timerState.currentTemplate];
+            timerState.sessionType = 'shortBreak';
+            timerState.currentTime = template.shortBreak;
+            timerState.originalTime = template.shortBreak;
+            timerState.isRunning = true;
+            timerState.isPaused = false;
+            
+            document.getElementById('sessionType').textContent = 'SHORT BREAK';
+            document.getElementById('startBtn').textContent = 'Break Time';
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+            
+            timerInterval = setInterval(() => {
+                if (timerState.currentTime <= 0) {
+                    clearInterval(timerInterval);
+                    showNotification('Break time over! Ready for another focus session?', 'success');
+                    
+                    // Reset for focus session
+                    timerState.sessionType = 'focus';
+                    timerState.currentTime = template.focus;
+                    timerState.originalTime = template.focus;
+                    document.getElementById('sessionType').textContent = 'FOCUS SESSION';
+                    resetTimer();
+                    return;
+                }
+                
+                timerState.currentTime--;
+                updateDisplay();
+            }, 1000);
+        }
+
+        function loadConfig() {
+            if (config.notionToken && config.notionDatabase) {
+                loadGoalsFromNotion();
+            }
+        }
+
+        async function loadGoalsFromNotion() {
+            if (!config.notionToken || !config.notionDatabase) {
+                console.log('Notion configuration not complete');
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://api.notion.com/v1/databases/${config.notionDatabase}/query`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${config.notionToken}`,
+                        'Content-Type': 'application/json',
+                        'Notion-Version': '2022-06-28'
+                    },
+                    body: JSON.stringify({
+                        page_size: 50,
+                        filter: {
+                            property: 'Status',
+                            select: {
+                                does_not_equal: 'Done'
+                            }
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    populateGoalSelector(data.results);
+                    showNotification('Goals loaded from Notion!', 'success');
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Failed to load goals from Notion:', error);
+                showNotification('Failed to load goals from Notion. Using demo data.', 'error');
+            }
+        }
+
+        function populateGoalSelector(goals) {
+            const select = document.getElementById('goalSelect');
+            select.innerHTML = '<option value="">Select a goal to work on...</option>';
+
+            goals.forEach(goal => {
+                const option = document.createElement('option');
+                option.value = goal.id;
+                
+                // Extract title and other properties from Notion page
+                const titleProperty = goal.properties.Name || goal.properties.Title || goal.properties.title;
+                let title = 'Untitled Goal';
+                
+                if (titleProperty && titleProperty.title && titleProperty.title.length > 0) {
+                    title = titleProperty.title[0].plain_text;
+                }
+
+                // Add category emoji if available
+                const categoryProperty = goal.properties.Category || goal.properties.Type;
+                let emoji = '📋';
+                if (categoryProperty && categoryProperty.select && categoryProperty.select.name) {
+                    const category = categoryProperty.select.name.toLowerCase();
+                    if (category.includes('code') || category.includes('dev')) emoji = '💻';
+                    else if (category.includes('write') || category.includes('content')) emoji = '📝';
+                    else if (category.includes('design')) emoji = '🎨';
+                    else if (category.includes('study') || category.includes('learn')) emoji = '📚';
+                    else if (category.includes('meeting')) emoji = '👥';
+                    else if (category.includes('research')) emoji = '🔍';
+                }
+
+                option.textContent = `${emoji} ${title}`;
+                option.dataset.goalData = JSON.stringify(goal);
+                select.appendChild(option);
+            });
+        }
+
+        async function sendSessionData(completed, endReason = null) {
             if (!config.n8nWebhook) {
                 console.log('n8n webhook not configured');
                 return;
             }
 
-            const now = new Date();
+            const endTime = new Date();
+            const actualFocusSeconds = timerState.originalTime - timerState.currentTime;
+            const template = templates[timerState.currentTemplate];
+
             const sessionData = {
                 session_id: timerState.sessionId,
                 goal_id: timerState.currentGoal,
                 goal_title: timerState.sessionData.goalTitle,
-                goal_data: timerState.sessionData.goalData,
+                goal_data: timerState.sessionData.goalData || {},
+                template: timerState.currentTemplate,
+                template_name: template.name,
+                template_config: {
+                    focus_duration: template.focus,
+                    short_break: template.shortBreak,
+                    long_break: template.longBreak
+                },
                 start_time: timerState.startTime.toISOString(),
-                end_time: now.toISOString(),
-                planned_duration: timerState.originalTime,
-                actual_focus_time: Math.round(timerState.actualWorkTime),
+                end_time: endTime.toISOString(),
+                planned_duration_seconds: timerState.originalTime,
+                actual_focus_seconds: actualFocusSeconds,
+                actual_focus_minutes: Math.round(actualFocusSeconds / 60),
+                completion_percentage: Math.round((actualFocusSeconds / timerState.originalTime) * 100),
                 interruptions: timerState.interruptions.map(int => ({
                     type: int.type,
                     timestamp: int.timestamp.toISOString(),
-                    duration: Math.round((int.duration || 0) / 1000)
+                    duration_ms: int.duration || 0
                 })),
                 interruption_count: timerState.totalPauses,
                 completed: completed,
+                end_reason: endReason,
                 session_type: timerState.sessionType,
-                productivity_score: null,
+                productivity_metrics: {
+                    focus_efficiency: Math.round((actualFocusSeconds / timerState.originalTime) * 100),
+                    interruption_rate: timerState.totalPauses / (timerState.originalTime / 60),
+                    session_quality: completed ? 'excellent' : (actualFocusSeconds > timerState.originalTime * 0.7 ? 'good' : 'needs_improvement')
+                },
+                user_stats: {
+                    total_sessions: stats.sessionsCompleted,
+                    total_focus_time: stats.totalFocusTime,
+                    current_streak: stats.currentStreak
+                },
                 notes: "",
-                timestamp: now.toISOString()
+                tags: [template.name.toLowerCase().replace(' ', '_'), timerState.sessionType]
             };
 
             try {
@@ -951,9 +938,197 @@
 
                 if (response.ok) {
                     console.log('Session data sent successfully');
+                    showNotification('Data synced successfully!', 'success');
                 } else {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
             } catch (error) {
                 console.error('Failed to send session data:', error);
-                showNotification('Failed to sync data to n8n',
+                showNotification('Failed to sync data. Saved locally.', 'error');
+                
+                // Store failed webhook data locally for retry later
+                const failedSyncs = JSON.parse(localStorage.getItem('failedSyncs') || '[]');
+                failedSyncs.push(sessionData);
+                localStorage.setItem('failedSyncs', JSON.stringify(failedSyncs));
+            }
+        }
+
+        function updateDisplay() {
+            const minutes = Math.floor(timerState.currentTime / 60);
+            const seconds = timerState.currentTime % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update progress bar
+            const progress = ((timerState.originalTime - timerState.currentTime) / timerState.originalTime) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function updateStats() {
+            document.getElementById('sessionsCompleted').textContent = stats.sessionsCompleted;
+            document.getElementById('totalFocusTime').textContent = stats.totalFocusTime;
+            document.getElementById('interruptions').textContent = stats.totalInterruptions;
+            document.getElementById('currentStreak').textContent = stats.currentStreak;
+        }
+
+        function showSessionInfo() {
+            const sessionInfo = document.getElementById('sessionInfo');
+            const goalSelect = document.getElementById('goalSelect');
+            
+            sessionInfo.classList.remove('hidden');
+            
+            document.getElementById('sessionStart').textContent = timerState.startTime.toLocaleTimeString();
+            document.getElementById('sessionTemplate').textContent = templates[timerState.currentTemplate].name;
+            document.getElementById('sessionGoal').textContent = goalSelect.options[goalSelect.selectedIndex].textContent;
+        }
+
+        function hideSessionInfo() {
+            document.getElementById('sessionInfo').classList.add('hidden');
+        }
+
+        function updateSessionInfo() {
+            if (timerState.isRunning) {
+                const elapsed = Math.round((new Date() - timerState.startTime) / 60000);
+                document.getElementById('sessionElapsed').textContent = `${elapsed} min`;
+                document.getElementById('sessionPauses').textContent = timerState.totalPauses;
+            }
+        }
+
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function saveStats() {
+            localStorage.setItem('sessionsCompleted', stats.sessionsCompleted.toString());
+            localStorage.setItem('totalFocusTime', stats.totalFocusTime.toString());
+            localStorage.setItem('totalInterruptions', stats.totalInterruptions.toString());
+            localStorage.setItem('currentStreak', stats.currentStreak.toString());
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        function playCompletionSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create a pleasant completion melody
+                const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
+                let startTime = audioContext.currentTime;
+                
+                frequencies.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(freq, startTime);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0, startTime);
+                    gainNode.gain.linearRampToValueAtTime(0.1, startTime + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
+                    
+                    oscillator.start(startTime);
+                    oscillator.stop(startTime + 0.3);
+                    
+                    startTime += 0.2;
+                });
+            } catch (error) {
+                console.log('Could not play completion sound:', error);
+            }
+        }
+
+        // Retry failed webhook syncs when connection is restored
+        async function retryFailedSyncs() {
+            const failedSyncs = JSON.parse(localStorage.getItem('failedSyncs') || '[]');
+            if (failedSyncs.length === 0 || !config.n8nWebhook) return;
+
+            const successfulSyncs = [];
+            
+            for (const sessionData of failedSyncs) {
+                try {
+                    const response = await fetch(config.n8nWebhook, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(sessionData)
+                    });
+
+                    if (response.ok) {
+                        successfulSyncs.push(sessionData);
+                    }
+                } catch (error) {
+                    console.log('Retry failed for session:', sessionData.session_id);
+                }
+            }
+
+            if (successfulSyncs.length > 0) {
+                const remainingFailed = failedSyncs.filter(sync => 
+                    !successfulSyncs.some(success => success.session_id === sync.session_id)
+                );
+                localStorage.setItem('failedSyncs', JSON.stringify(remainingFailed));
+                showNotification(`Synced ${successfulSyncs.length} offline sessions!`, 'success');
+            }
+        }
+
+        // Initialize the app when page loads
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && timerState.isRunning && !timerState.isPaused) {
+                // Optional: Auto-pause when tab becomes hidden
+                // pauseTimer();
+            }
+        });
+
+        // Try to sync failed webhooks when page loads
+        window.addEventListener('load', () => {
+            setTimeout(retryFailedSyncs, 2000);
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'SELECT') return;
+            
+            switch(event.key) {
+                case ' ':
+                case 'Enter':
+                    event.preventDefault();
+                    if (!timerState.isRunning) {
+                        startTimer();
+                    } else if (timerState.isPaused) {
+                        pauseTimer(); // Resume
+                    } else {
+                        pauseTimer(); // Pause
+                    }
+                    break;
+                case 'Escape':
+                    event.preventDefault();
+                    if (timerState.isRunning) {
+                        stopSession();
+                    } else {
+                        resetTimer();
+                    }
+                    break;
+                case 'r':
+                case 'R':
+                    event.preventDefault();
+                    resetTimer();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
