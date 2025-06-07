@@ -408,260 +408,629 @@
     <div id="notification" class="notification"></div>
 
     <script>
-        // Focus templates configuration
-        const templates = {
-            standard: {
-                name: 'Standard Pomodoro',
-                focus: 25 * 60,
-                shortBreak: 5 * 60,
-                longBreak: 15 * 60,
-                description: 'Classic 25-minute focus sessions with 5-minute breaks',
-                sessionsUntilLongBreak: 4
-            },
-            deep: {
-                name: 'Deep Work',
-                focus: 50 * 60,
-                shortBreak: 15 * 60,
-                longBreak: 30 * 60,
-                description: 'Extended 50-minute sessions for complex, uninterrupted work',
-                sessionsUntilLongBreak: 3
-            },
-            quick: {
-                name: 'Quick Tasks',
-                focus: 15 * 60,
-                shortBreak: 5 * 60,
-                longBreak: 10 * 60,
-                description: 'Short 15-minute bursts for quick tasks and rapid iteration',
-                sessionsUntilLongBreak: 6
-            },
-            extended: {
-                name: 'Extended Focus',
-                focus: 90 * 60,
-                shortBreak: 30 * 60,
-                longBreak: 45 * 60,
-                description: 'Deep 90-minute sessions aligned with natural ultradian rhythms',
-                sessionsUntilLongBreak: 2
-            }
-        };
-
-        // Application state - memory only, no localStorage
-        let timerState = {
-            isRunning: false,
-            isPaused: false,
-            currentTime: 25 * 60,
-            originalTime: 25 * 60,
-            sessionType: 'focus', // 'focus', 'shortBreak', 'longBreak'
-            currentTemplate: 'standard',
-            currentTask: null,
-            currentDatabase: null,
-            sessionId: null,
-            startTime: null,
-            lastUpdateTime: null,
-            interruptions: [],
-            totalPauses: 0,
-            isBreakSession: false,
-            breakType: 'short',
-            sessionCount: 0,
-            completedInRow: 0
-        };
-
-        // Configuration state
-        let config = {
-            notionToken: '',
-            webhookUrl: '',
-            databases: [],
-            selectedDatabase: null,
-            databaseFields: {
-                title: null,
-                duration: null,
-                status: null,
-                date: null,
-                template: null,
-                sessionType: null,
-                interruptions: null,
-                efficiency: null
-            },
-            connectionStatus: 'disconnected'
-        };
-
-        // Performance tracking for webhook data
-        let performanceData = {
-            sessionsToday: 0,
-            totalFocusTime: 0,
-            averageSessionLength: 0,
-            interruptionRate: 0,
-            focusEfficiency: 0,
-            breakCompliance: 0,
-            optimalSessionLength: 25,
-            performanceScore: 0,
-            trendData: []
-        };
-
-        let timerInterval;
-
-        // Initialize template description on load
-        function selectTemplate() {
-            const select = document.getElementById('templateSelect');
-            const template = templates[select.value];
-            const description = document.getElementById('templateDescription');
-            
-            description.textContent = template.description;
-            
-            // Update timer display if not running
-            if (!timerState.isRunning) {
-                timerState.currentTemplate = select.value;
-                timerState.currentTime = template.focus;
-                timerState.originalTime = template.focus;
-                updateDisplay();
-            }
+        // Timer management functions
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
 
-        // Timer display functions
-        function updateDisplay() {
+        function updateTimerDisplay() {
             const display = document.getElementById('timerDisplay');
-            const minutes = Math.floor(timerState.currentTime / 60);
-            const seconds = timerState.currentTime % 60;
-            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const progressFill = document.getElementById('progressFill');
+            const sessionType = document.getElementById('sessionType');
+            
+            display.textContent = formatTime(timerState.currentTime);
             
             // Update progress bar
             const progress = ((timerState.originalTime - timerState.currentTime) / timerState.originalTime) * 100;
-            document.getElementById('progressFill').style.width = `${progress}%`;
+            progressFill.style.width = `${Math.max(0, Math.min(100, progress))}%`;
             
             // Update session type display
-            const sessionTypeEl = document.getElementById('sessionType');
             if (timerState.isBreakSession) {
-                sessionTypeEl.textContent = timerState.breakType === 'long' ? 'LONG BREAK' : 'SHORT BREAK';
+                sessionType.textContent = timerState.breakType === 'long' ? 'LONG BREAK' : 'SHORT BREAK';
+                sessionType.style.color = '#2d7d2d';
             } else {
-                sessionTypeEl.textContent = 'FOCUS SESSION';
+                sessionType.textContent = 'FOCUS SESSION';
+                sessionType.style.color = '#6b6b6b';
+            }
+            
+            // Add pulse effect when timer is low
+            if (timerState.currentTime <= 60 && timerState.isRunning) {
+                display.classList.add('pulse');
+            } else {
+                display.classList.remove('pulse');
+            }
+        }
+
+        function selectTemplate() {
+            const select = document.getElementById('templateSelect');
+            const description = document.getElementById('templateDescription');
+            const template = templates[select.value];
+            
+            timerState.currentTemplate = select.value;
+            description.textContent = template.description;
+            
+            // Update timer if not running
+            if (!timerState.isRunning) {
+                timerState.currentTime = template.focus;
+                timerState.originalTime = template.focus;
+                timerState.isBreakSession = false;
+                updateTimerDisplay();
             }
         }
 
         function startTimer() {
             const taskInput = document.getElementById('taskInput');
-            const databaseSelect = document.getElementById('databaseSelect');
+            const task = taskInput.value.trim();
             
-            if (!taskInput.value.trim()) {
+            if (!task) {
                 showNotification('Please enter a task to focus on', 'error');
+                taskInput.focus();
                 return;
             }
             
-            if (!config.selectedDatabase && config.connectionStatus === 'connected') {
-                showNotification('Please select a target database', 'error');
-                return;
+            if (!timerState.isPaused) {
+                // Starting new session
+                timerState.currentTask = task;
+                timerState.sessionId = Date.now().toString();
+                timerState.startTime = new Date();
+                timerState.interruptions = [];
+                timerState.totalPauses = 0;
+                
+                // Send session start to webhook
+                sendSessionData('start');
             }
             
-            // Initialize session
             timerState.isRunning = true;
             timerState.isPaused = false;
-            timerState.currentTask = taskInput.value.trim();
-            timerState.currentDatabase = config.selectedDatabase;
-            timerState.sessionId = generateSessionId();
-            timerState.startTime = new Date();
-            timerState.lastUpdateTime = new Date();
+            timerState.lastUpdateTime = Date.now();
             
             // Update UI
-            updateButtonStates();
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = false;
+            document.getElementById('sessionInfo').classList.remove('hidden');
+            
             updateSessionInfo();
-            showSessionInfo(true);
             
-            // Start timer interval
-            timerInterval = setInterval(tick, 1000);
+            // Start the timer interval
+            timerInterval = setInterval(() => {
+                if (timerState.currentTime > 0) {
+                    timerState.currentTime--;
+                    updateTimerDisplay();
+                    updateSessionInfo();
+                } else {
+                    completeSession();
+                }
+            }, 1000);
             
-            // Add pulse animation
-            document.getElementById('timerDisplay').classList.add('pulse');
-            
-            showNotification('Focus session started', 'success');
+            showNotification('Focus session started!', 'success');
         }
 
         function pauseTimer() {
-            if (timerState.isRunning) {
-                timerState.isPaused = !timerState.isPaused;
-                
-                if (timerState.isPaused) {
-                    clearInterval(timerInterval);
-                    document.getElementById('pauseBtn').textContent = 'Resume';
-                    document.getElementById('timerDisplay').classList.remove('pulse');
-                    timerState.totalPauses++;
-                    showNotification('Session paused', 'info');
-                } else {
-                    timerInterval = setInterval(tick, 1000);
-                    document.getElementById('pauseBtn').textContent = 'Pause';
-                    document.getElementById('timerDisplay').classList.add('pulse');
-                    timerState.lastUpdateTime = new Date();
-                    showNotification('Session resumed', 'success');
-                }
-            }
+            if (!timerState.isRunning) return;
+            
+            timerState.isRunning = false;
+            timerState.isPaused = true;
+            timerState.totalPauses++;
+            
+            // Record interruption
+            timerState.interruptions.push({
+                timestamp: new Date(),
+                type: 'manual_pause',
+                duration: Date.now() - timerState.lastUpdateTime
+            });
+            
+            clearInterval(timerInterval);
+            
+            // Update UI
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('startBtn').textContent = 'Resume';
+            
+            updateSessionInfo();
+            showNotification('Session paused', 'info');
         }
 
         function stopSession() {
+            if (!timerState.isRunning && !timerState.isPaused) return;
+            
+            const wasRunning = timerState.isRunning;
+            
+            timerState.isRunning = false;
+            timerState.isPaused = false;
             clearInterval(timerInterval);
             
-            // Send data to webhook if connected
-            if (config.connectionStatus === 'connected' && timerState.sessionId) {
-                sendSessionData('stopped');
+            // Send session data before reset
+            if (timerState.sessionId) {
+                sendSessionData('stop');
             }
             
-            resetTimer();
-            showNotification('Session ended', 'info');
-        }
-
-        function tick() {
-            if (timerState.currentTime > 0) {
-                timerState.currentTime--;
-                updateDisplay();
-                updateSessionInfo();
-            } else {
-                // Timer completed
-                completeSession();
+            // Reset timer state
+            const template = templates[timerState.currentTemplate];
+            timerState.currentTime = template.focus;
+            timerState.originalTime = template.focus;
+            timerState.sessionId = null;
+            timerState.currentTask = null;
+            timerState.startTime = null;
+            timerState.interruptions = [];
+            timerState.totalPauses = 0;
+            timerState.isBreakSession = false;
+            
+            // Update UI
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+            document.getElementById('startBtn').textContent = 'Start Focus';
+            document.getElementById('sessionInfo').classList.add('hidden');
+            document.getElementById('taskInput').value = '';
+            
+            updateTimerDisplay();
+            
+            if (wasRunning) {
+                showNotification('Session stopped', 'info');
             }
         }
 
         function completeSession() {
             clearInterval(timerInterval);
-            document.getElementById('timerDisplay').classList.remove('pulse');
             
             // Send completion data
-            if (config.connectionStatus === 'connected' && timerState.sessionId) {
-                sendSessionData('completed');
+            sendSessionData('complete');
+            
+            // Update session count
+            timerState.sessionCount++;
+            timerState.completedInRow++;
+            
+            // Play notification sound (if browser supports it)
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmYgBzuL0u/JgiEFJG/E8OSQQwoUW6/n06NZFApBl+LtrGQYBSeL0ezPfSEGJXPH7Nqdrgop');
+                audio.play();
+            } catch (e) {
+                // Silent fail for audio
             }
             
-            // Handle session completion
-            if (timerState.isBreakSession) {
-                // Break completed, return to focus
-                timerState.isBreakSession = false;
-                const template = templates[timerState.currentTemplate];
-                timerState.currentTime = template.focus;
-                timerState.originalTime = template.focus;
-                showNotification('Break completed! Ready for next focus session', 'success');
-            } else {
-                // Focus session completed
-                timerState.sessionCount++;
-                timerState.completedInRow++;
-                
-                // Determine break type
-                const template = templates[timerState.currentTemplate];
-                const needsLongBreak = timerState.completedInRow >= template.sessionsUntilLongBreak;
-                
-                if (needsLongBreak) {
-                    timerState.breakType = 'long';
-                    timerState.currentTime = template.longBreak;
-                    timerState.originalTime = template.longBreak;
-                    timerState.completedInRow = 0;
-                    showNotification('Focus completed! Time for a long break', 'success');
+            // Show completion notification
+            const sessionMinutes = Math.ceil((timerState.originalTime - timerState.currentTime) / 60);
+            showNotification(`🎉 Focus session completed! (${sessionMinutes} min)`, 'success');
+            
+            // Determine next session type
+            const template = templates[timerState.currentTemplate];
+            const shouldTakeLongBreak = timerState.completedInRow % template.sessionsUntilLongBreak === 0;
+            
+            // Auto-start break if configured
+            setTimeout(() => {
+                startBreakSession(shouldTakeLongBreak ? 'long' : 'short');
+            }, 2000);
+        }
+
+        function startBreakSession(breakType) {
+            const template = templates[timerState.currentTemplate];
+            const breakDuration = breakType === 'long' ? template.longBreak : template.shortBreak;
+            
+            timerState.currentTime = breakDuration;
+            timerState.originalTime = breakDuration;
+            timerState.isBreakSession = true;
+            timerState.breakType = breakType;
+            timerState.sessionId = Date.now().toString();
+            timerState.startTime = new Date();
+            
+            updateTimerDisplay();
+            
+            // Auto-start break timer
+            timerState.isRunning = true;
+            timerState.isPaused = false;
+            
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = false;
+            
+            timerInterval = setInterval(() => {
+                if (timerState.currentTime > 0) {
+                    timerState.currentTime--;
+                    updateTimerDisplay();
                 } else {
-                    timerState.breakType = 'short';
-                    timerState.currentTime = template.shortBreak;
-                    timerState.originalTime = template.shortBreak;
-                    showNotification('Focus completed! Time for a short break', 'success');
+                    completeBreakSession();
+                }
+            }, 1000);
+            
+            const breakTypeName = breakType === 'long' ? 'long break' : 'short break';
+            showNotification(`Starting ${breakTypeName} (${Math.ceil(breakDuration / 60)} min)`, 'info');
+        }
+
+        function completeBreakSession() {
+            clearInterval(timerInterval);
+            
+            // Send break completion data
+            sendSessionData('break_complete');
+            
+            // Reset to focus session
+            const template = templates[timerState.currentTemplate];
+            timerState.currentTime = template.focus;
+            timerState.originalTime = template.focus;
+            timerState.isBreakSession = false;
+            timerState.isRunning = false;
+            timerState.isPaused = false;
+            timerState.sessionId = null;
+            
+            // Update UI
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+            document.getElementById('startBtn').textContent = 'Start Focus';
+            document.getElementById('sessionInfo').classList.add('hidden');
+            
+            updateTimerDisplay();
+            showNotification('Break completed! Ready for next focus session', 'success');
+        }
+
+        function updateSessionInfo() {
+            if (!timerState.sessionId) return;
+            
+            const startTimeEl = document.getElementById('sessionStart');
+            const templateEl = document.getElementById('sessionTemplate');
+            const elapsedEl = document.getElementById('sessionElapsed');
+            const interruptionsEl = document.getElementById('sessionInterruptions');
+            
+            if (timerState.startTime) {
+                startTimeEl.textContent = timerState.startTime.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+            }
+            
+            templateEl.textContent = templates[timerState.currentTemplate].name;
+            
+            const elapsedSeconds = timerState.originalTime - timerState.currentTime;
+            const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+            elapsedEl.textContent = `${elapsedMinutes} min`;
+            
+            interruptionsEl.textContent = timerState.totalPauses.toString();
+        }
+        // Notion and N8N Integration
+        async function testConnection() {
+            const token = document.getElementById('notionToken').value.trim();
+            const webhookUrl = document.getElementById('webhookUrl').value.trim();
+            
+            if (!token || !webhookUrl) {
+                showNotification('Please enter both Notion token and webhook URL', 'error');
+                return;
+            }
+            
+            updateConnectionStatus('connecting');
+            
+            try {
+                // Test webhook connection first
+                const webhookResponse = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        type: 'connection_test',
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                
+                if (!webhookResponse.ok) {
+                    throw new Error('Webhook connection failed');
                 }
                 
-                timerState.isBreakSession = true;
+                // Test Notion connection and get databases
+                const notionResponse = await fetch('https://api.notion.com/v1/databases', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Notion-Version': '2022-06-28',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!notionResponse.ok) {
+                    throw new Error('Notion connection failed');
+                }
+                
+                const data = await notionResponse.json();
+                config.databases = data.results;
+                config.notionToken = token;
+                config.webhookUrl = webhookUrl;
+                
+                populateDatabaseSelect();
+                updateConnectionStatus('connected');
+                showNotification('Successfully connected to Notion and N8N!', 'success');
+                
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                updateConnectionStatus('disconnected');
+                showNotification('Connection failed: ' + error.message, 'error');
             }
-            
-            updateDisplay();
-            resetTimer();
         }
         
+        function populateDatabaseSelect() {
+            const select = document.getElementById('databaseSelect');
+            select.innerHTML = '<option value="">Select a database...</option>';
+            
+            config.databases.forEach(db => {
+                const option = document.createElement('option');
+                option.value = db.id;
+                option.textContent = db.title[0]?.plain_text || 'Untitled Database';
+                select.appendChild(option);
+            });
+            
+            select.disabled = false;
+            select.addEventListener('change', analyzeDatabaseFields);
+        }
+        
+        async function analyzeDatabaseFields() {
+            const select = document.getElementById('databaseSelect');
+            const databaseId = select.value;
+            
+            if (!databaseId) return;
+            
+            try {
+                const response = await fetch(`https://api.notion.com/v1/databases/${databaseId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${config.notionToken}`,
+                        'Notion-Version': '2022-06-28'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch database properties');
+                }
+                
+                const database = await response.json();
+                const properties = database.properties;
+                
+                // Auto-detect field mappings
+                config.databaseFields = {
+                    title: findFieldByType(properties, 'title') || findFieldByName(properties, ['name', 'task', 'title']),
+                    duration: findFieldByName(properties, ['duration', 'time', 'minutes', 'length']),
+                    status: findFieldByType(properties, 'select') || findFieldByName(properties, ['status', 'state', 'progress']),
+                    date: findFieldByType(properties, 'date') || findFieldByName(properties, ['date', 'created', 'start']),
+                    template: findFieldByName(properties, ['template', 'type', 'category', 'method']),
+                    sessionType: findFieldByName(properties, ['session', 'session_type', 'mode']),
+                    interruptions: findFieldByName(properties, ['interruptions', 'pauses', 'breaks']),
+                    efficiency: findFieldByName(properties, ['efficiency', 'score', 'performance'])
+                };
+                
+                config.selectedDatabase = databaseId;
+                updateFieldMappingDisplay();
+                showNotification('Database fields analyzed successfully', 'success');
+                
+            } catch (error) {
+                console.error('Database analysis failed:', error);
+                showNotification('Failed to analyze database: ' + error.message, 'error');
+            }
+        }
+        
+        function findFieldByType(properties, type) {
+            for (const [name, prop] of Object.entries(properties)) {
+                if (prop.type === type) {
+                    return name;
+                }
+            }
+            return null;
+        }
+        
+        function findFieldByName(properties, keywords) {
+            const propNames = Object.keys(properties).map(name => name.toLowerCase());
+            
+            for (const keyword of keywords) {
+                const match = propNames.find(name => 
+                    name.includes(keyword.toLowerCase()) || 
+                    keyword.toLowerCase().includes(name)
+                );
+                if (match) {
+                    return Object.keys(properties).find(name => name.toLowerCase() === match);
+                }
+            }
+            return null;
+        }
+        
+        function updateFieldMappingDisplay() {
+            const mapping = document.getElementById('fieldMapping');
+            mapping.classList.remove('hidden');
+            
+            const fields = [
+                { id: 'titleField', key: 'title', label: 'Title/Name Field' },
+                { id: 'durationField', key: 'duration', label: 'Duration Field' },
+                { id: 'statusField', key: 'status', label: 'Status Field' },
+                { id: 'dateField', key: 'date', label: 'Date Field' },
+                { id: 'templateField', key: 'template', label: 'Template Field' }
+            ];
+            
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const fieldName = config.databaseFields[field.key];
+                
+                if (fieldName) {
+                    element.textContent = fieldName;
+                    element.className = 'field-detected';
+                } else {
+                    element.textContent = 'Not detected';
+                    element.className = 'field-missing';
+                }
+            });
+        }
+        
+        async function sendSessionData(eventType) {
+            if (!config.webhookUrl || !config.selectedDatabase) return;
+            
+            const sessionData = {
+                type: eventType,
+                sessionId: timerState.sessionId,
+                timestamp: new Date().toISOString(),
+                task: timerState.currentTask,
+                template: timerState.currentTemplate,
+                templateName: templates[timerState.currentTemplate].name,
+                databaseId: config.selectedDatabase,
+                fieldMappings: config.databaseFields,
+                sessionData: {
+                    startTime: timerState.startTime?.toISOString(),
+                    duration: eventType === 'complete' ? timerState.originalTime : 
+                             (timerState.originalTime - timerState.currentTime),
+                    remainingTime: timerState.currentTime,
+                    interruptions: timerState.interruptions.length,
+                    totalPauses: timerState.totalPauses,
+                    isBreakSession: timerState.isBreakSession,
+                    breakType: timerState.breakType,
+                    sessionCount: timerState.sessionCount,
+                    completedInRow: timerState.completedInRow
+                },
+                performance: calculatePerformanceMetrics()
+            };
+            
+            try {
+                const response = await fetch(config.webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(sessionData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Webhook request failed: ${response.status}`);
+                }
+                
+                console.log('Session data sent successfully:', eventType);
+                
+            } catch (error) {
+                console.error('Failed to send session data:', error);
+                // Don't show notification for webhook failures to avoid interrupting focus
+            }
+        }
+        
+        function calculatePerformanceMetrics() {
+            const totalElapsed = timerState.originalTime - timerState.currentTime;
+            const efficiency = totalElapsed > 0 ? 
+                ((totalElapsed - (timerState.interruptions.length * 30)) / totalElapsed) * 100 : 0;
+            
+            return {
+                efficiency: Math.max(0, Math.min(100, efficiency)),
+                focusTime: totalElapsed,
+                interruptionRate: totalElapsed > 0 ? (timerState.interruptions.length / (totalElapsed / 60)) : 0,
+                completionRate: timerState.currentTime === 0 ? 100 : 
+                    ((timerState.originalTime - timerState.currentTime) / timerState.originalTime) * 100
+            };
+        }
+        
+        // UI Helper Functions
+        function updateConnectionStatus(status) {
+            const statusEl = document.getElementById('connectionStatus');
+            config.connectionStatus = status;
+            
+            statusEl.classList.remove('status-connected', 'status-disconnected', 'status-connecting');
+            
+            switch (status) {
+                case 'connected':
+                    statusEl.classList.add('status-connected');
+                    statusEl.innerHTML = '✅ Connected';
+                    break;
+                case 'connecting':
+                    statusEl.classList.add('status-connecting');
+                    statusEl.innerHTML = '🔄 Connecting...';
+                    break;
+                default:
+                    statusEl.classList.add('status-disconnected');
+                    statusEl.innerHTML = '⚠️ Not Connected';
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+        
+        function toggleConfig() {
+            const panel = document.getElementById('configPanel');
+            panel.classList.toggle('open');
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Space bar to start/pause (when not typing in inputs)
+            if (e.code === 'Space' && !e.target.matches('input, textarea, select')) {
+                e.preventDefault();
+                if (timerState.isRunning) {
+                    pauseTimer();
+                } else if (timerState.isPaused) {
+                    startTimer();
+                } else {
+                    // Only start if task is entered
+                    const taskInput = document.getElementById('taskInput');
+                    if (taskInput.value.trim()) {
+                        startTimer();
+                    } else {
+                        taskInput.focus();
+                    }
+                }
+            }
+            
+            // Escape to stop session
+            if (e.code === 'Escape' && (timerState.isRunning || timerState.isPaused)) {
+                e.preventDefault();
+                stopSession();
+            }
+            
+            // Ctrl/Cmd + / to toggle config
+            if ((e.ctrlKey || e.metaKey) && e.code === 'Slash') {
+                e.preventDefault();
+                toggleConfig();
+            }
+        });
+        
+        // Page visibility handling - pause timer when tab is hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && timerState.isRunning && !timerState.isBreakSession) {
+                // Add interruption for tab switching during focus
+                timerState.interruptions.push({
+                    timestamp: new Date(),
+                    type: 'tab_hidden',
+                    duration: 0
+                });
+                updateSessionInfo();
+            }
+        });
+        
+        // Initialize application
+        function initializeApp() {
+            // Set default template description
+            selectTemplate();
+            
+            // Focus on task input
+            document.getElementById('taskInput').focus();
+            
+            // Add Enter key support for task input
+            document.getElementById('taskInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !timerState.isRunning && !timerState.isPaused) {
+                    startTimer();
+                }
+            });
+            
+            // Prevent form submission
+            document.addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+            
+            console.log('Focus Timer initialized');
+        }
+        
+        // Start the app when page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+        
+    </script>
+</body>
+</html>
  </script>
 </body>
 </html>
