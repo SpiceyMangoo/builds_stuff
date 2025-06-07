@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow - Pomodoro Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #191919;
+            color: #e6e6e6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        .container {
+            background-color: #2f3437;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #3f4447;
+            max-width: 480px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #9b9a97;
+            margin-bottom: 24px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .config-toggle {
+            font-size: 12px;
+            color: #787774;
+            cursor: pointer;
+            margin-bottom: 16px;
+            text-align: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .config-toggle:hover {
+            background-color: #37393d;
+        }
+
+        .api-config {
+            background-color: #37393d;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #454749;
+        }
+
+        .api-config h3 {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .api-config input {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background-color: #2f3437;
+            border: 1px solid #454749;
+            border-radius: 6px;
+            color: #e6e6e6;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .api-config input:focus {
+            outline: none;
+            border-color: #0f7b0f;
+        }
+
+        .api-config input::placeholder {
+            color: #787774;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #9b9a97;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 6px;
+            color: #e6e6e6;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .form-group input {
+            cursor: text;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            border-color: #0f7b0f;
+        }
+
+        .form-group select option {
+            background-color: #37393d;
+            color: #e6e6e6;
+        }
+
+        .form-group input::placeholder {
+            color: #787774;
+        }
+
+        .session-type {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #9b9a97;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timer-display {
+            font-size: 64px;
+            font-weight: 300;
+            color: #ffffff;
+            text-align: center;
+            margin: 24px 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-display.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #454749;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #0f7b0f;
+            transition: width 1s ease;
+            border-radius: 2px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+            margin: 24px 0;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background-color: #0f7b0f;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: #0d6b0d;
+        }
+
+        .btn-secondary {
+            background-color: #37393d;
+            color: #e6e6e6;
+            border: 1px solid #454749;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #454749;
+        }
+
+        .btn-danger {
+            background-color: #eb5757;
+            color: #ffffff;
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background-color: #d84545;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .stat-item {
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #9b9a97;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .session-info {
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .session-info h3 {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .session-info p {
+            color: #9b9a97;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .session-info strong {
+            color: #e6e6e6;
+        }
+
+        .template-info {
+            background-color: #37393d;
+            border: 1px solid #454749;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #9b9a97;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            background-color: #2f3437;
+            border: 1px solid #454749;
+            color: #e6e6e6;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-size: 14px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-color: #0f7b0f;
+            background-color: #1a4d1a;
+        }
+
+        .notification.error {
+            border-color: #eb5757;
+            background-color: #4d1a1a;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .sync-status {
+            font-size: 11px;
+            color: #787774;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .sync-status.connected {
+            color: #0f7b0f;
+        }
+
+        .sync-status.error {
+            color: #eb5757;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .timer-display {
+                font-size: 48px;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FocusFlow</h1>
+        <p class="subtitle">Pomodoro Timer with Smart Tracking</p>
+        
+        <div class="config-toggle" onclick="toggleConfig()">⚙️ Configuration</div>
+        
+        <div id="apiConfig" class="api-config hidden">
+            <h3>Notion API Configuration</h3>
+            <input type="text" id="notionToken" placeholder="Notion Integration Token">
+            <button class="btn-secondary" onclick="testConnection()">Test & Load Databases</button>
+            <div class="sync-status" id="syncStatus">Not connected</div>
+        </div>
+
+        <div class="form-group">
+            <label>Template</label>
+            <select id="templateSelect" onchange="selectTemplate()">
+                <option value="standard">🍅 Standard Pomodoro (25/5)</option>
+                <option value="deep">🧠 Deep Work (50/15)</option>
+                <option value="quick">⚡ Quick Tasks (15/5)</option>
+                <option value="extended">🔥 Extended Focus (90/30)</option>
+            </select>
+        </div>
+
+        <div id="templateInfo" class="template-info">
+            <strong>Standard Pomodoro:</strong> 25 minutes of focused work followed by a 5-minute break. Perfect for most tasks and maintaining consistent productivity throughout the day.
+        </div>
+
+        <div class="form-group">
+            <label>Database (where to save sessions)</label>
+            <select id="databaseSelect" disabled>
+                <option value="">Configure Notion API first</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Activity Title</label>
+            <input type="text" id="activityInput" placeholder="What are you working on?" maxlength="100">
+        </div>
+
+        <div class="session-type" id="sessionType">FOCUS SESSION</div>
+        
+        <div class="timer-display" id="timerDisplay">25:00</div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" id="startBtn" onclick="startTimer()">Start Focus</button>
+            <button class="btn-secondary" id="pauseBtn" onclick="pauseTimer()" disabled>Pause</button>
+            <button class="btn-danger" id="stopBtn" onclick="stopSession()" disabled>Stop</button>
+            <button class="btn-secondary" id="resetBtn" onclick="resetTimer()">Reset</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-value" id="sessionsCompleted">0</span>
+                <span class="stat-label">Sessions</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="totalFocusTime">0</span>
+                <span class="stat-label">Minutes</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="interruptions">0</span>
+                <span class="stat-label">Interruptions</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="currentStreak">0</span>
+                <span class="stat-label">Streak</span>
+            </div>
+        </div>
+
+        <div class="session-info hidden" id="sessionInfo">
+            <h3>Current Session</h3>
+            <p><strong>Started:</strong> <span id="sessionStart">-</span></p>
+            <p><strong>Template:</strong> <span id="sessionTemplate">-</span></p>
+            <p><strong>Activity:</strong> <span id="sessionActivity">-</span></p>
+            <p><strong>Elapsed:</strong> <span id="sessionElapsed">0 min</span></p>
+            <p><strong>Pauses:</strong> <span id="sessionPauses">0</span></p>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Template configurations
+        const templates = {
+            standard: {
+                name: 'Standard Pomodoro',
+                focus: 25 * 60,
+                shortBreak: 5 * 60,
+                longBreak: 15 * 60,
+                description: '25 minutes of focused work followed by a 5-minute break. Perfect for most tasks and maintaining consistent productivity throughout the day.'
+            },
+            deep: {
+                name: 'Deep Work',
+                focus: 50 * 60,
+                shortBreak: 15 * 60,
+                longBreak: 30 * 60,
+                description: '50 minutes of deep, uninterrupted work followed by a 15-minute break. Ideal for complex tasks requiring sustained concentration.'
+            },
+            quick: {
+                name: 'Quick Tasks',
+                focus: 15 * 60,
+                shortBreak: 5 * 60,
+                longBreak: 10 * 60,
+                description: '15 minutes of focused work followed by a 5-minute break. Perfect for quick tasks, emails, or when you have limited time.'
+            },
+            extended: {
+                name: 'Extended Focus',
+                focus: 90 * 60,
+                shortBreak: 30 * 60,
+                longBreak: 45 * 60,
+                description: '90 minutes of extended focus followed by a 30-minute break. Based on ultradian rhythms for maximum deep work sessions.'
+            }
+        };
+
+        // Timer state with improved accuracy tracking
+        let timerState = {
+            isRunning: false,
+            isPaused: false,
+            currentTime: 25 * 60,
+            originalTime: 25 * 60,
+            sessionType: 'focus', // 'focus', 'shortBreak', 'longBreak'
+            currentDatabase: null,
+            currentActivity: null,
+            currentTemplate: 'standard',
+            sessionId: null,
+            startTime: null,
+            lastUpdateTime: null,
+            interruptions: [],
+            totalPauses: 0,
+            sessionData: {},
+            isBreakSession: false
+        };
+
+        // Session statistics
+        let stats = {
+            sessionsCompleted: parseInt(localStorage.getItem('sessionsCompleted') || '0'),
+            totalFocusTime: parseInt(localStorage.getItem('totalFocusTime') || '0'),
+            totalInterruptions: parseInt(localStorage.getItem('totalInterruptions') || '0'),
+            currentStreak: parseInt(localStorage.getItem('currentStreak') || '0'),
+            breaksCompleted: parseInt(localStorage.getItem('breaksCompleted') || '0'),
+            totalBreakTime: parseInt(localStorage.getItem('totalBreakTime') || '0')
+        };
+
+        // API Configuration
+        let config = {
+            notionToken: localStorage.getItem('notionToken') || '',
+            databases: JSON.parse(localStorage.getItem('notionDatabases') || '[]')
+        };
+
+        let timerInterval;
+        let syncCheckInterval;
+
+        // Initialize app
+        function init() {
+            updateDisplay();
+            updateStats();
+            loadConfig();
+            selectTemplate();
+            
+            document.getElementById('notionToken').value = config.notionToken;
+            
+            if (config.notionToken) {
+                populateDatabaseSelect();
+                updateSyncStatus('connected');
+            }
+
+            // Start periodic sync check
+            syncCheckInterval = setInterval(checkConnection, 30000);
+        }
+
+        function toggleConfig() {
+            const configDiv = document.getElementById('apiConfig');
+            configDiv.classList.toggle('hidden');
+        }
+
+        async function testConnection() {
+            const token = document.getElementById('notionToken').value.trim();
+            if (!token) {
+                showNotification('Please enter your Notion token', 'error');
+                return;
+            }
+
+            updateSyncStatus('connecting');
+            
+            try {
+                const response = await fetch('https://api.notion.com/v1/search', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                        'Notion-Version': '2022-06-28'
+                    },
+                    body: JSON.stringify({
+                        filter: {
+                            value: 'database',
+                            property: 'object'
+                        },
+                        page_size: 100
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    config.notionToken = token;
+                    config.databases = data.results.map(db => ({
+                        id: db.id,
+                        title: db.title?.[0]?.plain_text || 'Untitled Database',
+                        url: db.url
+                    }));
+
+                    localStorage.setItem('notionToken', config.notionToken);
+                    localStorage.setItem('notionDatabases', JSON.stringify(config.databases));
+
+                    populateDatabaseSelect();
+                    updateSyncStatus('connected');
+                    showNotification(`Connected! Found ${config.databases.length} databases`, 'success');
+                    toggleConfig();
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Connection failed:', error);
+                updateSyncStatus('error');
+                showNotification('Failed to connect to Notion. Check your token.', 'error');
+            }
+        }
+
+        function populateDatabaseSelect() {
+            const select = document.getElementById('databaseSelect');
+            select.innerHTML = '<option value="">Select database to save sessions...</option>';
+            
+            config.databases.forEach(db => {
+                const option = document.createElement('option');
+                option.value = db.id;
+                option.textContent = `📊 ${db.title}`;
+                select.appendChild(option);
+            });
+            
+            select.disabled = false;
+        }
+
+        function updateSyncStatus(status) {
+            const statusEl = document.getElementById('syncStatus');
+            statusEl.className = `sync-status ${status}`;
+            
+            switch(status) {
+                case 'connected':
+                    statusEl.textContent = '✅ Connected to Notion';
+                    break;
+                case 'connecting':
+                    statusEl.textContent = '🔄 Connecting...';
+                    break;
+                case 'error':
+                    statusEl.textContent = '❌ Connection failed';
+                    break;
+                default:
+                    statusEl.textContent = 'Not connected';
+            }
+        }
+
+        function selectTemplate() {
+            const templateSelect = document.getElementById('templateSelect');
+            const selectedTemplate = templateSelect.value;
+            const template = templates[selectedTemplate];
+            
+            timerState.currentTemplate = selectedTemplate;
+            
+            if (!timerState.isRunning) {
+                timerState.currentTime = template.focus;
+                timerState.originalTime = template.focus;
+                timerState.sessionType = 'focus';
+                timerState.isBreakSession = false;
+                document.getElementById('sessionType').textContent = 'FOCUS SESSION';
+            }
+            
+            document.getElementById('templateInfo').innerHTML = 
+                `<strong>${template.name}:</strong> ${template.description}`;
+            
+            updateDisplay();
+        }
+
+        function validateSessionStart() {
+            const databaseSelect = document.getElementById('databaseSelect');
+            const activityInput = document.getElementById('activityInput');
+            
+            if (!databaseSelect.value) {
+                showNotification('Please select a database to save your session', 'error');
+                return false;
+            }
+            
+            if (!activityInput.value.trim()) {
+                showNotification('Please enter what you\'re working on', 'error');
+                activityInput.focus();
+                return false;
+            }
+            
+            return true;
+        }
+
+        function startTimer() {
+            if (!validateSessionStart()) return;
+
+            if (!timerState.isRunning) {
+                // Start new session
+                timerState.isRunning = true;
+                timerState.isPaused = false;
+                timerState.sessionId = generateSessionId();
+                timerState.startTime = new Date();
+                timerState.lastUpdateTime = timerState.startTime;
+                timerState.currentDatabase = document.getElementById('databaseSelect').value;
+                timerState.currentActivity = document.getElementById('activityInput').value.trim();
+                timerState.totalPauses = 0;
+                timerState.interruptions = [];
+
+                // Store session data
+                const databaseSelect = document.getElementById('databaseSelect');
+                const selectedOption = databaseSelect.options[databaseSelect.selectedIndex];
+                timerState.sessionData = {
+                    databaseId: timerState.currentDatabase,
+                    databaseTitle: selectedOption.textContent.replace('📊 ', ''),
+                    activityTitle: timerState.currentActivity,
+                    template: timerState.currentTemplate,
+                    templateName: templates[timerState.currentTemplate].name,
+                    isBreakSession: timerState.isBreakSession
+                };
+
+                updateSessionControls(true);
+                showSessionInfo();
+                showNotification(`Started: ${timerState.currentActivity}`, 'success');
+            }
+
+            // Start accurate timer with compensation
+            timerInterval = setInterval(updateTimerAccurate, 100);
+        }
+
+        function updateTimerAccurate() {
+            const now = new Date();
+            const timeDiff = Math.floor((now - timerState.lastUpdateTime) / 1000);
+            
+            if (timeDiff >= 1) {
+                timerState.currentTime -= timeDiff;
+                timerState.lastUpdateTime = now;
+                
+                if (timerState.currentTime <= 0) {
+                    completeSession();
+                    return;
+                }
+                
+                updateDisplay();
+                updateSessionInfo();
+            }
+        }
+
+        function pauseTimer() {
+            if (timerState.isRunning && !timerState.isPaused) {
+                // Pause
+                timerState.isPaused = true;
+                clearInterval(timerInterval);
+                
+                const pauseStart = new Date();
+                timerState.interruptions.push({
+                    type: 'pause',
+                    timestamp: pauseStart,
+                    duration: null
+                });
+                timerState.totalPauses++;
+
+                document.getElementById('pauseBtn').textContent = 'Resume';
+                document.getElementById('timerDisplay').classList.add('pulse');
+                showNotification('Timer paused', 'success');
+            } else if (timerState.isRunning && timerState.isPaused) {
+                // Resume
+                timerState.isPaused = false;
+                timerState.lastUpdateTime = new Date();
+                
+                // Calculate pause duration
+                const lastInterruption = timerState.interruptions[timerState.interruptions.length - 1];
+                if (lastInterruption && lastInterruption.duration === null) {
+                    lastInterruption.duration = new Date() - lastInterruption.timestamp;
+                }
+
+                document.getElementById('pauseBtn').textContent = 'Pause';
+                document.getElementById('timerDisplay').classList.remove('pulse');
+                showNotification('Timer resumed', 'success');
+                
+                timerInterval = setInterval(updateTimerAccurate, 100);
+            }
+        }
+
+        function stopSession() {
+            if (!timerState.isRunning) return;
+            
+            clearInterval(timerInterval);
+            
+            // Record as interruption
+            const stopTime = new Date();
+            timerState.interruptions.push({
+                type: 'manual_stop',
+                timestamp: stopTime,
+                duration: 0
+            });
+            
+            // Calculate actual work time
+            const actualWorkTime = Math.round((timerState.originalTime - timerState.currentTime) / 60);
+            
+            // Update stats for interrupted session
+            if (timerState.isBreakSession) {
+                stats.totalBreakTime += actualWorkTime;
+            } else {
+                stats.totalFocusTime += actualWorkTime;
+                stats.totalInterruptions++;
+                stats.currentStreak = 0;
+            }
+            
+            saveStats();
+            updateStats();
+            
+            // Send session data as interrupted
+            sendSessionData(false, 'manual_stop');
+            
+            showNotification(`Session stopped. ${timerState.isBreakSession ? 'Break' : 'Work'} time: ${actualWorkTime} minutes.`, 'success');
+            resetTimer();
+        }
+
+        function completeSession() {
+            clearInterval(timerInterval);
+            
+            if (timerState.isBreakSession) {
+                // Break completed
+                stats.breaksCompleted++;
+                stats.totalBreakTime += Math.round(timerState.originalTime / 60);
+                
+                showNotification('🎉 Break completed! Ready to focus?', 'success');
+                playCompletionSound();
+                
+                // Send break session data
+                sendSessionData(true, 'completed');
+                
+                setTimeout(() => {
+                    if (confirm('Break finished! Start another focus session?')) {
+                        // Reset to focus mode
+                        const template = templates[timerState.currentTemplate];
+                        timerState.sessionType = 'focus';
+                        timerState.isBreakSession = false;
+                        timerState.currentTime = template.focus;
+                        timerState.originalTime = template.focus;
+                        document.getElementById('sessionType').textContent = 'FOCUS SESSION';
+                        resetTimer();
+                    } else {
+                        resetTimer();
+                    }
+                }, 1000);
+            } else {
+                // Focus session completed
+                stats.sessionsCompleted++;
+                stats.totalFocusTime += Math.round(timerState.originalTime / 60);
+                stats.totalInterruptions += timerState.totalPauses;
+                stats.currentStreak++;
+                
+                showNotification('🎉 Focus session completed!', 'success');
+                playCompletionSound();
+                
+                // Send focus session data
+                sendSessionData(true, 'completed');
+                
+                // Suggest break
+                setTimeout(() => {
+                    const template = templates[timerState.currentTemplate];
+                    const breakTime = Math.round(template.shortBreak / 60);
+                    if (confirm(`Great work! Take a ${breakTime}-minute break?`)) {
+                        startBreak();
+                    } else {
+                        resetTimer();
+                    }
+                }, 1000);
+            }
+            
+            saveStats();
+            updateStats();
+        }
+
+        function startBreak() {
+            const template = templates[timerState.currentTemplate];
+            timerState.sessionType = 'shortBreak';
+            timerState.isBreakSession = true;
+            timerState.currentTime = template.shortBreak;
+            timerState.originalTime = template.shortBreak;
+            timerState.isRunning = true;
+            timerState.isPaused = false;
+            timerState.sessionId = generateSessionId();
+            timerState.startTime = new Date();
+            timerState.lastUpdateTime = timerState.startTime;
+            timerState.totalPauses = 0;
+            timerState.interruptions = [];
+            
+            // Update session data for break
+            timerState.sessionData.isBreakSession = true;
+            timerState.sessionData.activityTitle = `Break after: ${timerState.currentActivity}`;
+            
+            document.getElementById('sessionType').textContent = 'SHORT BREAK';
+            updateSessionControls(true);
+            showSessionInfo();
+            
+            timerInterval = setInterval(updateTimerAccurate, 100);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            
+            timerState.isRunning = false;
+            timerState.isPaused = false;
+            timerState.isBreakSession = false;
+            timerState.sessionType = 'focus';
+            timerState.currentTime = templates[timerState.currentTemplate].focus;
+            timerState.originalTime = templates[timerState.currentTemplate].focus;
+            timerState.currentDatabase = null;
+            timerState.currentActivity = null;
+            timerState.sessionId = null;
+            timerState.startTime = null;
+            timerState.lastUpdateTime = null;
+            timerState.interruptions = [];
+            timerState.totalPauses = 0;
+
+            document.getElementById('sessionType').textContent = 'FOCUS SESSION';
+            document.getElementById('activityInput').value = '';
+            document.getElementById('databaseSelect').value = '';
+            document.getElementById('timerDisplay').classList.remove('pulse');
+
+            updateSessionControls(false);
+            hideSessionInfo();
+            updateDisplay();
+        }
+
+        function updateSessionControls(running) {
+            document.getElementById('startBtn').textContent = running ? 'Running...' : 'Start Focus';
+            document.getElementById('startBtn').disabled = running;
+            document.getElementById('pauseBtn').disabled = !running;
+            document.getElementById('pauseBtn').textContent = 'Pause';
+            document.getElementById('stopBtn').disabled = !running;
+            document.getElementById('templateSelect').disabled = running;
+            document.getElementById('databaseSelect').disabled = running;
+            document.getElementById('activityInput').disabled = running;
+        }
+
+        async function sendSessionData(completed, endReason = null) {
+            if (!config.notionToken || !timerState.currentDatabase) {
+                console.log('Notion not configured or no database selected');
+                return;
+            }
+
+            const endTime = new Date();
+            const actualSeconds = timerState.originalTime - timerState.currentTime;
+            const template = templates[timerState.currentTemplate];
+
+            // Prepare properties for Notion database
+            const properties = {
+                'Title': {
+                    title: [{
+                        text: {
+                            content: timerState.sessionData.activityTitle
+                        }
+                    }]
+                },
+                'Session Type': {
+                    select: {
+                        name: timerState.isBreakSession ? 'Break' : 'Focus'
+                    }
+                },
+                'Template': {
+                    select: {
+                        name: template.name
+                    }
+                },
+                'Duration (min)': {
+                    number: Math.round(actualSeconds / 60)
+                },
+                'Completed': {
+                    checkbox: completed
+                },
+                'Start Time': {
+                    date: {
+                        start: timerState.startTime.toISOString()
+                    }
+                },
+                'End Time': {
+                    date: {
+                        start: endTime.toISOString()
+                    }
+                },
+                'Interruptions': {
+                    number: timerState.totalPauses
+                },
+                'Completion %': {
+                    number: Math.round((actualSeconds / timerState.originalTime) * 100)
+                }
+            };
+
+            try {
+                const response = await fetch('https://api.notion.com/v1/pages', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${config.notionToken}`,
+                        'Content-Type': 'application/json',
+                        'Notion-Version': '2022-06-28'
+                    },
+                    body: JSON.stringify({
+                        parent: {
+                            database_id: timerState.currentDatabase
+                        },
+                        properties: properties
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Session data saved to Notion');
+                    showNotification('Session saved to Notion!', 'success');
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message}`);
+                }
+            } catch (error) {
+                console.error('Failed to save session data:', error);
+                showNotification('Failed to save to Notion. Check database properties.', 'error');
+                
+                // Store failed saves locally
+                const failedSaves = JSON.parse(localStorage.getItem('failedSaves') || '[]');
+                failedSaves.push({
+                    sessionData: timerState.sessionData,
+                    properties: properties,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('failedSaves', JSON.stringify(failedSaves));
+            }
+        }
+
+        function updateDisplay() {
+            const minutes = Math.floor(timerState.currentTime / 60);
+            const seconds = timerState.currentTime % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update progress bar
+            const progress = ((timerState.originalTime - timerState.currentTime) / timerState.originalTime) * 100;
+            document.getElementById('progressFill').style.width = `${Math.max(0, progress)}%`;
+        }
+
+        function updateStats() {
+            document.getElementById('sessionsCompleted').textContent = stats.sessionsCompleted;
+            document.getElementById('totalFocusTime').textContent = stats.totalFocusTime;
+            document.getElementById('interruptions').textContent = stats.totalInterruptions;
+            document.getElementById('currentStreak').textContent = stats.currentStreak;
+        }
+
+        function showSessionInfo() {
+            const sessionInfo = document.getElementById('sessionInfo');
+            sessionInfo.classList.remove('hidden');
+            
+            document.getElementById('sessionStart').textContent = timerState.startTime.toLocaleTimeString();
+            document.getElementById('sessionTemplate').textContent = templates[timerState.currentTemplate].name;
+            document.getElementById('sessionActivity').textContent = timerState.sessionData.activityTitle;
+        }
+
+        function hideSessionInfo() {
+            document.getElementById('sessionInfo').classList.add('hidden');
+        }
+
+        function updateSessionInfo() {
+            if (timerState.isRunning && timerState.startTime) {
+                const elapsed = Math.round((new Date() - timerState.startTime) / 60000);
+                document.getElementById('sessionElapsed').textContent = `${elapsed} min`;
+                document.getElementById('sessionPauses').textContent = timerState.totalPauses;
+            }
+        }
+
+        function loadConfig() {
+            if (config.notionToken && config.databases.length > 0) {
+                populateDatabaseSelect();
+                updateSyncStatus('connected');
+            }
+        }
+
+        function saveStats() {
+            localStorage.setItem('sessionsCompleted', stats.sessionsCompleted.toString());
+            localStorage.setItem('totalFocusTime', stats.totalFocusTime.toString());
+            localStorage.setItem('totalInterruptions', stats.totalInterruptions.toString());
+            localStorage.setItem('currentStreak', stats.currentStreak.toString());
+            localStorage.setItem('breaksCompleted', stats.breaksCompleted.toString());
+            localStorage.setItem('totalBreakTime', stats.totalBreakTime.toString());
+        }
+
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        function playCompletionSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const frequencies = [523.25, 659.25, 783.99];
+                let startTime = audioContext.currentTime;
+                
+                frequencies.forEach((freq, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(freq, startTime);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0, startTime);
+                    gainNode.gain.linearRampToValueAtTime(0.1, startTime + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
+                    
+                    oscillator.start(startTime);
+                    oscillator.stop(startTime + 0.3);
+                    
+                    startTime += 0.2;
+                });
+            } catch (error) {
+                console.log('Could not play completion sound:', error);
+            }
+        }
+
+        async function checkConnection() {
+            if (!config.notionToken) return;
+            
+            try {
+                const response = await fetch('https://api.notion.com/v1/users/me', {
+                    headers: {
+                        'Authorization': `Bearer ${config.notionToken}`,
+                        'Notion-Version': '2022-06-28'
+                    }
+                });
+                
+                if (response.ok) {
+                    updateSyncStatus('connected');
+                } else {
+                    updateSyncStatus('error');
+                }
+            } catch (error) {
+                updateSyncStatus('error');
+            }
+        }
+
+        // Initialize the app when page loads
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Handle page visibility changes for accurate timing
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && timerState.isRunning && !timerState.isPaused) {
+                // Compensate for time lost when tab was hidden
+                timerState.lastUpdateTime = new Date();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'SELECT') return;
+            
+            switch(event.key) {
+                case ' ':
+                case 'Enter':
+                    event.preventDefault();
+                    if (!timerState.isRunning) {
+                        startTimer();
+                    } else if (timerState.isPaused) {
+                        pauseTimer();
+                    } else {
+                        pauseTimer();
+                    }
+                    break;
+                case 'Escape':
+                    event.preventDefault();
+                    if (timerState.isRunning) {
+                        stopSession();
+                    } else {
+                        resetTimer();
+                    }
+                    break;
+                case 'r':
+                case 'R':
+                    event.preventDefault();
+                    resetTimer();
+                    break;
+            }
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (syncCheckInterval) {
+                clearInterval(syncCheckInterval);
+            }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        });
+    </script>
+</body>
+</html>
