@@ -50,19 +50,42 @@
             padding: 1rem;
         }
         body.dark-mode {
-            --bg-color-light: var(--bg-color-dark);
-            --glass-bg-light: var(--glass-bg-dark);
-            --text-color-light: var(--text-color-dark);
-            --text-secondary-light: var(--text-secondary-dark);
-            --border-color-light: var(--border-color-dark);
-            --shadow-light: var(--shadow-dark);
-            --glow-light: var(--glow-dark);
-            --accent-color-light: var(--accent-color-dark);
-            --success-color-light: var(--success-color-dark);
-            --warning-color-light: var(--warning-color-dark);
-            --locked-in-glow-light: var(--locked-in-glow-dark);
-            --locked-in-badge-bg-light: var(--locked-in-badge-bg-dark);
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
         }
+        body.dark-mode .card {
+            background: var(--glass-bg-dark);
+            border-color: var(--border-color-dark);
+            box-shadow: var(--shadow-dark), 0 0 20px rgba(255, 255, 255, 0.08);
+        }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: var(--text-color-dark); }
+        body.dark-mode h2 { border-bottom-color: var(--border-color-dark); }
+        body.dark-mode h3 { color: var(--text-secondary-dark); }
+        body.dark-mode button, body.dark-mode input, body.dark-mode select {
+            background-color: rgba(120, 120, 128, 0.24);
+            color: var(--text-color-dark);
+            border-color: var(--border-color-dark);
+        }
+        body.dark-mode input:disabled { background-color: rgba(120,120,128,0.12); }
+        body.dark-mode .log-item { border-bottom-color: var(--border-color-dark); }
+        body.dark-mode .chart-filters button {
+            border-color: var(--border-color-dark);
+            color: var(--text-secondary-dark);
+        }
+        body.dark-mode .chart-filters button.active {
+            background-color: var(--accent-color-dark);
+            border-color: var(--accent-color-dark);
+            color: white;
+        }
+        body.dark-mode .slider { background-color: #555; }
+        input:checked + .slider { background-color: var(--accent-color-dark); }
+        body.dark-mode .progress-wrapper { background-color: rgba(120,120,128,0.24); }
+        body.dark-mode #goalProgressBar { background-color: var(--success-color-dark); }
+        body.dark-mode #lockedInBadge { background-color: var(--locked-in-badge-bg-dark); }
+        body.dark-mode button:hover:not(:disabled) { box-shadow: var(--glow-dark); }
+        body.dark-mode #exportCsv { color: var(--text-secondary-dark); }
+
+
         .app-wrapper { max-width: 1400px; margin: 0 auto; }
         .card { background: var(--glass-bg-light); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 1rem; border: 1px solid var(--border-color-light); box-shadow: var(--shadow-light); padding: 1.5rem; transition: all 0.3s ease; }
         .app-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
@@ -92,24 +115,26 @@
         #dashboard-content { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 768px) { #dashboard-content { grid-template-columns: 1fr 280px; } }
         .charts-container { display: flex; flex-direction: column; gap: 1.5rem; }
-        
-        /* --- THE FIX IS HERE --- */
         .chart-wrapper {
             position: relative;
-            height: 250px; /* Give it a defined height */
+            height: 250px;
         }
-        @media (min-width: 768px) {
-            .chart-wrapper { height: 280px; }
-        }
-        /* --- END OF FIX --- */
-
-        .chart-filters { display: flex; gap: 0.5rem; justify-content: center; }
+        @media (min-width: 768px) { .chart-wrapper { height: 280px; } }
+        .chart-view-toggle { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .chart-view-toggle button { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; }
+        .chart-view-toggle button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); }
+        .chart-filters { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem;}
         .chart-filters button { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; }
         .chart-filters button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); }
         .stats-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+        .stat-card {
+            padding: 1rem;
+            border: 1px solid var(--border-color-light);
+            border-radius: 1rem;
+        }
         .progress-wrapper { background-color: rgba(120,120,128,0.12); border-radius: 0.75rem; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
         .progress-bar-container { width: 100%; background-color: transparent; border-radius: 0.5rem; overflow: hidden; }
-        .progress-bar { width: 0%; height: 22px; background-color: var(--accent-color-light); transition: width 0.5s ease-in-out; text-align: center; color: white; font-size: 0.8rem; line-height: 22px; font-weight: 600; border-radius: 0.5rem; }
+        .progress-bar { width: 0%; height: 22px; background-color: var(--accent-color-light); transition: width 0.5s ease-in-out; text-align: right; color: white; font-size: 0.8rem; line-height: 22px; font-weight: 600; border-radius: 0.5rem; padding: 0 10px; box-sizing: border-box; }
         #goalProgressBar { background-color: var(--success-color-light); }
         .stat-item { text-align: center; }
         .stat-value { font-weight: 700; font-size: 2rem; color: var(--accent-color-light); }
@@ -131,7 +156,19 @@
         #greetingModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         #greetingModal.visible { opacity: 1; pointer-events: all; }
         #greetingModal .card { max-width: 400px; text-align: center; }
-
+        #exportCsv {
+            background: none;
+            border: none;
+            color: var(--text-secondary-light);
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -182,8 +219,8 @@
                 </select>
 
                 <div id="customPomodoroInputs">
-                    <input type="number" id="customWork" placeholder="Custom Work (mins)">
-                    <input type="number" id="customBreak" placeholder="Custom Break (mins)">
+                    <input type="number" id="customWork" placeholder="Custom Work (mins)" min="1">
+                    <input type="number" id="customBreak" placeholder="Custom Break (mins)" min="1">
                 </div>
 
                 <div class="timer-controls">
@@ -193,17 +230,21 @@
                 <button id="stopTimerBtn" disabled>Stop</button>
             </div>
 
-            <div id="dashboard" class="card">
+            <div id="dashboard" class="card" style="position: relative;">
+                 <div class="chart-view-toggle">
+                    <button id="view-activity-btn" class="active">Today's Activities</button>
+                    <button id="view-consistency-btn">Consistency</button>
+                </div>
                 <div id="dashboard-content">
                     <div class="charts-container">
-                        <div>
-                            <h2>Activities Split (Today)</h2>
+                        <div id="activity-chart-container">
+                            <h2 id="activities-title"></h2>
                             <div class="chart-wrapper">
                                 <canvas id="activitiesChart"></canvas>
                             </div>
                         </div>
-                        <div>
-                            <h2>Productivity Trend</h2>
+                        <div id="consistency-chart-container" class="hidden">
+                            <h2>Your Consistency</h2>
                              <div class="chart-wrapper">
                                 <canvas id="trendChart"></canvas>
                             </div>
@@ -214,8 +255,25 @@
                         </div>
                     </div>
                     <div class="stats-sidebar">
-                        <h2>Metrics</h2>
-                        <div class="metrics-grid">
+                        <h2>How Much You Want It</h2>
+                        <div class="stat-card">
+                            <h3>Productivity Level</h3>
+                            <div class="stat-label">Target: <span id="targetHoursDisplay">-</span> hrs</div>
+                            <div class="progress-wrapper">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="goalProgressBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="stat-card">
+                            <h3>Your Focus Today</h3>
+                            <div class="progress-wrapper">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="focusProgressBar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-card metrics-grid">
                             <div class="stat-item">
                                 <div class="stat-value" id="streak">0</div>
                                 <div class="stat-label">Completed Streak</div>
@@ -225,26 +283,9 @@
                                 <div class="stat-label">Interruptions</div>
                             </div>
                         </div>
-                        <div>
-                            <h3>Your Focus Today</h3>
-                            <div class="progress-wrapper">
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" id="focusProgressBar"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3>Productivity Level</h3>
-                            <div class="stat-label">Target: <span id="targetHoursDisplay">-</span> hrs</div>
-                            <div class="progress-wrapper">
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" id="goalProgressBar"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <button id="exportCsv" style="margin-top: 1rem;">Export to CSV</button>
                     </div>
                 </div>
+                <button id="exportCsv" title="Export to CSV">💾</button>
             </div>
 
             <div id="log-panel" class="card">
@@ -278,6 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const focusProgressBar = document.getElementById('focusProgressBar');
     const targetHoursDisplay = document.getElementById('targetHoursDisplay');
     const goalProgressBar = document.getElementById('goalProgressBar');
+    const activitiesTitle = document.getElementById('activities-title');
+    const viewActivityBtn = document.getElementById('view-activity-btn');
+    const viewConsistencyBtn = document.getElementById('view-consistency-btn');
+    const activityChartContainer = document.getElementById('activity-chart-container');
+    const consistencyChartContainer = document.getElementById('consistency-chart-container');
 
     let activitiesChart, trendChart;
     let appData = { goalHours: null, lastGreeting: null, activityLog: [] };
@@ -317,19 +363,45 @@ document.addEventListener('DOMContentLoaded', () => {
         checkGreeting();
         updateAllUI();
         setupEventListeners();
+        const today = new Date();
+        const dateString = today.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+        activitiesTitle.textContent = `Today's Activities (${dateString})`;
     }
 
     function setupTheme() {
         const themeToggle = document.getElementById('themeToggle');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const savedTheme = localStorage.getItem('theme');
+        
+        const applyTheme = (isDark) => {
+            document.body.classList.toggle('dark-mode', isDark);
+            themeToggle.checked = isDark;
+            const textColor = isDark ? 'rgba(242, 242, 247, 0.8)' : 'rgba(90, 90, 95, 0.8)';
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+
+            if (activitiesChart) {
+                activitiesChart.options.plugins.legend.labels.color = textColor;
+                activitiesChart.update();
+            }
+            if (trendChart) {
+                trendChart.options.plugins.legend.labels.color = textColor;
+                trendChart.options.scales.y.ticks.color = textColor;
+                trendChart.options.scales.x.ticks.color = textColor;
+                trendChart.options.scales.y.grid.color = gridColor;
+                trendChart.update();
+            }
+        };
+
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            document.body.classList.add('dark-mode');
-            themeToggle.checked = true;
+            applyTheme(true);
+        } else {
+            applyTheme(false);
         }
+
         themeToggle.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            applyTheme(isDark);
         });
     }
 
@@ -367,16 +439,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 durationMins = parseInt(customWorkInput.value) || 25;
                 breakMins = parseInt(customBreakInput.value) || 5;
             }
+            timerState.timeRemaining = durationMins * 60;
         } else { // logger
             type = 'logger';
             category = mode.split('-')[1].charAt(0).toUpperCase() + mode.split('-')[1].slice(1);
-            durationMins = 24 * 60; // Effectively infinite
+            durationMins = 0; // Logger counts up
             breakMins = 0;
+            timerState.timeRemaining = 0;
         }
         
         Object.assign(timerState, {
             running: true, paused: false, startTime: Date.now(), accumulatedPauseTime: 0,
-            plannedDuration: durationMins * 60, timeRemaining: durationMins * 60,
+            plannedDuration: durationMins * 60,
             type, category, taskDescription: task, isBreak: false, breakDuration: breakMins * 60
         });
 
@@ -408,14 +482,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runTimerTick() {
-        clearInterval(timerInterval); // Ensure no multiple intervals are running
+        clearInterval(timerInterval);
         timerInterval = setInterval(() => {
-            const elapsed = Math.floor((Date.now() - timerState.startTime - timerState.accumulatedPauseTime) / 1000);
-            timerState.timeRemaining = timerState.plannedDuration - elapsed;
-            
-            if (timerState.timeRemaining <= 0) {
-                timerState.timeRemaining = 0;
-                handleSessionEnd(true); // Completed
+            if (timerState.type === 'logger') {
+                const elapsed = Math.floor((Date.now() - timerState.startTime - timerState.accumulatedPauseTime) / 1000);
+                timerState.timeRemaining = elapsed;
+            } else {
+                 const elapsed = Math.floor((Date.now() - timerState.startTime - timerState.accumulatedPauseTime) / 1000);
+                 timerState.timeRemaining = timerState.plannedDuration - elapsed;
+                if (timerState.timeRemaining <= 0) {
+                    timerState.timeRemaining = 0;
+                    handleSessionEnd(true); // Completed
+                }
             }
             updateTimerDisplay();
         }, 1000);
@@ -426,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const endTime = Date.now();
         const actualDuration = (endTime - timerState.startTime - timerState.accumulatedPauseTime);
         
-        if (actualDuration > 10000) { // Only log sessions > 10s
+        if (actualDuration >= 60000) { // Only log sessions >= 1 min
              logActivity(completed ? 'Completed' : 'Stopped', { endTime });
         }
         
@@ -481,8 +559,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateTimerDisplay() {
-        timerDisplay.textContent = formatTime(timerState.timeRemaining);
-        document.title = timerState.running ? `${formatTime(timerState.timeRemaining)} - Dashboard` : 'Productivity Dashboard';
+        const time = timerState.type === 'logger' && !timerState.isBreak ? timerState.timeRemaining : Math.max(0, timerState.timeRemaining);
+        timerDisplay.textContent = formatTime(time);
+        document.title = timerState.running ? `${formatTime(time)} - Dashboard` : 'Productivity Dashboard';
     }
 
     function calculateAndRenderMetrics() {
@@ -502,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
         interruptionsValue.textContent = todayLogs.filter(log => log.status === 'Paused').length;
         
         let totalSessionPerc = 0, workSessionCount = 0;
-        todayLogs.filter(log => log.status ==='Completed' && log.category === 'Work' && log.plannedDuration > 0).forEach(log => {
+        todayLogs.filter(log => (log.status ==='Completed' || log.status === 'Stopped') && log.category === 'Work' && log.plannedDuration > 0).forEach(log => {
             const actualDuration = (log.endTime - log.startTime);
             totalSessionPerc += (actualDuration / (log.plannedDuration * 1000));
             workSessionCount++;
@@ -585,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plugins: { legend: { labels: { color: 'var(--text-secondary-light)' } } }
         };
         activitiesChart = createChart(document.getElementById('activitiesChart').getContext('2d'), 'doughnut', { datasets: [{ backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6', '#32d74b'] }] }, { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { position: 'bottom' } } });
-        trendChart = createChart(document.getElementById('trendChart').getContext('2d'), 'bar', { datasets: [{ label: 'Work Hours', backgroundColor: 'var(--accent-color-light)', borderRadius: 4 }] }, { ...commonOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { color: 'var(--text-secondary-light)' }, grid: { color: 'var(--border-color-light)' } }, x: { ticks: { color: 'var(--text-secondary-light)' }, grid: { display: false } } } });
+        trendChart = createChart(document.getElementById('trendChart').getContext('2d'), 'bar', { datasets: [{ label: 'Consistency', backgroundColor: 'var(--accent-color-light)', borderRadius: 4 }] }, { ...commonOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { color: 'var(--text-secondary-light)', callback: (value) => value + '%' } , grid: { color: 'var(--border-color-light)' } }, x: { ticks: { color: 'var(--text-secondary-light)' }, grid: { display: false } } } });
     }
 
     function updateCharts() {
@@ -615,8 +694,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 trendData[dateLabel] += (log.endTime - log.startTime) / (1000 * 3600);
             }
         });
+
+        const goalHours = appData.goalHours || 8; // Default to 8 if no goal set
+        const consistencyData = Object.values(trendData).map(hours => goalHours > 0 ? Math.min(100, (hours / goalHours) * 100) : 0);
+
         trendChart.data.labels = Object.keys(trendData).reverse();
-        trendChart.data.datasets[0].data = Object.values(trendData).reverse();
+        trendChart.data.datasets[0].data = consistencyData.reverse();
         trendChart.update();
     }
 
@@ -684,6 +767,20 @@ document.addEventListener('DOMContentLoaded', () => {
             link.setAttribute("download", "productivity_log.csv");
             link.click();
             link.remove();
+        });
+
+        viewActivityBtn.addEventListener('click', () => {
+            activityChartContainer.classList.remove('hidden');
+            consistencyChartContainer.classList.add('hidden');
+            viewActivityBtn.classList.add('active');
+            viewConsistencyBtn.classList.remove('active');
+        });
+
+        viewConsistencyBtn.addEventListener('click', () => {
+            activityChartContainer.classList.add('hidden');
+            consistencyChartContainer.classList.remove('hidden');
+            viewActivityBtn.classList.remove('active');
+            viewConsistencyBtn.classList.add('active');
         });
     }
     
