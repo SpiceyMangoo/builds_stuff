@@ -3,384 +3,1010 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notion Widgets Gallery</title>
+    <title>Productivity Dashboard</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-        * {
+        /* ------------------------- */
+        /* --- CSS VARIABLES & SETUP --- */
+        /* ------------------------- */
+        :root {
+            --font-main: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            
+            /* Light Mode Colors */
+            --bg-color-light: #f0f2f5;
+            --glass-bg-light: rgba(255, 255, 255, 0.45);
+            --text-color-light: #1c1c1e;
+            --text-secondary-light: #5a5a5f;
+            --border-color-light: rgba(0, 0, 0, 0.1);
+            --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --glow-light: 0 0 15px rgba(31, 38, 135, 0.2);
+            --accent-color-light: #007aff;
+            --success-color-light: #34c759;
+            --locked-in-glow-light: 0 0 20px rgba(0, 122, 255, 0.6);
+            --locked-in-badge-bg-light: #007aff;
+            
+            /* Dark Mode Colors */
+            --bg-color-dark: #1c1c1e;
+            --glass-bg-dark: rgba(44, 44, 46, 0.65);
+            --text-color-dark: #f2f2f7;
+            --text-secondary-dark: #b1b1b3;
+            --border-color-dark: rgba(255, 255, 255, 0.15);
+            --shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --glow-dark: 0 0 15px rgba(0, 122, 255, 0.3);
+            --accent-color-dark: #0a84ff;
+            --success-color-dark: #32d74b;
+            --locked-in-glow-dark: 0 0 20px rgba(10, 132, 255, 0.7);
+            --locked-in-badge-bg-dark: #0a84ff;
+        }
+
+        /* Applying theme variables */
+        body {
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            font-family: var(--font-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
             margin: 0;
-            padding: 0;
+            padding: 1rem;
+        }
+
+        body.dark-mode {
+            --bg-color-light: var(--bg-color-dark);
+            --glass-bg-light: var(--glass-bg-dark);
+            --text-color-light: var(--text-color-dark);
+            --text-secondary-light: var(--text-secondary-dark);
+            --border-color-light: var(--border-color-dark);
+            --shadow-light: var(--shadow-dark);
+            --glow-light: var(--glow-dark);
+            --accent-color-light: var(--accent-color-dark);
+            --success-color-light: var(--success-color-dark);
+            --locked-in-glow-light: var(--locked-in-glow-dark);
+            --locked-in-badge-bg-light: var(--locked-in-badge-bg-dark);
+        }
+
+        /* ------------------------- */
+        /* --- GLASS MORPHISM CARD --- */
+        /* ------------------------- */
+        .card {
+            background: var(--glass-bg-light);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            border: 1px solid var(--border-color-light);
+            box-shadow: var(--shadow-light);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        /* ------------------------- */
+        /* --- GENERAL LAYOUT --- */
+        /* ------------------------- */
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        main {
+            display: grid;
+            grid-template-areas:
+                "tools"
+                "dashboard"
+                "log";
+            gap: 1.5rem;
+        }
+        
+        #dashboard { grid-area: dashboard; }
+        #tools { grid-area: tools; }
+        #log-panel { grid-area: log; }
+
+        /* Desktop Layout */
+        @media (min-width: 1024px) {
+            main {
+                grid-template-columns: 350px 1fr;
+                grid-template-rows: auto 1fr;
+                grid-template-areas:
+                    "tools dashboard"
+                    "tools log";
+            }
+        }
+        
+        /* ------------------------- */
+        /* --- UI COMPONENTS --- */
+        /* ------------------------- */
+        h1, h2, h3 {
+            margin: 0 0 1rem 0;
+            color: var(--text-color-light);
+        }
+        
+        h1 { font-size: 1.8rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.1rem; color: var(--text-secondary-light); }
+
+        /* Theme Toggle */
+        .theme-switch-wrapper { display: flex; align-items: center; }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 48px;
+        }
+        .theme-switch input { display:none; }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 2px;
+            content: "";
+            height: 20px;
+            left: 2px;
+            position: absolute;
+            transition: .4s;
+            width: 20px;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent-color-light); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        /* Buttons, Inputs, etc. */
+        button, input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color-light);
+            background-color: rgba(255,255,255,0.1);
+            color: var(--text-color-light);
+            font-size: 1rem;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+        button {
+            background-color: var(--accent-color-light);
             color: white;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .header h1 {
-            font-size: 3.5em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .header p {
-            font-size: 1.3em;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .widgets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .widget-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: white;
-            display: block;
-        }
-
-        .widget-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .widget-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .widget-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .widget-description {
-            opacity: 0.9;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .widget-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .widget-features li {
-            padding: 5px 0;
-            opacity: 0.8;
-        }
-
-        .widget-features li:before {
-            content: "✓ ";
-            color: #4ade80;
-            font-weight: bold;
-        }
-
-        .widget-actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            font-size: 0.9em;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-light);
+        }
+        button:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .template-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .template-buttons button { flex: 1; min-width: 80px; padding: 0.5rem; font-size: 0.8rem; background-color: var(--text-secondary-light); }
 
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.2);
+        /* --- DASHBOARD SECTION --- */
+        #dashboard-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            #dashboard-content {
+                grid-template-columns: 1fr 250px;
+            }
+        }
+        .charts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .chart-filters {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .chart-filters button {
+            background: none;
+            border: 1px solid var(--border-color-light);
+            color: var(--text-secondary-light);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+        }
+        .chart-filters button.active {
+            background-color: var(--accent-color-light);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-color: var(--accent-color-light);
         }
-
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .stats-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
-
-        .btn-secondary {
-            background: transparent;
+        .progress-bar-container {
+            width: 100%;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 20px;
+            background-color: var(--accent-color-light);
+            transition: width 0.5s ease-in-out;
+            text-align: center;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            line-height: 20px;
         }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
+        #goalProgressBar { background-color: var(--success-color-light); }
+        .stat-item { text-align: center; font-size: 1.2rem; }
+        .stat-value { font-weight: bold; font-size: 1.8rem; }
+        
+        /* --- TOOLS SECTION --- */
+        #timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--accent-color-light);
         }
+        
+        /* --- LOG PANEL --- */
+        #log-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .log-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color-light);
+        }
+        .log-item:last-child { border-bottom: none; }
+        .log-item .status-completed { color: var(--success-color-light); font-weight: bold; }
+        .log-item .status-stopped { color: #ff3b30; font-weight: bold; }
 
-        .coming-soon {
-            opacity: 0.6;
+        /* --- GAMIFICATION / REWARD UX --- */
+        #lockedInBadge {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--locked-in-badge-bg-light);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
             pointer-events: none;
         }
-
-        .coming-soon-badge {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            margin-bottom: 15px;
-            display: inline-block;
-            border: 1px solid rgba(255, 193, 7, 0.3);
+        body.locked-in #lockedInBadge {
+            opacity: 1;
         }
-
-        .footer {
+        body.locked-in button:hover {
+            box-shadow: var(--locked-in-glow-light);
+        }
+        
+        /* Initial Greeting Modal */
+        #greetingModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #greetingModal.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        #greetingModal .card {
+            max-width: 400px;
             text-align: center;
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            opacity: 0.8;
-        }
-
-        .embed-instructions {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .embed-instructions h3 {
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-
-        .embed-instructions ol {
-            margin-left: 20px;
-            line-height: 1.8;
-        }
-
-        .embed-instructions code {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Consolas', monospace;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5em;
-            }
-            
-            .widgets-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .widget-actions {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Notion Widgets</h1>
-            <p>Beautiful, functional widgets designed specifically for embedding in your Notion pages. Free and open source.</p>
-        </div>
+    <div id="lockedInBadge">LOCKED IN</div>
 
-        <div class="embed-instructions">
-            <h3>🔧 How to Embed in Notion</h3>
-            <ol>
-                <li>Copy the widget URL from below</li>
-                <li>In your Notion page, type <code>/embed</code></li>
-                <li>Paste the widget URL and press Enter</li>
-                <li>Resize the embed as needed</li>
-            </ol>
-        </div>
-
-        <div class="widgets-grid">
-            <!-- Pomodoro Timer -->
-            <div class="widget-card">
-                <div class="widget-icon">🍅</div>
-                <div class="widget-title">Pomodoro Timer</div>
-                <div class="widget-description">
-                    A beautiful, functional Pomodoro timer with work sessions, breaks, and progress tracking.
-                </div>
-                <ul class="widget-features">
-                    <li>25/5/15 minute intervals</li>
-                    <li>Visual progress ring</li>
-                    <li>Session counter</li>
-                    <li>Auto-break suggestions</li>
-                    <li>Modern glassmorphism design</li>
-                </ul>
-                <div class="widget-actions">
-                    <a href="pomodoro-timer.html" class="btn btn-primary" target="_blank">Open Widget</a>
-                    <button class="btn btn-secondary" onclick="copyToClipboard('https://spiceymangoo.github.io/pomodoro-timer/pomodoro-timer.html')">Copy URL</button>
-                </div>
-            </div>
-
-            <!-- Habit Tracker - Coming Soon -->
-            <div class="widget-card coming-soon">
-                <div class="coming-soon-badge">Coming Soon</div>
-                <div class="widget-icon">✅</div>
-                <div class="widget-title">Habit Tracker</div>
-                <div class="widget-description">
-                    Track your daily habits with a beautiful grid view and streak counters.
-                </div>
-                <ul class="widget-features">
-                    <li>Daily habit checking</li>
-                    <li>Streak tracking</li>
-                    <li>Monthly view</li>
-                    <li>Progress statistics</li>
-                </ul>
-                <div class="widget-actions">
-                    <button class="btn btn-primary" disabled>Coming Soon</button>
-                </div>
-            </div>
-
-            <!-- Pomodoro Timer Pro -->
-            <div class="widget-card">
-                <div class="widget-icon">✨</div>
-                <div class="widget-title">Pomodoro Timer Pro</div>
-                <div class="widget-description">
-                    A beautiful, functional Pomodoro timer with automated work sessions, breaks, and progress tracking.
-                </div>
-                <ul class="widget-features">
-                    <li>25/5/15 minute intervals</li>
-                    <li>Visual progress ring</li>
-                    <li>Session counter</li>
-                    <li>Auto-break suggestions</li>
-                    <li>Modern glassmorphism design</li>
-                </ul>
-                <div class="widget-actions">
-                    <a href="pomodoro-timer-proV2.html" class="btn btn-primary" target="_blank">Open Widget</a>
-                    <button class="btn btn-secondary" onclick="copyToClipboard('https://spiceymangoo.github.io/pomodoro-timer-pro/pomodoro-timer-proV2.html')">Copy URL</button>
-                </div>
-            </div>
-
-            <!-- Quote of the Day - Coming Soon -->
-            <div class="widget-card coming-soon">
-                <div class="coming-soon-badge">Coming Soon</div>
-                <div class="widget-icon">💭</div>
-                <div class="widget-title">Daily Quote</div>
-                <div class="widget-description">
-                    Inspirational quotes that change daily to motivate your work.
-                </div>
-                <ul class="widget-features">
-                    <li>Daily rotating quotes</li>
-                    <li>Multiple categories</li>
-                    <li>Share functionality</li>
-                    <li>Minimal design</li>
-                </ul>
-                <div class="widget-actions">
-                    <button class="btn btn-primary" disabled>Coming Soon</button>
-                </div>
-            </div>
-
-            <!-- Calendar Widget - Coming Soon -->
-            <div class="widget-card coming-soon">
-                <div class="coming-soon-badge">Coming Soon</div>
-                <div class="widget-icon">📅</div>
-                <div class="widget-title">Mini Calendar</div>
-                <div class="widget-description">
-                    Compact calendar view perfect for quick date reference.
-                </div>
-                <ul class="widget-features">
-                    <li>Current month view</li>
-                    <li>Today highlighting</li>
-                    <li>Week numbers</li>
-                    <li>Responsive design</li>
-                </ul>
-                <div class="widget-actions">
-                    <button class="btn btn-primary" disabled>Coming Soon</button>
-                </div>
-            </div>
-
-            <!-- Progress Bar - Coming Soon -->
-            <div class="widget-card">
-                <div class="widget-icon">📊</div>
-                <div class="widget-title">Progress Tracker</div>
-                <div class="widget-description">
-                    Visual progress bars for tracking goals and milestones.
-                </div>
-                <ul class="widget-features">
-                    <li>Multiple progress bars</li>
-                    <li>Custom labels</li>
-                    <li>Percentage display</li>
-                    <li>Animated updates</li>
-                </ul>
-                <div class="widget-actions">
-                    <a href="progressTracker.html" class="btn btn-primary" target="_blank">Open Widget</a>
-                    <button class="btn btn-secondary" onclick="copyToClipboard('https://spiceymangoo.github.io/progressTracker/progressTracker.html')">Copy URL</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>Built with ❤️ for the Notion community</p>
-            <p>Open source • MIT License • <a href="https://github.com/spiceymangoo/pomodoro-timer" style="color: white; text-decoration: underline;">View on GitHub</a></p>
+    <div id="greetingModal">
+        <div class="card">
+            <h2 id="greetingMessage"></h2>
+            <p>Set your target for today.</p>
+            <form id="goalForm">
+                <input type="number" id="goalHoursInput" min="1" max="24" placeholder="Enter Goal Hours (e.g., 8)" required>
+                <button type="submit">Set Goal & Start</button>
+            </form>
         </div>
     </div>
 
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                // Show a temporary success message
-                const button = event.target;
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.style.background = 'rgba(74, 222, 128, 0.3)';
-                button.style.borderColor = 'rgba(74, 222, 128, 0.5)';
+    <div class="app-container">
+        <header>
+            <h1>Dashboard</h1>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <div id="tools" class="card">
+                <h2>Tools Suite</h2>
+                <div id="timer-display">00:00</div>
+                <input type="text" id="taskDescription" placeholder="What are you working on?">
                 
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '';
-                    button.style.borderColor = '';
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Could not copy text: ', err);
-                // Fallback for older browsers
-                alert('URL: ' + text);
+                <h3>Pomodoro Timer</h3>
+                <div class="template-buttons" id="pomodoro-templates">
+                    <button data-work="25" data-break="5">25/5</button>
+                    <button data-work="90" data-break="15">90/15</button>
+                    <button data-work="60" data-break="10">60/10</button>
+                </div>
+                <input type="number" id="customWork" placeholder="Custom Work (mins)">
+                <input type="number" id="customBreak" placeholder="Custom Break (mins)">
+                <button id="startCustomPomodoro">Start Custom</button>
+                
+                <hr style="margin: 1.5rem 0; border-color: var(--border-color-light);">
+                
+                <h3>Basic Logger</h3>
+                <select id="loggerCategory">
+                    <option value="Work">Work</option>
+                    <option value="Break">Break</option>
+                    <option value="Leisure">Leisure</option>
+                </select>
+                <button id="startLogger">Start Logger</button>
+                <button id="stopTimer" disabled>Stop</button>
+            </div>
+
+            <div id="dashboard" class="card">
+                <div id="dashboard-content">
+                    <div class="charts-container">
+                        <div>
+                            <h2>Activities Split</h2>
+                            <canvas id="activitiesChart"></canvas>
+                        </div>
+                        <div>
+                            <h2>Productivity Trend</h2>
+                            <div class="chart-filters">
+                                <button class="filter-btn active" data-period="7">7 Days</button>
+                                <button class="filter-btn" data-period="30">30 Days</button>
+                            </div>
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="stats-sidebar">
+                        <h2>Metrics</h2>
+                        <div class="stat-item">
+                            <span class="stat-value" id="streak">0</span>
+                            <div>Completed Streak</div>
+                        </div>
+                        <hr style="width:100%; border-color: var(--border-color-light);">
+                        <div>
+                            <h3>Your Focus Today</h3>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="focusProgressBar"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Goal Progress</h3>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="goalProgressBar"></div>
+                            </div>
+                        </div>
+                        <button id="exportCsv" style="margin-top: 1rem;">Export to CSV</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="log-panel" class="card">
+                <h2>Today's Log</h2>
+                <ul id="log-list">
+                    </ul>
+            </div>
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- DOM ELEMENT REFERENCES ---
+        const themeToggle = document.getElementById('themeToggle');
+        const greetingModal = document.getElementById('greetingModal');
+        const greetingMessage = document.getElementById('greetingMessage');
+        const goalForm = document.getElementById('goalForm');
+        const goalHoursInput = document.getElementById('goalHoursInput');
+        const timerDisplay = document.getElementById('timer-display');
+        const taskDescriptionInput = document.getElementById('taskDescription');
+        const pomodoroTemplates = document.getElementById('pomodoro-templates');
+        const customWorkInput = document.getElementById('customWork');
+        const customBreakInput = document.getElementById('customBreak');
+        const startCustomPomodoroBtn = document.getElementById('startCustomPomodoro');
+        const loggerCategorySelect = document.getElementById('loggerCategory');
+        const startLoggerBtn = document.getElementById('startLogger');
+        const stopTimerBtn = document.getElementById('stopTimer');
+        const logList = document.getElementById('log-list');
+        const streakDisplay = document.getElementById('streak');
+        const focusProgressBar = document.getElementById('focusProgressBar');
+        const goalProgressBar = document.getElementById('goalProgressBar');
+        const exportCsvBtn = document.getElementById('exportCsv');
+        
+        // --- CHART INSTANCES ---
+        let activitiesChart, trendChart;
+
+        // --- APP STATE ---
+        let appData = {
+            goalHours: null,
+            lastGreeting: null,
+            activityLog: []
+        };
+        
+        let timerInterval = null;
+        let timerState = {
+            running: false,
+            startTime: null,
+            plannedDuration: 0, // in seconds
+            timeRemaining: 0,   // in seconds
+            type: null,         // 'pomodoro' or 'logger'
+            category: 'Work',
+            taskDescription: '',
+            isBreak: false,
+            breakDuration: 0    // in seconds
+        };
+
+        // =================================================================
+        // --- 1. INITIALIZATION & DATA PERSISTENCE ---
+        // =================================================================
+
+        /**
+         * Loads data from localStorage into the appData object.
+         * Initializes charts and renders all UI components.
+         */
+        function loadData() {
+            const savedData = localStorage.getItem('productivityDashboard');
+            if (savedData) {
+                appData = JSON.parse(savedData);
+            }
+            // Ensure activityLog is always an array
+            if (!Array.isArray(appData.activityLog)) {
+                appData.activityLog = [];
+            }
+        }
+        
+        /**
+         * Saves the current appData object to localStorage.
+         */
+        function saveData() {
+            localStorage.setItem('productivityDashboard', JSON.stringify(appData));
+        }
+        
+        /**
+         * Initializes the entire application.
+         */
+        function initializeApp() {
+            loadData();
+            setupTheme();
+            initializeCharts();
+            checkGreeting();
+            updateAllUI();
+            setupEventListeners();
+        }
+
+        /**
+         * Checks if the daily greeting should be shown.
+         */
+        function checkGreeting() {
+            const today = new Date().toDateString();
+            if (appData.lastGreeting !== today || !appData.goalHours) {
+                const now = new Date();
+                const twoAM = new Date();
+                twoAM.setDate(now.getDate() + 1);
+                twoAM.setHours(2, 0, 0, 0);
+
+                const hoursLeft = Math.floor((twoAM - now) / (1000 * 60 * 60));
+                greetingMessage.textContent = `There are ${hoursLeft} hours left in your day. How many of them will be spent getting shit done?`;
+                greetingModal.classList.add('visible');
+            }
+        }
+        
+        /**
+         * Sets up the light/dark mode toggle and initial state.
+         */
+        function setupTheme() {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark-mode');
+                themeToggle.checked = true;
+            }
+
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
             });
         }
 
-        // Add some subtle animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.widget-card');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
+
+        // =================================================================
+        // --- 2. TIMER LOGIC ---
+        // =================================================================
+
+        /**
+         * Starts a timer with given parameters.
+         * @param {number} duration - The duration of the timer in minutes.
+         * @param {string} type - 'pomodoro' or 'logger'.
+         * @param {string} category - 'Work', 'Break', 'Leisure'.
+         * @param {string} task - Description of the task.
+         * @param {boolean} isBreak - If it's a pomodoro break session.
+         * @param {number} breakDuration - Duration of the break in minutes.
+         */
+        function startTimer(duration, type, category, task, isBreak = false, breakDuration = 0) {
+            if (timerState.running) return;
+
+            timerState.running = true;
+            timerState.startTime = Date.now();
+            timerState.plannedDuration = duration * 60;
+            timerState.timeRemaining = timerState.plannedDuration;
+            timerState.type = type;
+            timerState.category = category;
+            timerState.taskDescription = task || 'Untitled';
+            timerState.isBreak = isBreak;
+            timerState.breakDuration = breakDuration * 60;
+            
+            updateTimerDisplay();
+            toggleControls(true);
+
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - timerState.startTime) / 1000);
+                timerState.timeRemaining = timerState.plannedDuration - elapsed;
+                
+                if (timerState.timeRemaining <= 0) {
+                    timerState.timeRemaining = 0;
+                    handleSessionEnd(true); // Completed
+                }
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        /**
+         * Stops the current timer.
+         */
+        function stopTimer() {
+            if (!timerState.running) return;
+            handleSessionEnd(false); // Stopped
+        }
+        
+        /**
+         * Handles the end of a session, either completed or stopped.
+         * @param {boolean} completed - True if the session finished naturally.
+         */
+        function handleSessionEnd(completed) {
+            clearInterval(timerInterval);
+            const endTime = Date.now();
+            const actualDuration = Math.floor((endTime - timerState.startTime) / 1000);
+            
+            // Don't log sessions less than 10 seconds
+            if (actualDuration > 10) {
+                const logEntry = {
+                    id: Date.now(),
+                    category: timerState.category,
+                    taskDescription: timerState.taskDescription,
+                    startTime: timerState.startTime,
+                    endTime: endTime,
+                    plannedDuration: timerState.plannedDuration,
+                    status: completed ? 'Completed' : 'Stopped'
+                };
+                appData.activityLog.push(logEntry);
+                saveData();
+            }
+
+            const wasPomodoroWork = timerState.type === 'pomodoro' && !timerState.isBreak && completed;
+
+            resetTimerState();
+
+            if (wasPomodoroWork && timerState.breakDuration > 0) {
+                // Auto-start the break
+                const breakCategory = timerState.breakDuration > (18 * 60) ? 'Leisure' : 'Break';
+                startTimer(timerState.breakDuration / 60, 'pomodoro', breakCategory, 'Break', true, 0);
+            } else {
+                 updateAllUI();
+            }
+        }
+        
+        /**
+         * Resets the timer state to default values.
+         */
+        function resetTimerState() {
+            timerState.running = false;
+            timerState.startTime = null;
+            // Retain break duration for next pomodoro session
+            const breakDur = timerState.type === 'pomodoro' ? timerState.breakDuration : 0;
+            
+            timerState = {
+                running: false,
+                startTime: null,
+                plannedDuration: 0,
+                timeRemaining: 0,
+                type: null,
+                category: 'Work',
+                taskDescription: '',
+                isBreak: false,
+                breakDuration: breakDur
+            };
+            
+            toggleControls(false);
+            updateTimerDisplay();
+        }
+
+        /**
+         * Toggles UI controls based on timer status.
+         * @param {boolean} isRunning - Whether the timer is currently active.
+         */
+        function toggleControls(isRunning) {
+            stopTimerBtn.disabled = !isRunning;
+            startLoggerBtn.disabled = isRunning;
+            startCustomPomodoroBtn.disabled = isRunning;
+            pomodoroTemplates.querySelectorAll('button').forEach(b => b.disabled = isRunning);
+        }
+
+
+        // =================================================================
+        // --- 3. UI UPDATING & RENDERING ---
+        // =================================================================
+
+        function updateAllUI() {
+            calculateAndRenderMetrics();
+            renderLogPanel();
+            updateCharts();
+            checkLockedInStatus();
+        }
+
+        /**
+         * Formats seconds into a MM:SS string.
+         */
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            return `${mins}:${secs}`;
+        }
+        
+        /**
+         * Updates the main timer display.
+         */
+        function updateTimerDisplay() {
+            timerDisplay.textContent = formatTime(timerState.timeRemaining);
+            document.title = `${formatTime(timerState.timeRemaining)} - Productivity Dashboard`;
+            if(!timerState.running) {
+                document.title = 'Productivity Dashboard';
+            }
+        }
+        
+        /**
+         * Renders the list of activities in the log panel.
+         */
+        function renderLogPanel() {
+            logList.innerHTML = '';
+            const todayLogs = getLogsForPeriod(1); // Get logs for today
+            if (todayLogs.length === 0) {
+                logList.innerHTML = '<li>No activities logged yet today.</li>';
+                return;
+            }
+
+            todayLogs.reverse().forEach(log => {
+                const li = document.createElement('li');
+                li.className = 'log-item';
+                
+                const startTime = new Date(log.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const duration = Math.round((log.endTime - log.startTime) / (1000 * 60));
+
+                li.innerHTML = `
+                    <div>
+                        <strong>${log.taskDescription}</strong> (${log.category})
+                        <br>
+                        <small>${startTime} - ${duration} mins</small>
+                    </div>
+                    <span class="status-${log.status.toLowerCase()}">${log.status}</span>
+                `;
+                logList.appendChild(li);
             });
-        });
+        }
+        
+        /**
+         * Main function to calculate all metrics and update the dashboard UI.
+         */
+        function calculateAndRenderMetrics() {
+            const todayLogs = getLogsForPeriod(1);
+            
+            // 1. Completed Session Streak
+            let streak = 0;
+            for (let i = appData.activityLog.length - 1; i >= 0; i--) {
+                if (appData.activityLog[i].status === 'Completed') {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            streakDisplay.textContent = streak;
+
+            // 2. Focus Today
+            let totalSessionPerc = 0;
+            let sessionCount = 0;
+            todayLogs.forEach(log => {
+                if(log.plannedDuration > 0 && log.category === 'Work') {
+                    const actualDuration = (log.endTime - log.startTime) / 1000;
+                    totalSessionPerc += (actualDuration / log.plannedDuration);
+                    sessionCount++;
+                }
+            });
+            const focusToday = sessionCount > 0 ? (totalSessionPerc / sessionCount) * 100 : 0;
+            focusProgressBar.style.width = `${Math.min(100, focusToday)}%`;
+            focusProgressBar.textContent = `${Math.round(focusToday)}%`;
+
+            // 3. Goal Progress
+            const totalWorkSeconds = todayLogs
+                .filter(log => log.category === 'Work')
+                .reduce((sum, log) => sum + ((log.endTime - log.startTime) / 1000), 0);
+            
+            const goalSeconds = (appData.goalHours || 0) * 3600;
+            const goalProgress = goalSeconds > 0 ? (totalWorkSeconds / goalSeconds) * 100 : 0;
+            goalProgressBar.style.width = `${Math.min(100, goalProgress)}%`;
+            goalProgressBar.textContent = `${Math.round(goalProgress)}%`;
+        }
+
+        /**
+         * Checks if the user is "Locked In" and applies the corresponding class.
+         */
+        function checkLockedInStatus() {
+            const todayLogs = getLogsForPeriod(1);
+            const totalWorkSeconds = todayLogs
+                .filter(log => log.category === 'Work')
+                .reduce((sum, log) => sum + ((log.endTime - log.startTime) / 1000), 0);
+
+            if (appData.goalHours && totalWorkSeconds >= appData.goalHours * 3600) {
+                document.body.classList.add('locked-in');
+            } else {
+                document.body.classList.remove('locked-in');
+            }
+        }
+        
+        // =================================================================
+        // --- 4. CHART.JS LOGIC ---
+        // =================================================================
+
+        /**
+         * Creates initial instances of the two charts.
+         */
+        function initializeCharts() {
+            const activitiesCtx = document.getElementById('activitiesChart').getContext('2d');
+            activitiesChart = new Chart(activitiesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6'],
+                        borderColor: 'var(--bg-color-light)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: 'var(--text-secondary-light)' }
+                        }
+                    }
+                }
+            });
+
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(trendCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Work Hours',
+                        data: [],
+                        backgroundColor: 'var(--accent-color-light)',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: { color: 'var(--text-secondary-light)' },
+                            grid: { color: 'var(--border-color-light)' }
+                        },
+                        x: {
+                            ticks: { color: 'var(--text-secondary-light)' },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+        
+        /**
+         * Gets activity logs for a specific period of days.
+         * @param {number} days - The number of past days to include (e.g., 1 for today).
+         * @returns {Array} An array of log objects.
+         */
+        function getLogsForPeriod(days) {
+            const cutoff = new Date();
+            cutoff.setHours(0, 0, 0, 0); // Start of today
+            cutoff.setDate(cutoff.getDate() - (days - 1));
+
+            return appData.activityLog.filter(log => log.startTime >= cutoff.getTime());
+        }
+
+        /**
+         * Updates both charts with the latest data.
+         */
+        function updateCharts() {
+            const period = parseInt(document.querySelector('.filter-btn.active').dataset.period);
+            const logs = getLogsForPeriod(period);
+
+            // Update Activities (Doughnut) Chart
+            const split = logs.reduce((acc, log) => {
+                const duration = (log.endTime - log.startTime) / (1000 * 60); // in minutes
+                acc[log.category] = (acc[log.category] || 0) + duration;
+                return acc;
+            }, {});
+            activitiesChart.data.labels = Object.keys(split);
+            activitiesChart.data.datasets[0].data = Object.values(split);
+            activitiesChart.update();
+
+            // Update Trend (Bar) Chart
+            const trendData = {};
+            for (let i = 0; i < period; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                const label = d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+                trendData[label] = 0;
+            }
+            
+            logs.filter(log => log.category === 'Work').forEach(log => {
+                const dateLabel = new Date(log.startTime).toLocaleDateString([], { month: 'short', day: 'numeric' });
+                if (trendData.hasOwnProperty(dateLabel)) {
+                    const durationHours = (log.endTime - log.startTime) / (1000 * 3600);
+                    trendData[dateLabel] += durationHours;
+                }
+            });
+            
+            trendChart.data.labels = Object.keys(trendData).reverse();
+            trendChart.data.datasets[0].data = Object.values(trendData).reverse();
+            trendChart.update();
+        }
+
+        // =================================================================
+        // --- 5. EVENT LISTENERS ---
+        // =================================================================
+
+        function setupEventListeners() {
+            // Goal setting
+            goalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const hours = parseFloat(goalHoursInput.value);
+                if (hours > 0) {
+                    appData.goalHours = hours;
+                    appData.lastGreeting = new Date().toDateString();
+                    saveData();
+                    greetingModal.classList.remove('visible');
+                    updateAllUI();
+                }
+            });
+
+            // Pomodoro template buttons
+            pomodoroTemplates.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const workMins = parseInt(e.target.dataset.work);
+                    const breakMins = parseInt(e.target.dataset.break);
+                    startTimer(workMins, 'pomodoro', 'Work', taskDescriptionInput.value, false, breakMins);
+                }
+            });
+            
+            // Custom Pomodoro
+            startCustomPomodoroBtn.addEventListener('click', () => {
+                const workMins = parseInt(customWorkInput.value) || 25;
+                const breakMins = parseInt(customBreakInput.value) || 5;
+                startTimer(workMins, 'pomodoro', 'Work', taskDescriptionInput.value, false, breakMins);
+            });
+            
+            // Basic Logger
+            startLoggerBtn.addEventListener('click', () => {
+                // Logger runs indefinitely, so we set a very large planned duration (e.g., 24 hours)
+                startTimer(24 * 60, 'logger', loggerCategorySelect.value, taskDescriptionInput.value);
+            });
+            
+            // Stop button
+            stopTimerBtn.addEventListener('click', stopTimer);
+
+            // Chart filters
+            document.querySelector('.chart-filters').addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-btn')) {
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    updateCharts();
+                }
+            });
+
+            // Export to CSV
+            exportCsvBtn.addEventListener('click', () => {
+                if (appData.activityLog.length === 0) {
+                    alert("No data to export!");
+                    return;
+                }
+
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "ID,Category,Task,StartTime,EndTime,PlannedDuration(s),Status\n";
+
+                appData.activityLog.forEach(log => {
+                    const row = [
+                        log.id,
+                        log.category,
+                        `"${log.taskDescription.replace(/"/g, '""')}"`, // Handle quotes
+                        new Date(log.startTime).toISOString(),
+                        new Date(log.endTime).toISOString(),
+                        log.plannedDuration,
+                        log.status
+                    ].join(',');
+                    csvContent += row + "\n";
+                });
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "productivity_log.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // --- Let's Go! ---
+        initializeApp();
+    });
     </script>
 </body>
 </html>
