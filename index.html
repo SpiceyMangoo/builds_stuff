@@ -10,10 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 
     <style>
-        /* --- [Previous CSS styles remain the same] --- */
-        
         :root {
             --font-main: 'Poppins', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             --bg-color-light: #f0f2f5;
@@ -68,11 +67,15 @@
         }
         body.dark-mode input:disabled { background-color: rgba(120,120,128,0.12); }
         body.dark-mode .log-item { border-bottom-color: var(--border-color-dark); }
-        body.dark-mode .chart-filters button {
+        body.dark-mode .chart-filters button, body.dark-mode .chart-view-toggle button {
             border-color: var(--border-color-dark);
             color: var(--text-secondary-dark);
         }
-        body.dark-mode .chart-filters button.active {
+        body.dark-mode .controls-block button.export {
+             background-color: rgba(120, 120, 128, 0.24);
+             border-color: var(--border-color-dark);
+        }
+        body.dark-mode .chart-filters button.active, body.dark-mode .chart-view-toggle button.active {
             background-color: var(--accent-color-dark);
             border-color: var(--accent-color-dark);
             color: white;
@@ -83,18 +86,28 @@
         body.dark-mode #goalProgressBar { background-color: var(--success-color-dark); }
         body.dark-mode #lockedInBadge { background-color: var(--locked-in-badge-bg-dark); }
         body.dark-mode button:hover:not(:disabled) { box-shadow: var(--glow-dark); }
-        body.dark-mode #exportCsv { color: var(--text-secondary-dark); }
-
-
+        
         .app-wrapper { max-width: 1400px; margin: 0 auto; }
         .card { background: var(--glass-bg-light); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 1rem; border: 1px solid var(--border-color-light); box-shadow: var(--shadow-light); padding: 1.5rem; transition: all 0.3s ease; }
         .app-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         header { display: flex; justify-content: space-between; align-items: center; }
-        main { display: grid; grid-template-areas: "tools" "dashboard" "log"; gap: 1.5rem; }
-        #dashboard { grid-area: dashboard; }
+        main { display: grid; grid-template-areas: "tools" "goaltarget" "dashboard" "log"; gap: 1.5rem; }
         #tools { grid-area: tools; }
+        #goal-target-container { grid-area: goaltarget; }
+        #dashboard { grid-area: dashboard; }
         #log-panel { grid-area: log; }
-        @media (min-width: 1024px) { main { grid-template-columns: 350px 1fr; grid-template-rows: auto 1fr; grid-template-areas: "tools dashboard" "tools log"; } }
+
+        @media (min-width: 1024px) { 
+            main { 
+                grid-template-columns: 350px 1fr; 
+                grid-template-rows: auto auto 1fr; 
+                grid-template-areas: 
+                    "tools goaltarget"
+                    "tools dashboard"
+                    "tools log"; 
+            } 
+        }
+
         h1, h2, h3 { margin: 0 0 1rem 0; color: var(--text-color-light); font-weight: 600; }
         h1 { font-size: 1.8rem; }
         h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem; margin-bottom: 1rem; }
@@ -112,26 +125,40 @@
         button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--glow-light); }
         button.secondary { background-color: var(--text-secondary-light); }
         button:disabled { background-color: #555; cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.6; }
+        
+        #goal-target-container .card { text-align: center; }
+        #goal-target-container h2 { font-size: 1.8rem; border-bottom: none; margin-bottom: 0.5rem; }
+        #goal-target-container .stat-label { font-size: 1.1rem; }
+        #goal-target-container .progress-wrapper { max-width: 500px; margin: 1.5rem auto 0 auto; }
+        #goal-target-container .progress-bar { height: 28px; line-height: 28px; font-size: 1rem; }
+
         #dashboard-content { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 768px) { #dashboard-content { grid-template-columns: 1fr 280px; } }
         .charts-container { display: flex; flex-direction: column; gap: 1.5rem; }
-        .chart-wrapper {
-            position: relative;
-            height: 250px;
-        }
+        .chart-wrapper { position: relative; height: 250px; }
         @media (min-width: 768px) { .chart-wrapper { height: 280px; } }
-        .chart-view-toggle { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-        .chart-view-toggle button { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; }
-        .chart-view-toggle button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); }
-        .chart-filters { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem;}
-        .chart-filters button { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; }
-        .chart-filters button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); }
-        .stats-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
-        .stat-card {
-            padding: 1rem;
-            border: 1px solid var(--border-color-light);
-            border-radius: 1rem;
+        
+        .controls-block {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color-light);
         }
+        body.dark-mode .controls-block { border-top-color: var(--border-color-dark); }
+        
+        .controls-block h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        .chart-view-toggle { display: flex; gap: 0.5rem; }
+        .chart-view-toggle button, .chart-filters button, button.export { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; }
+        .chart-view-toggle button.active, .chart-filters button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); }
+        .chart-filters { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+        
+        .stats-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+        .stat-card { padding: 1rem; border: 1px solid var(--border-color-light); border-radius: 1rem; }
+        
         .progress-wrapper { background-color: rgba(120,120,128,0.12); border-radius: 0.75rem; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
         .progress-bar-container { width: 100%; background-color: transparent; border-radius: 0.5rem; overflow: hidden; }
         .progress-bar { width: 0%; height: 22px; background-color: var(--accent-color-light); transition: width 0.5s ease-in-out; text-align: right; color: white; font-size: 0.8rem; line-height: 22px; font-weight: 600; border-radius: 0.5rem; padding: 0 10px; box-sizing: border-box; }
@@ -156,18 +183,6 @@
         #greetingModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         #greetingModal.visible { opacity: 1; pointer-events: all; }
         #greetingModal .card { max-width: 400px; text-align: center; }
-        #exportCsv {
-            background: none;
-            border: none;
-            color: var(--text-secondary-light);
-            cursor: pointer;
-            font-size: 1.5rem;
-            padding: 0;
-            margin: 0;
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-        }
         .hidden { display: none; }
     </style>
 </head>
@@ -228,13 +243,33 @@
                     <button id="pauseTimerBtn" class="secondary" disabled>Pause</button>
                 </div>
                 <button id="stopTimerBtn" disabled>Stop</button>
+
+                <div class="controls-block">
+                    <h3>Dashboard Controls</h3>
+                    <div class="chart-view-toggle">
+                        <button id="view-activity-btn" class="active">Activities</button>
+                        <button id="view-consistency-btn">Consistency</button>
+                    </div>
+                </div>
+                 <div class="controls-block">
+                    <h3>Export Data</h3>
+                    <button id="exportCsv" class="export" title="Export to CSV">Export Log to CSV</button>
+                </div>
             </div>
 
-            <div id="dashboard" class="card" style="position: relative;">
-                 <div class="chart-view-toggle">
-                    <button id="view-activity-btn" class="active">Today's Activities</button>
-                    <button id="view-consistency-btn">Consistency</button>
+            <div id="goal-target-container">
+                <div class="card">
+                    <h2>Productivity Level</h2>
+                    <div class="stat-label">Target: <span id="targetHoursDisplay">-</span> hrs</div>
+                    <div class="progress-wrapper">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="goalProgressBar"></div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <div id="dashboard" class="card">
                 <div id="dashboard-content">
                     <div class="charts-container">
                         <div id="activity-chart-container">
@@ -255,16 +290,7 @@
                         </div>
                     </div>
                     <div class="stats-sidebar">
-                        <h2>How Much You Want It</h2>
-                        <div class="stat-card">
-                            <h3>Productivity Level</h3>
-                            <div class="stat-label">Target: <span id="targetHoursDisplay">-</span> hrs</div>
-                            <div class="progress-wrapper">
-                                <div class="progress-bar-container">
-                                    <div class="progress-bar" id="goalProgressBar"></div>
-                                </div>
-                            </div>
-                        </div>
+                        <h2>How Much Do You Want It?</h2>
                          <div class="stat-card">
                             <h3>Your Focus Today</h3>
                             <div class="progress-wrapper">
@@ -276,7 +302,7 @@
                         <div class="stat-card metrics-grid">
                             <div class="stat-item">
                                 <div class="stat-value" id="streak">0</div>
-                                <div class="stat-label">Completed Streak</div>
+                                <div class="stat-label">Work Streak</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-value" id="interruptionsValue">0</div>
@@ -285,7 +311,6 @@
                         </div>
                     </div>
                 </div>
-                <button id="exportCsv" title="Export to CSV">💾</button>
             </div>
 
             <div id="log-panel" class="card">
@@ -358,14 +383,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initializeApp() {
         loadData();
+        Chart.register(ChartDataLabels);
         setupTheme();
         initializeCharts();
         checkGreeting();
         updateAllUI();
         setupEventListeners();
         const today = new Date();
-        const dateString = today.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
-        activitiesTitle.textContent = `Today's Activities (${dateString})`;
+        const dateString = today.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+        activitiesTitle.textContent = `Today's Activities - ${dateString}`;
     }
 
     function setupTheme() {
@@ -378,9 +404,11 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.checked = isDark;
             const textColor = isDark ? 'rgba(242, 242, 247, 0.8)' : 'rgba(90, 90, 95, 0.8)';
             const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-
+            const datalabelColor = isDark ? '#ddd' : '#333';
+            
             if (activitiesChart) {
                 activitiesChart.options.plugins.legend.labels.color = textColor;
+                activitiesChart.options.plugins.datalabels.color = datalabelColor;
                 activitiesChart.update();
             }
             if (trendChart) {
@@ -454,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
             type, category, taskDescription: task, isBreak: false, breakDuration: breakMins * 60
         });
 
-        logActivity('Started');
+        if (!timerState.isBreak) logActivity('Started');
         runTimerTick();
         toggleControls(true);
     }
@@ -466,11 +494,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (timerState.paused) {
             clearInterval(timerInterval);
             timerState.pauseStartTime = Date.now();
-            logActivity('Paused');
+            if (!timerState.isBreak) logActivity('Paused');
         } else { // Resuming
             const pauseDuration = Date.now() - timerState.pauseStartTime;
             timerState.accumulatedPauseTime += pauseDuration;
-            logActivity('Resumed');
+            if (!timerState.isBreak) logActivity('Resumed');
             runTimerTick();
         }
         updateTimerDisplay();
@@ -501,6 +529,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function handleSessionEnd(completed) {
         clearInterval(timerInterval);
+        
+        if (timerState.isBreak) {
+            resetTimerState();
+            return;
+        }
+
         const endTime = Date.now();
         const actualDuration = (endTime - timerState.startTime - timerState.accumulatedPauseTime);
         
@@ -527,7 +561,6 @@ document.addEventListener('DOMContentLoaded', () => {
             plannedDuration: durationMins * 60, timeRemaining: durationMins * 60,
             type: 'pomodoro', category, taskDescription: 'Break', isBreak: true, breakDuration: 0
         });
-        logActivity('Started');
         runTimerTick();
         toggleControls(true);
     }
@@ -561,24 +594,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateTimerDisplay() {
         const time = timerState.type === 'logger' && !timerState.isBreak ? timerState.timeRemaining : Math.max(0, timerState.timeRemaining);
         timerDisplay.textContent = formatTime(time);
-        document.title = timerState.running ? `${formatTime(time)} - Dashboard` : 'Productivity Dashboard';
+        const task = timerState.running ? timerState.taskDescription : 'Dashboard';
+        document.title = timerState.running ? `${formatTime(time)} - ${task}` : 'Productivity Dashboard';
     }
 
     function calculateAndRenderMetrics() {
         const todayLogs = getLogsForPeriod(1);
         
         let streak = 0;
-        const completedLogs = appData.activityLog.filter(log => log.status === 'Completed' || log.status === 'Stopped');
-        for (let i = completedLogs.length - 1; i >= 0; i--) {
-            if (completedLogs[i].status === 'Completed') {
+        const relevantLogs = appData.activityLog.filter(log => log.status === 'Completed' || log.status === 'Stopped');
+        for (let i = relevantLogs.length - 1; i >= 0; i--) {
+            if (relevantLogs[i].status === 'Completed' && relevantLogs[i].category === 'Work') {
                 streak++;
-            } else {
+            } else if(relevantLogs[i].category === 'Work') { // if a work session was stopped, break streak
                 break;
             }
         }
         streakDisplay.textContent = streak;
 
-        interruptionsValue.textContent = todayLogs.filter(log => log.status === 'Paused').length;
+        interruptionsValue.textContent = todayLogs.filter(log => log.status === 'Paused' && log.category === 'Work').length;
         
         let totalSessionPerc = 0, workSessionCount = 0;
         todayLogs.filter(log => (log.status ==='Completed' || log.status === 'Stopped') && log.category === 'Work' && log.plannedDuration > 0).forEach(log => {
@@ -659,12 +693,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // =================================================================
     function initializeCharts() {
         const createChart = (ctx, type, data, options) => new Chart(ctx, { type, data, options });
-        const commonOptions = {
+        const commonOptions = (isDark = false) => ({
             responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: 'var(--text-secondary-light)' } } }
-        };
-        activitiesChart = createChart(document.getElementById('activitiesChart').getContext('2d'), 'doughnut', { datasets: [{ backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6', '#32d74b'] }] }, { ...commonOptions, plugins: { ...commonOptions.plugins, legend: { position: 'bottom' } } });
-        trendChart = createChart(document.getElementById('trendChart').getContext('2d'), 'bar', { datasets: [{ label: 'Consistency', backgroundColor: 'var(--accent-color-light)', borderRadius: 4 }] }, { ...commonOptions, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { color: 'var(--text-secondary-light)', callback: (value) => value + '%' } , grid: { color: 'var(--border-color-light)' } }, x: { ticks: { color: 'var(--text-secondary-light)' }, grid: { display: false } } } });
+            plugins: { 
+                legend: { labels: { color: isDark ? 'rgba(242, 242, 247, 0.8)' : 'rgba(90, 90, 95, 0.8)' } },
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        const sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                        if (sum === 0) return '0%';
+                        const percentage = ((value / sum) * 100).toFixed(0) + '%';
+                        return percentage;
+                    },
+                    color: isDark ? '#ddd' : '#333',
+                    font: { weight: 'bold' }
+                }
+            }
+        });
+        activitiesChart = createChart(document.getElementById('activitiesChart').getContext('2d'), 'doughnut', { datasets: [{ backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6', '#32d74b', '#ff3b30'] }] }, { ...commonOptions(document.body.classList.contains('dark-mode')), plugins: { ...commonOptions(document.body.classList.contains('dark-mode')).plugins, legend: { position: 'bottom' } } });
+        trendChart = createChart(document.getElementById('trendChart').getContext('2d'), 'bar', { datasets: [{ label: 'Consistency', backgroundColor: 'var(--accent-color-light)', borderRadius: 4 }] }, { ...commonOptions(document.body.classList.contains('dark-mode')), plugins: { legend: { display: false }, datalabels: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { color: 'var(--text-secondary-light)', callback: (value) => value + '%' } , grid: { color: 'var(--border-color-light)' } }, x: { ticks: { color: 'var(--text-secondary-light)' }, grid: { display: false } } } });
     }
 
     function updateCharts() {
@@ -748,7 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelector('.chart-filters').addEventListener('click', (e) => {
             if (e.target.classList.contains('filter-btn')) {
-                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.chart-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
                 updateCharts();
             }
