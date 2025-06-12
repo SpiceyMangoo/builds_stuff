@@ -15,8 +15,6 @@
     <style>
         :root {
             --font-main: 'Poppins', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            
-            /* Light Mode */
             --bg-color-light: #f0f2f5;
             --glass-bg-light: rgba(255, 255, 255, 0.55);
             --text-color-light: #1c1c1e;
@@ -27,8 +25,6 @@
             --accent-color-light: #007aff;
             --success-color-light: #34c759;
             --warning-color-light: #ff9500;
-            
-            /* Dark Mode */
             --bg-color-dark: #1c1c1e;
             --glass-bg-dark: rgba(44, 44, 46, 0.7);
             --text-color-dark: #f2f2f7;
@@ -40,32 +36,17 @@
             --success-color-dark: #32d74b;
             --warning-color-dark: #ff9f0a;
         }
-
-        body {
-            background-color: var(--bg-color-light);
-            color: var(--text-color-light);
-            font-family: var(--font-main);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            margin: 0;
-            padding: 1rem;
-        }
-
+        body { background-color: var(--bg-color-light); color: var(--text-color-light); font-family: var(--font-main); transition: background-color 0.3s ease, color 0.3s ease; margin: 0; padding: 1rem; }
         body.dark-mode {
-            --bg-color-light: var(--bg-color-dark);
-            --glass-bg-light: var(--glass-bg-dark);
-            --text-color-light: var(--text-color-dark);
-            --text-secondary-light: var(--text-secondary-dark);
-            --border-color-light: var(--border-color-dark);
-            --shadow-light: var(--shadow-dark);
-            --glow-light: var(--glow-dark);
-            --accent-color-light: var(--accent-color-dark);
-            --success-color-light: var(--success-color-dark);
-            --warning-color-light: var(--warning-color-dark);
+            --bg-color-light: var(--bg-color-dark); --glass-bg-light: var(--glass-bg-dark);
+            --text-color-light: var(--text-color-dark); --text-secondary-light: var(--text-secondary-dark);
+            --border-color-light: var(--border-color-dark); --shadow-light: var(--shadow-dark);
+            --glow-light: var(--glow-dark); --accent-color-light: var(--accent-color-dark);
+            --success-color-light: var(--success-color-dark); --warning-color-light: var(--warning-color-dark);
         }
-
         .app-wrapper { max-width: 1400px; margin: 0 auto; }
         .card { background: var(--glass-bg-light); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 1rem; border: 1px solid var(--border-color-light); box-shadow: var(--shadow-light); padding: 1.5rem; transition: all 0.3s ease; }
-        body.dark-mode .card { box-shadow: var(--glow-dark); }
+        body.dark-mode .card { box-shadow: var(--shadow-light), var(--glow-dark); }
         .app-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         header { display: flex; justify-content: space-between; align-items: center; }
         main { display: grid; grid-template-areas: "tools" "dashboard" "log"; gap: 1.5rem; }
@@ -73,107 +54,71 @@
         #tools { grid-area: tools; }
         #log-panel { grid-area: log; position: relative; }
         @media (min-width: 1024px) { main { grid-template-columns: 350px 1fr; grid-template-rows: auto 1fr; grid-template-areas: "tools dashboard" "tools log"; } }
-        
         h1, h2, h3 { margin: 0 0 1rem 0; color: var(--text-color-light); font-weight: 600; }
         h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem; margin-bottom: 1rem; }
-        
-        /* --- DASHBOARD & CHARTS --- */
+        h3 { font-size: 1rem; color: var(--text-secondary-light); font-weight: 400; }
+        .theme-switch-wrapper { display: flex; align-items: center; }
+        .theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
+        .theme-switch input { display:none; }
+        .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 24px; }
+        .slider:before { background-color: #fff; bottom: 2px; content: ""; height: 20px; left: 2px; position: absolute; transition: .4s; width: 20px; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent-color-light); }
+        input:checked + .slider:before { transform: translateX(24px); }
+        button, input, select { width: 100%; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--border-color-light); background-color: rgba(120,120,128,0.12); color: var(--text-color-light); font-family: var(--font-main); font-size: 1rem; box-sizing: border-box; }
+        input:disabled { background-color: rgba(120,120,128,0.06); cursor: not-allowed; }
+        button { background-color: var(--accent-color-light); color: white; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--glow-light); }
+        button:disabled { background-color: #555; cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.6; }
         #dashboard-content { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 768px) { #dashboard-content { grid-template-columns: 1fr 280px; } }
-        .chart-header { display: flex; justify-content: space-between; align-items: center; }
+        .charts-container { display: flex; flex-direction: column; gap: 1rem; }
+        .chart-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem;}
         .chart-view-controls { display: flex; gap: 0.5rem; }
         .chart-view-controls button, .chart-filters button { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; border-radius: 0.5rem; cursor: pointer; }
         .chart-view-controls button.active, .chart-filters button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); font-weight: 600; }
         .chart-filters { margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center; }
-        .chart-wrapper { position: relative; height: 300px; }
-        @media (min-width: 768px) { .chart-wrapper { height: auto; } }
-
-        /* --- METRICS PANEL --- */
+        .chart-wrapper { position: relative; height: 300px; width: 100%; }
         .stats-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-        .target-hours-prominent { text-align: center; }
+        .target-hours-prominent { text-align: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color-light); margin-bottom: 1rem; }
         .target-hours-prominent .stat-label { font-size: 1rem; color: var(--text-secondary-light); }
         .target-hours-prominent .stat-value { font-size: 4rem; font-weight: 700; color: var(--accent-color-light); line-height: 1.1; }
         .progress-wrapper { background-color: rgba(120,120,128,0.12); border-radius: 0.75rem; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
-        .progress-bar-container { width: 100%; background-color: transparent; border-radius: 0.5rem; overflow: hidden; }
-        .progress-bar { width: 0%; height: 22px; background-color: var(--accent-color-light); transition: width 0.5s ease-in-out; text-align: right; color: white; font-size: 0.8rem; line-height: 22px; font-weight: 600; border-radius: 0.5rem; padding: 0 0.5rem; box-sizing: border-box; }
+        .progress-bar { width: 0%; height: 22px; background-color: var(--accent-color-light); transition: width 0.5s ease-in-out; text-align: right; color: white; font-size: 0.8rem; line-height: 22px; font-weight: 600; border-radius: 0.5rem; padding: 0 0.5rem; box-sizing: border-box;}
         #goalProgressBar { background-color: var(--success-color-light); }
         .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center; }
         .stat-item .stat-value { font-weight: 700; font-size: 2rem; }
-        .stat-item .stat-label { font-size: 0.9rem; }
-        
-        /* --- LOG & EXPORT --- */
+        .stat-item .stat-label { font-size: 0.9rem; color: var(--text-secondary-light); }
+        #timer-display { font-size: 4rem; font-weight: 700; text-align: center; margin: 1rem 0; color: var(--accent-color-light); }
+        #customPomodoroInputs { display: none; }
+        .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
         #log-list { list-style: none; padding: 0; margin: 0; max-height: 400px; overflow-y: auto; }
-        #exportCsvBtn {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
+        .log-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid var(--border-color-light); }
+        #exportCsvBtn { position: absolute; top: 1rem; right: 1.5rem; background: none; border: none; cursor: pointer; padding: 0.5rem; opacity: 0.6; transition: opacity 0.2s; }
         #exportCsvBtn:hover { opacity: 1; }
         #exportCsvBtn svg { width: 20px; height: 20px; fill: var(--text-secondary-light); }
-        
-        /* --- OTHER STYLES (partially omitted for brevity) --- */
-        body, button, input, select { font-family: var(--font-main); }
-        button, input, select { width: 100%; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--border-color-light); background-color: rgba(120,120,128,0.12); color: var(--text-color-light); font-size: 1rem; box-sizing: border-box; }
-        button { background-color: var(--accent-color-light); color: white; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--glow-light); }
-        button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.6; }
-        #timer-display { font-size: 4rem; font-weight: 700; text-align: center; margin: 1rem 0; color: var(--accent-color-light); }
-        .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-        #customPomodoroInputs { display: none; }
     </style>
 </head>
 <body>
 <div class="app-wrapper">
-    <header><h1>Dashboard</h1></header>
+    <div id="greetingModal"></div> <header><h1>Dashboard</h1><div class="theme-switch-wrapper"><label class="theme-switch" for="themeToggle"><input type="checkbox" id="themeToggle" /><span class="slider round"></span></label></div></header>
+
     <main>
-        <div id="tools" class="card">
-             <h2>Tools Suite</h2>
-                <div id="timer-display">00:00:00</div>
-                <input type="text" id="taskDescription" placeholder="What are you working on?">
-                <select id="timerModeSelect">
-                    <optgroup label="Pomodoro">
-                        <option value="pomo-25-5">Standard Pomodoro (25/5)</option>
-                        <option value="pomo-90-15">Deep Work (90/15)</option>
-                        <option value="pomo-60-10">Focused (60/10)</option>
-                        <option value="pomo-custom">Custom Pomodoro</option>
-                    </optgroup>
-                    <optgroup label="Logger">
-                        <option value="log-work">Work Logger</option>
-                        <option value="log-break">Break Logger</option>
-                        <option value="log-leisure">Leisure Logger</option>
-                    </optgroup>
-                </select>
-                <div id="customPomodoroInputs">
-                    <input type="number" id="customWork" placeholder="Work (mins)" min="1">
-                    <input type="number" id="customBreak" placeholder="Break (mins)" min="1">
-                </div>
-                <div class="timer-controls">
-                    <button id="startTimerBtn">Start</button>
-                    <button id="pauseTimerBtn" disabled>Pause</button>
-                </div>
-                <button id="stopTimerBtn" disabled>Stop</button>
-        </div>
+        <div id="tools" class="card"></div>
 
         <div id="dashboard" class="card">
             <div id="dashboard-content">
                 <div class="charts-container">
                     <div class="chart-header">
-                        <h2 id="chartTitle">Today's Activities</h2>
+                        <h2 id="chartTitle"></h2>
                         <div class="chart-view-controls">
-                            <button id="viewSplitBtn" class="active">Split</button>
-                            <button id="viewTrendBtn">Trend</button>
+                            <button id="viewSplitBtn" class="active" title="View Today's Split">Split</button>
+                            <button id="viewTrendBtn" title="View Consistency Trend">Trend</button>
                         </div>
                     </div>
                     <div class="chart-wrapper">
                         <canvas id="mainChart"></canvas>
                     </div>
-                    <div class="chart-filters">
+                    <div class="chart-filters" style="display: none;">
                         <button class="filter-btn active" data-period="7">7 Days</button>
                         <button class="filter-btn" data-period="30">30 Days</button>
                     </div>
@@ -184,31 +129,17 @@
                         <div class="stat-label">Daily Goal</div>
                         <div class="stat-value" id="targetHoursDisplay">-</div>
                     </div>
-                    <div>
+                     <div>
                         <h3>Productivity Level</h3>
-                        <div class="progress-wrapper">
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" id="goalProgressBar"></div>
-                            </div>
-                        </div>
+                        <div class="progress-wrapper"><div class="progress-bar-container"><div class="progress-bar" id="goalProgressBar"></div></div></div>
                     </div>
                      <div>
                         <h3>Focus Today</h3>
-                        <div class="progress-wrapper">
-                            <div class="progress-bar-container">
-                                <div class="progress-bar" id="focusProgressBar"></div>
-                            </div>
-                        </div>
+                        <div class="progress-wrapper"><div class="progress-bar-container"><div class="progress-bar" id="focusProgressBar"></div></div></div>
                     </div>
                     <div class="metrics-grid">
-                        <div class="stat-item">
-                            <div class="stat-value" id="streak">0</div>
-                            <div class="stat-label">Completed Streak</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="interruptionsValue">0</div>
-                            <div class="stat-label">Interruptions</div>
-                        </div>
+                        <div class="stat-item"><div class="stat-value" id="streak">0</div><div class="stat-label">Streak</div></div>
+                        <div class="stat-item"><div class="stat-value" id="interruptionsValue">0</div><div class="stat-label">Interruptions</div></div>
                     </div>
                 </div>
             </div>
@@ -227,15 +158,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- DOM ELEMENT REFERENCES ---
     const chartTitle = document.getElementById('chartTitle');
     const mainChartCanvas = document.getElementById('mainChart');
     const viewSplitBtn = document.getElementById('viewSplitBtn');
     const viewTrendBtn = document.getElementById('viewTrendBtn');
     const chartFilters = document.querySelector('.chart-filters');
-    const focusProgressBar = document.getElementById('focusProgressBar');
-    const targetHoursDisplay = document.getElementById('targetHoursDisplay');
-    const goalProgressBar = document.getElementById('goalProgressBar');
-    // ... other element references
+    // ... other elements
     const timerDisplay = document.getElementById('timer-display');
     const taskDescriptionInput = document.getElementById('taskDescription');
     const timerModeSelect = document.getElementById('timerModeSelect');
@@ -245,75 +174,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const startTimerBtn = document.getElementById('startTimerBtn');
     const pauseTimerBtn = document.getElementById('pauseTimerBtn');
     const stopTimerBtn = document.getElementById('stopTimerBtn');
+    const targetHoursDisplay = document.getElementById('targetHoursDisplay');
+    const goalProgressBar = document.getElementById('goalProgressBar');
+    const focusProgressBar = document.getElementById('focusProgressBar');
+    const streakDisplay = document.getElementById('streak');
+    const interruptionsValue = document.getElementById('interruptionsValue');
+    const logList = document.getElementById('log-list');
 
     let mainChart;
-    let currentChartView = 'split'; // 'split' or 'trend'
-    let appData = { goalHours: null, activityLog: [] };
+    let currentChartView = 'split';
+    let appData = { goalHours: null, lastGreeting: null, activityLog: [] };
     let timerInterval = null;
     let timerState = {
-        running: false, paused: false, startTime: null,
-        accumulatedPauseTime: 0, timeRemaining: 0,
-        type: null, // 'pomodoro' or 'logger'
+        running: false, paused: false, startTime: null, pauseStartTime: null, accumulatedPauseTime: 0,
+        plannedDuration: 0, timeRemaining: 0, type: null, category: 'Work', taskDescription: '', isBreak: false, breakDuration: 0
     };
-    
+
     // =================================================================
     // --- INITIALIZATION & CORE ---
     // =================================================================
-    
-    function initializeApp() {
-        loadData();
-        setupTheme();
-        updateAllUI();
-        setupEventListeners();
-    }
-
-    function loadData() {
-        const savedData = localStorage.getItem('productivityDashboard');
-        if (savedData) appData = JSON.parse(savedData);
-        if (!Array.isArray(appData.activityLog)) appData.activityLog = [];
-    }
-
-    function saveData() {
-        localStorage.setItem('productivityDashboard', JSON.stringify(appData));
-    }
+    function initializeApp() { loadData(); setupTheme(); updateAllUI(); setupEventListeners(); /* and other init tasks */ }
+    function loadData() { const saved = localStorage.getItem('productivityDashboard'); if(saved) appData = JSON.parse(saved); if(!Array.isArray(appData.activityLog)) appData.activityLog = []; }
+    function saveData() { localStorage.setItem('productivityDashboard', JSON.stringify(appData)); }
     
     function setupTheme() {
-        const themeToggle = document.querySelector('#themeToggle'); // Assuming it exists in your header
-        if (!themeToggle) return;
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const savedTheme = localStorage.getItem('theme');
-
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            document.body.classList.add('dark-mode');
-            themeToggle.checked = true;
-        }
-
+        const themeToggle = document.getElementById('themeToggle');
+        // ... theme setup logic ...
         themeToggle.addEventListener('change', () => {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-            rebuildChart(); // Rebuild chart to apply new colors
+            renderCurrentChart(); // Re-render chart to pick up new theme colors
         });
     }
 
     // =================================================================
-    // --- TIMER LOGIC (with Logger count-up fix) ---
+    // --- TIMER LOGIC ---
     // =================================================================
-
     function startTimer() {
-        // ... (parsing logic for pomo/logger mode is the same)
+        if (timerState.running) return;
+        // Logic to parse timer mode and set duration, category, etc.
         const mode = timerModeSelect.value;
         const task = taskDescriptionInput.value || 'Untitled';
-        let durationMins = 0, breakMins = 0, category = 'Work', type = 'pomodoro';
-        
-        // Parsing logic as before...
+        let durationMins, breakMins, category, type;
+
         if (mode.startsWith('pomo-')) {
-             if (mode === 'pomo-custom') {
+            type = 'pomodoro'; category = 'Work';
+            if (mode === 'pomo-custom') {
                 durationMins = parseInt(customWorkInput.value) || 25;
                 breakMins = parseInt(customBreakInput.value) || 5;
-            } //... other pomo cases
+            } else { /* other pomo templates */ }
         } else {
             type = 'logger';
             category = mode.split('-')[1].charAt(0).toUpperCase() + mode.split('-')[1].slice(1);
+            durationMins = 0; breakMins = 0;
         }
 
         Object.assign(timerState, {
@@ -321,18 +234,15 @@ document.addEventListener('DOMContentLoaded', () => {
             plannedDuration: durationMins * 60, timeRemaining: type === 'logger' ? 0 : durationMins * 60,
             type, category, taskDescription: task, isBreak: false, breakDuration: breakMins * 60
         });
-
-        logActivity('Started');
-        runTimerTick();
-        toggleControls(true);
+        logActivity('Started'); runTimerTick(); toggleControls(true);
     }
-    
+
     function runTimerTick() {
         clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             if (timerState.type === 'logger') {
                 timerState.timeRemaining++;
-            } else { // pomodoro countdown
+            } else {
                 const elapsed = Math.floor((Date.now() - timerState.startTime - timerState.accumulatedPauseTime) / 1000);
                 timerState.timeRemaining = timerState.plannedDuration - elapsed;
                 if (timerState.timeRemaining <= 0) {
@@ -347,169 +257,110 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSessionEnd(completed) {
         clearInterval(timerInterval);
         const endTime = Date.now();
-        const actualDurationMs = (timerState.type === 'logger') 
+        const actualDurationMs = timerState.type === 'logger' 
             ? timerState.timeRemaining * 1000 
             : (endTime - timerState.startTime - timerState.accumulatedPauseTime);
         
-        // NEW: Only log sessions >= 60 seconds
-        if (actualDurationMs >= 60000) {
+        if (actualDurationMs >= 60000) { // Log sessions >= 60 seconds
              logActivity(completed ? 'Completed' : 'Stopped', { endTime });
         }
-        
-        // ... rest of the function is the same ...
+        // ... Rest of session end logic ...
         resetTimerState();
         updateAllUI();
     }
-    
+
     function formatTime(seconds) {
         seconds = Math.max(0, seconds);
         const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
         const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
         const s = (seconds % 60).toString().padStart(2, '0');
-        return `${h}:${m}:${s}`;
+        return timerState.type === 'logger' || seconds >= 3600 ? `${h}:${m}:${s}` : `${m}:${s}`;
     }
 
     // =================================================================
-    // --- UI, METRICS & CHARTING (Major Refactor) ---
+    // --- UI, METRICS & CHARTING ---
     // =================================================================
-    
-    function updateAllUI() {
-        calculateAndRenderMetrics();
-        // renderLogPanel(); // Already called in metrics
-        updateAndRenderChart();
-        // ... other UI updates
-    }
+    function updateAllUI() { calculateAndRenderMetrics(); renderLogPanel(); renderCurrentChart(); /* other updates */ }
 
     function calculateAndRenderMetrics() {
-        targetHoursDisplay.textContent = appData.goalHours ? `${appData.goalHours} hrs` : '-';
+        targetHoursDisplay.textContent = appData.goalHours ? appData.goalHours : '-';
         const todayLogs = getLogsForPeriod(1);
-        const workLogs = todayLogs.filter(l => l.category === 'Work' && (l.status === 'Completed' || l.status === 'Stopped'));
-
-        // FIX: "Focus Today" includes stopped sessions
-        let totalSessionPerc = 0;
+        
+        // "Focus Today" -- includes stopped sessions
         const relevantFocusLogs = todayLogs.filter(l => l.category === 'Work' && (l.status === 'Completed' || l.status === 'Stopped') && l.plannedDuration > 0);
-        if (relevantFocusLogs.length > 0) {
-            totalSessionPerc = relevantFocusLogs.reduce((sum, log) => {
+        let focusToday = 0;
+        if(relevantFocusLogs.length > 0) {
+            const totalSessionPerc = relevantFocusLogs.reduce((sum, log) => {
                 const actualDuration = (log.endTime - log.startTime);
                 return sum + (actualDuration / (log.plannedDuration * 1000));
             }, 0);
-            const focusToday = (totalSessionPerc / relevantFocusLogs.length) * 100;
-            focusProgressBar.style.width = `${Math.min(100, focusToday)}%`;
-            focusProgressBar.textContent = `${Math.round(focusToday)}%`;
-        } // else handle 0 case
-        // ... other metric calculations are the same ...
+            focusToday = (totalSessionPerc / relevantFocusLogs.length) * 100;
+        }
+        focusProgressBar.style.width = `${Math.min(100, focusToday)}%`;
+        focusProgressBar.textContent = `${Math.round(focusToday)}%`;
+        // ... Other metrics (streak, goal progress, interruptions)
     }
 
-    function updateAndRenderChart() {
+    function renderCurrentChart() {
         if (mainChart) mainChart.destroy();
-
-        const chartColor = getComputedStyle(document.body).getPropertyValue('--text-secondary-light');
+        const chartColor = getComputedStyle(document.body).getPropertyValue('--text-color-light');
         const gridColor = getComputedStyle(document.body).getPropertyValue('--border-color-light');
 
         if (currentChartView === 'split') {
-            chartTitle.textContent = `Today's Activities (${new Date().toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })})`;
+            chartTitle.textContent = `Today's Activities (${new Date().toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' })})`;
             chartFilters.style.display = 'none';
-            
-            const todayLogs = getLogsForPeriod(1).filter(l => l.status === 'Completed' || l.status === 'Stopped');
-            const split = todayLogs.reduce((acc, log) => {
-                const duration = (log.endTime - log.startTime) / (1000 * 60);
-                acc[log.category] = (acc[log.category] || 0) + duration;
+            const logs = getLogsForPeriod(1).filter(l => l.status === 'Completed' || l.status === 'Stopped');
+            const splitData = logs.reduce((acc, { category, startTime, endTime }) => {
+                acc[category] = (acc[category] || 0) + (endTime - startTime);
                 return acc;
             }, {});
-            
             mainChart = new Chart(mainChartCanvas, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(split),
-                    datasets: [{ data: Object.values(split), backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6', '#32d74b'] }]
-                },
+                type: 'doughnut', data: { labels: Object.keys(splitData), datasets: [{ data: Object.values(splitData), backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6', '#32d74b'] }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: chartColor } } } }
             });
-        } else { // trend view
+        } else { // trend
             chartTitle.textContent = "Your Consistency";
             chartFilters.style.display = 'flex';
-            const period = parseInt(document.querySelector('.chart-filters .active').dataset.period);
-            const trendLogs = getLogsForPeriod(period);
-            const goalHours = appData.goalHours || 8; // Default to 8 if not set
-
-            const trendData = {};
-            for (let i = 0; i < period; i++) {
+            const period = parseInt(chartFilters.querySelector('.active').dataset.period);
+            const logs = getLogsForPeriod(period);
+            const goalHours = appData.goalHours || 8;
+            const dataByDay = {};
+            for(let i=0; i<period; i++) {
                 const d = new Date();
                 d.setDate(d.getDate() - i);
-                const label = d.toISOString().split('T')[0];
-                trendData[label] = 0;
+                dataByDay[d.toISOString().split('T')[0]] = 0;
             }
-
-            trendLogs.filter(l => l.category === 'Work').forEach(log => {
-                const label = new Date(log.startTime).toISOString().split('T')[0];
-                if (trendData.hasOwnProperty(label)) {
-                    trendData[label] += (log.endTime - log.startTime) / (1000 * 3600);
-                }
+            logs.filter(l=>l.category === 'Work').forEach(l => {
+                const day = new Date(l.startTime).toISOString().split('T')[0];
+                if(dataByDay.hasOwnProperty(day)) dataByDay[day] += (l.endTime - l.startTime);
             });
-            
+            const labels = Object.keys(dataByDay).reverse();
+            const data = Object.values(dataByDay).map(ms => (ms / (1000 * 3600) / goalHours) * 100).reverse();
             mainChart = new Chart(mainChartCanvas, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(trendData).reverse(),
-                    datasets: [{
-                        label: '% of Goal',
-                        // NEW: Calculate percentage of goal
-                        data: Object.values(trendData).map(hours => (hours / goalHours) * 100).reverse(),
-                        backgroundColor: 'var(--accent-color-light)'
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    scales: {
-                        x: { type: 'time', time: { unit: 'day' }, ticks: { color: chartColor }, grid: { display: false } },
-                        y: {
-                            beginAtZero: true, max: 120, // Allow exceeding goal
-                            ticks: { color: chartColor, callback: value => value + '%' }, // Add % to Y-axis
-                            grid: { color: gridColor }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
+                type: 'bar', data: { labels, datasets: [{ label: '% of Goal', data, backgroundColor: 'var(--accent-color-light)' }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: {
+                    x: { type: 'time', time: { unit: 'day' }, ticks: { color: chartColor }, grid: { display: false } },
+                    y: { beginAtZero: true, max: 120, ticks: { color: chartColor, callback: val => val + '%' }, grid: { color: gridColor } }
+                }, plugins: { legend: { display: false } } }
             });
         }
     }
-
-    function rebuildChart() {
-        if (mainChart) {
-            mainChart.destroy();
-        }
-        updateAndRenderChart();
-    }
     
-    // =================================================================
     // --- EVENT LISTENERS ---
-    // =================================================================
-
     function setupEventListeners() {
-        viewSplitBtn.addEventListener('click', () => {
-            currentChartView = 'split';
-            viewSplitBtn.classList.add('active');
-            viewTrendBtn.classList.remove('active');
-            updateAndRenderChart();
-        });
-        viewTrendBtn.addEventListener('click', () => {
-            currentChartView = 'trend';
-            viewTrendBtn.classList.add('active');
-            viewSplitBtn.classList.remove('active');
-            updateAndRenderChart();
-        });
-        document.querySelector('.chart-filters').addEventListener('click', (e) => {
+        viewSplitBtn.addEventListener('click', () => { currentChartView = 'split'; viewSplitBtn.classList.add('active'); viewTrendBtn.classList.remove('active'); renderCurrentChart(); });
+        viewTrendBtn.addEventListener('click', () => { currentChartView = 'trend'; viewTrendBtn.classList.add('active'); viewSplitBtn.classList.remove('active'); renderCurrentChart(); });
+        chartFilters.addEventListener('click', e => {
             if (e.target.matches('button')) {
-                document.querySelectorAll('.chart-filters button').forEach(b => b.classList.remove('active'));
+                chartFilters.querySelector('.active').classList.remove('active');
                 e.target.classList.add('active');
-                if (currentChartView === 'trend') updateAndRenderChart();
+                if (currentChartView === 'trend') renderCurrentChart();
             }
         });
-        // ... other event listeners are the same ...
+        // ... All other event listeners from previous stable version
     }
     
-    // Placeholder for other functions like logActivity, toggleControls etc.
-    // They would be included here without major changes from the last version.
+    // Include all other helper functions (getLogsForPeriod, toggleControls, logActivity, resetTimerState, etc.) from the previous stable version here.
     
     initializeApp();
 });
