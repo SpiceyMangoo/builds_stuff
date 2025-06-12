@@ -91,9 +91,9 @@
         .card { background: var(--glass-bg-light); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 1rem; border: 1px solid var(--border-color-light); box-shadow: var(--shadow-light); padding: 1.5rem; transition: all 0.3s ease; }
         .app-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         header { display: flex; justify-content: space-between; align-items: center; }
-        main { display: grid; grid-template-areas: "tools" "goaltarget" "dashboard" "log"; gap: 1.5rem; }
+        main { display: grid; grid-template-areas: "tools" "main-goal" "dashboard" "log"; gap: 1.5rem; }
         #tools { grid-area: tools; }
-        #goal-target-container { grid-area: goaltarget; }
+        #main-goal-display { grid-area: main-goal; }
         #dashboard { grid-area: dashboard; }
         #log-panel { grid-area: log; }
 
@@ -102,7 +102,7 @@
                 grid-template-columns: 350px 1fr; 
                 grid-template-rows: auto auto 1fr; 
                 grid-template-areas: 
-                    "tools goaltarget"
+                    "tools main-goal"
                     "tools dashboard"
                     "tools log"; 
             } 
@@ -126,12 +126,10 @@
         button.secondary { background-color: var(--text-secondary-light); }
         button:disabled { background-color: #555; cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.6; }
         
-        #goal-target-container .card { text-align: center; }
-        #goal-target-container h2 { font-size: 1.8rem; border-bottom: none; margin-bottom: 0.5rem; }
-        #goal-target-container .stat-label { font-size: 1.1rem; }
-        #goal-target-container .progress-wrapper { max-width: 500px; margin: 1.5rem auto 0 auto; }
-        #goal-target-container .progress-bar { height: 28px; line-height: 28px; font-size: 1rem; }
-
+        #main-goal-display .card { text-align: center; }
+        #main-goal-display h2 { font-size: 2rem; border-bottom: none; margin-bottom: 0.5rem; }
+        #main-goal-display-text { font-size: 1.5rem; color: var(--text-secondary-light); font-weight: 600; }
+        
         #dashboard-content { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 768px) { #dashboard-content { grid-template-columns: 1fr 280px; } }
         .charts-container { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -157,6 +155,7 @@
         .chart-filters { display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
         
         .stats-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+        .stats-sidebar h2 { font-size: 1.4rem; }
         .stat-card { padding: 1rem; border: 1px solid var(--border-color-light); border-radius: 1rem; }
         
         .progress-wrapper { background-color: rgba(120,120,128,0.12); border-radius: 0.75rem; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
@@ -167,7 +166,7 @@
         .stat-value { font-weight: 700; font-size: 2rem; color: var(--accent-color-light); }
         .stat-label { font-size: 0.9rem; color: var(--text-secondary-light); }
         #interruptionsValue { color: var(--warning-color-light); }
-        #targetHoursDisplay { font-weight: 600; }
+        
         .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center; }
         #timer-display { font-size: 4rem; font-weight: 700; text-align: center; margin: 1rem 0; color: var(--accent-color-light); }
         #customPomodoroInputs { display: none; }
@@ -257,15 +256,10 @@
                 </div>
             </div>
 
-            <div id="goal-target-container">
+            <div id="main-goal-display">
                 <div class="card">
-                    <h2>Productivity Level</h2>
-                    <div class="stat-label">Target: <span id="targetHoursDisplay">-</span> hrs</div>
-                    <div class="progress-wrapper">
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" id="goalProgressBar"></div>
-                        </div>
-                    </div>
+                    <h2>Your Daily Goal</h2>
+                    <div id="main-goal-display-text">--</div>
                 </div>
             </div>
 
@@ -291,6 +285,14 @@
                     </div>
                     <div class="stats-sidebar">
                         <h2>How Much Do You Want It?</h2>
+                         <div class="stat-card">
+                            <h3>Productivity Level</h3>
+                            <div class="progress-wrapper">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="goalProgressBar"></div>
+                                </div>
+                            </div>
+                        </div>
                          <div class="stat-card">
                             <h3>Your Focus Today</h3>
                             <div class="progress-wrapper">
@@ -342,8 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const streakDisplay = document.getElementById('streak');
     const interruptionsValue = document.getElementById('interruptionsValue');
     const focusProgressBar = document.getElementById('focusProgressBar');
-    const targetHoursDisplay = document.getElementById('targetHoursDisplay');
     const goalProgressBar = document.getElementById('goalProgressBar');
+    const mainGoalDisplayText = document.getElementById('main-goal-display-text');
     const activitiesTitle = document.getElementById('activities-title');
     const viewActivityBtn = document.getElementById('view-activity-btn');
     const viewConsistencyBtn = document.getElementById('view-consistency-btn');
@@ -404,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.checked = isDark;
             const textColor = isDark ? 'rgba(242, 242, 247, 0.8)' : 'rgba(90, 90, 95, 0.8)';
             const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-            const datalabelColor = isDark ? '#ddd' : '#333';
+            const datalabelColor = '#fff';
             
             if (activitiesChart) {
                 activitiesChart.options.plugins.legend.labels.color = textColor;
@@ -506,7 +508,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function stopTimer() {
-        handleSessionEnd(false); // Manually stopped
+        const isWorkLogger = timerState.type === 'logger' && timerState.category === 'Work';
+        handleSessionEnd(isWorkLogger); 
     }
 
     function runTimerTick() {
@@ -601,6 +604,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateAndRenderMetrics() {
         const todayLogs = getLogsForPeriod(1);
         
+        mainGoalDisplayText.textContent = appData.goalHours ? `Target: ${appData.goalHours} Hours` : 'No Goal Set';
+
         let streak = 0;
         const relevantLogs = appData.activityLog.filter(log => log.status === 'Completed' || log.status === 'Stopped');
         for (let i = relevantLogs.length - 1; i >= 0; i--) {
@@ -629,7 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .filter(log => log.category === 'Work')
             .reduce((sum, log) => sum + ((log.endTime - log.startTime) / 1000), 0);
         
-        targetHoursDisplay.textContent = appData.goalHours || '-';
         const goalSeconds = (appData.goalHours || 0) * 3600;
         const goalProgress = goalSeconds > 0 ? (totalWorkSeconds / goalSeconds) * 100 : 0;
         goalProgressBar.style.width = `${Math.min(100, goalProgress)}%`;
@@ -700,17 +704,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 datalabels: {
                     formatter: (value, ctx) => {
                         const sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                        if (sum === 0) return '0%';
-                        const percentage = ((value / sum) * 100).toFixed(0) + '%';
-                        return percentage;
+                        if (sum === 0) return '';
+                        const percentage = ((value / sum) * 100);
+                        return percentage > 5 ? percentage.toFixed(0) + '%' : '';
                     },
-                    color: isDark ? '#ddd' : '#333',
+                    color: '#fff',
                     font: { weight: 'bold' }
                 }
             }
         });
         activitiesChart = createChart(document.getElementById('activitiesChart').getContext('2d'), 'doughnut', { datasets: [{ backgroundColor: ['#0a84ff', '#ff9f0a', '#5856d6', '#32d74b', '#ff3b30'] }] }, { ...commonOptions(document.body.classList.contains('dark-mode')), plugins: { ...commonOptions(document.body.classList.contains('dark-mode')).plugins, legend: { position: 'bottom' } } });
-        trendChart = createChart(document.getElementById('trendChart').getContext('2d'), 'bar', { datasets: [{ label: 'Consistency', backgroundColor: 'var(--accent-color-light)', borderRadius: 4 }] }, { ...commonOptions(document.body.classList.contains('dark-mode')), plugins: { legend: { display: false }, datalabels: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { color: 'var(--text-secondary-light)', callback: (value) => value + '%' } , grid: { color: 'var(--border-color-light)' } }, x: { ticks: { color: 'var(--text-secondary-light)' }, grid: { display: false } } } });
+        trendChart = createChart(document.getElementById('trendChart').getContext('2d'), 'bar', { datasets: [{ label: 'Consistency', backgroundColor: 'var(--accent-color-light)', borderRadius: 4 }] }, { ...commonOptions(document.body.classList.contains('dark-mode')), plugins: { legend: { display: false }, datalabels: { display: false } }, scales: { y: { beginAtZero: true, max: 100, ticks: { color: document.body.classList.contains('dark-mode') ? 'rgba(242, 242, 247, 0.8)' : 'rgba(90, 90, 95, 0.8)', callback: (value) => value + '%' } , grid: { color: document.body.classList.contains('dark-mode') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)' } }, x: { ticks: { color: document.body.classList.contains('dark-mode') ? 'rgba(242, 242, 247, 0.8)' : 'rgba(90, 90, 95, 0.8)' }, grid: { display: false } } } });
     }
 
     function updateCharts() {
@@ -726,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
         activitiesChart.update();
 
         // Bar chart shows selected period
-        const period = parseInt(document.querySelector('.filter-btn.active').dataset.period);
+        const period = parseInt(document.querySelector('.chart-filters .filter-btn.active').dataset.period);
         const trendLogs = getLogsForPeriod(period).filter(l => (l.status==='Completed' || l.status ==='Stopped') && l.category === 'Work');
         const trendData = {};
         for (let i = 0; i < period; i++) {
@@ -811,8 +815,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const link = document.createElement("a");
             link.setAttribute("href", encodeURI(csvContent));
             link.setAttribute("download", "productivity_log.csv");
+            document.body.appendChild(link);
             link.click();
-            link.remove();
+            document.body.removeChild(link);
         });
 
         viewActivityBtn.addEventListener('click', () => {
