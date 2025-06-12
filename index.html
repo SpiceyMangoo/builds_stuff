@@ -12,13 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* ------------------------- */
-        /* --- CSS VARIABLES & SETUP --- */
-        /* ------------------------- */
+        /* --- [Previous CSS styles remain the same] --- */
+        
         :root {
             --font-main: 'Poppins', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            
-            /* Light Mode Colors */
             --bg-color-light: #f0f2f5;
             --glass-bg-light: rgba(255, 255, 255, 0.55);
             --text-color-light: #1c1c1e;
@@ -31,8 +28,6 @@
             --warning-color-light: #ff9500;
             --locked-in-glow-light: 0 0 20px rgba(0, 122, 255, 0.6);
             --locked-in-badge-bg-light: #007aff;
-            
-            /* Dark Mode Colors */
             --bg-color-dark: #1c1c1e;
             --glass-bg-dark: rgba(44, 44, 46, 0.7);
             --text-color-dark: #f2f2f7;
@@ -46,8 +41,6 @@
             --locked-in-glow-dark: 0 0 20px rgba(10, 132, 255, 0.7);
             --locked-in-badge-bg-dark: #0a84ff;
         }
-
-        /* Applying theme variables */
         body {
             background-color: var(--bg-color-light);
             color: var(--text-color-light);
@@ -56,7 +49,6 @@
             margin: 0;
             padding: 1rem;
         }
-
         body.dark-mode {
             --bg-color-light: var(--bg-color-dark);
             --glass-bg-light: var(--glass-bg-dark);
@@ -71,70 +63,19 @@
             --locked-in-glow-light: var(--locked-in-glow-dark);
             --locked-in-badge-bg-light: var(--locked-in-badge-bg-dark);
         }
-
-        /* ------------------------- */
-        /* --- LAYOUT & CARD --- */
-        /* ------------------------- */
-        .app-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--glass-bg-light);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-radius: 1rem;
-            border: 1px solid var(--border-color-light);
-            box-shadow: var(--shadow-light);
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        main {
-            display: grid;
-            grid-template-areas: "tools" "dashboard" "log";
-            gap: 1.5rem;
-        }
-        
+        .app-wrapper { max-width: 1400px; margin: 0 auto; }
+        .card { background: var(--glass-bg-light); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 1rem; border: 1px solid var(--border-color-light); box-shadow: var(--shadow-light); padding: 1.5rem; transition: all 0.3s ease; }
+        .app-container { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        header { display: flex; justify-content: space-between; align-items: center; }
+        main { display: grid; grid-template-areas: "tools" "dashboard" "log"; gap: 1.5rem; }
         #dashboard { grid-area: dashboard; }
         #tools { grid-area: tools; }
         #log-panel { grid-area: log; }
-
-        @media (min-width: 1024px) {
-            main {
-                grid-template-columns: 350px 1fr;
-                grid-template-rows: auto 1fr;
-                grid-template-areas: "tools dashboard" "tools log";
-            }
-        }
-        
-        /* ------------------------- */
-        /* --- UI COMPONENTS --- */
-        /* ------------------------- */
-        h1, h2, h3 {
-            margin: 0 0 1rem 0;
-            color: var(--text-color-light);
-            font-weight: 600;
-        }
-        
+        @media (min-width: 1024px) { main { grid-template-columns: 350px 1fr; grid-template-rows: auto 1fr; grid-template-areas: "tools dashboard" "tools log"; } }
+        h1, h2, h3 { margin: 0 0 1rem 0; color: var(--text-color-light); font-weight: 600; }
         h1 { font-size: 1.8rem; }
         h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-color-light); padding-bottom: 0.5rem; margin-bottom: 1rem; }
         h3 { font-size: 1rem; color: var(--text-secondary-light); font-weight: 400; }
-
-        /* Theme Toggle */
         .theme-switch-wrapper { display: flex; align-items: center; }
         .theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
         .theme-switch input { display:none; }
@@ -142,79 +83,55 @@
         .slider:before { background-color: #fff; bottom: 2px; content: ""; height: 20px; left: 2px; position: absolute; transition: .4s; width: 20px; border-radius: 50%; }
         input:checked + .slider { background-color: var(--accent-color-light); }
         input:checked + .slider:before { transform: translateX(24px); }
-
-        /* Buttons, Inputs, etc. */
-        button, input, select {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border-color-light);
-            background-color: rgba(120,120,128,0.12);
-            color: var(--text-color-light);
-            font-family: var(--font-main);
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
+        button, input, select { width: 100%; padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--border-color-light); background-color: rgba(120,120,128,0.12); color: var(--text-color-light); font-family: var(--font-main); font-size: 1rem; box-sizing: border-box; }
         input:disabled { background-color: rgba(120,120,128,0.06); cursor: not-allowed; }
-        button {
-            background-color: var(--accent-color-light);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+        button { background-color: var(--accent-color-light); color: white; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s ease, box-shadow 0.2s ease; }
         button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--glow-light); }
         button.secondary { background-color: var(--text-secondary-light); }
         button:disabled { background-color: #555; cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.6; }
-        
-        /* --- DASHBOARD SECTION --- */
         #dashboard-content { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         @media (min-width: 768px) { #dashboard-content { grid-template-columns: 1fr 280px; } }
         .charts-container { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        /* --- THE FIX IS HERE --- */
+        .chart-wrapper {
+            position: relative;
+            height: 250px; /* Give it a defined height */
+        }
+        @media (min-width: 768px) {
+            .chart-wrapper { height: 280px; }
+        }
+        /* --- END OF FIX --- */
+
         .chart-filters { display: flex; gap: 0.5rem; justify-content: center; }
         .chart-filters button { background: none; border: 1px solid var(--border-color-light); color: var(--text-secondary-light); padding: 0.25rem 0.75rem; font-size: 0.8rem; }
         .chart-filters button.active { background-color: var(--accent-color-light); color: white; border-color: var(--accent-color-light); }
         .stats-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
-        
-        .progress-wrapper {
-            background-color: rgba(120,120,128,0.12);
-            border-radius: 0.75rem;
-            padding: 4px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-        }
+        .progress-wrapper { background-color: rgba(120,120,128,0.12); border-radius: 0.75rem; padding: 4px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
         .progress-bar-container { width: 100%; background-color: transparent; border-radius: 0.5rem; overflow: hidden; }
         .progress-bar { width: 0%; height: 22px; background-color: var(--accent-color-light); transition: width 0.5s ease-in-out; text-align: center; color: white; font-size: 0.8rem; line-height: 22px; font-weight: 600; border-radius: 0.5rem; }
         #goalProgressBar { background-color: var(--success-color-light); }
-        
         .stat-item { text-align: center; }
         .stat-value { font-weight: 700; font-size: 2rem; color: var(--accent-color-light); }
         .stat-label { font-size: 0.9rem; color: var(--text-secondary-light); }
         #interruptionsValue { color: var(--warning-color-light); }
         #targetHoursDisplay { font-weight: 600; }
         .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center; }
-
-        /* --- TOOLS SECTION --- */
         #timer-display { font-size: 4rem; font-weight: 700; text-align: center; margin: 1rem 0; color: var(--accent-color-light); }
         #customPomodoroInputs { display: none; }
         .timer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-        
-        /* --- LOG PANEL --- */
         #log-list { list-style: none; padding: 0; margin: 0; max-height: 400px; overflow-y: auto; }
         .log-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid var(--border-color-light); }
         .log-item:last-child { border-bottom: none; }
         .log-item .status-completed { color: var(--success-color-light); font-weight: 600; }
         .log-item .status-stopped { color: #ff3b30; font-weight: 600; }
-
-        /* --- GAMIFICATION & MODAL --- */
         #lockedInBadge { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); background-color: var(--locked-in-badge-bg-light); color: white; padding: 0.5rem 1rem; border-radius: 1rem; font-weight: 600; z-index: 1000; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
         body.locked-in #lockedInBadge { opacity: 1; }
         body.locked-in button:hover:not(:disabled) { box-shadow: var(--locked-in-glow-light); }
-        
         #greetingModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         #greetingModal.visible { opacity: 1; pointer-events: all; }
         #greetingModal .card { max-width: 400px; text-align: center; }
+
     </style>
 </head>
 <body>
@@ -281,15 +198,19 @@
                     <div class="charts-container">
                         <div>
                             <h2>Activities Split (Today)</h2>
-                            <canvas id="activitiesChart"></canvas>
+                            <div class="chart-wrapper">
+                                <canvas id="activitiesChart"></canvas>
+                            </div>
                         </div>
                         <div>
                             <h2>Productivity Trend</h2>
+                             <div class="chart-wrapper">
+                                <canvas id="trendChart"></canvas>
+                            </div>
                             <div class="chart-filters">
                                 <button class="filter-btn active" data-period="7">7 Days</button>
                                 <button class="filter-btn" data-period="30">30 Days</button>
                             </div>
-                            <canvas id="trendChart"></canvas>
                         </div>
                     </div>
                     <div class="stats-sidebar">
@@ -412,6 +333,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function checkGreeting() {
+        const today = new Date().toDateString();
+        if (appData.lastGreeting !== today || !appData.goalHours) {
+            const now = new Date();
+            const twoAM = new Date();
+            twoAM.setDate(now.getDate() + 1);
+            twoAM.setHours(2, 0, 0, 0);
+
+            const hoursLeft = Math.floor((twoAM - now) / (1000 * 60 * 60));
+            greetingMessage.textContent = `There are ${hoursLeft} hours left in your day. Let's get to it!`;
+            greetingModal.classList.add('visible');
+        }
+    }
+
     // =================================================================
     // --- 2. TIMER LOGIC ---
     // =================================================================
@@ -473,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runTimerTick() {
+        clearInterval(timerInterval); // Ensure no multiple intervals are running
         timerInterval = setInterval(() => {
             const elapsed = Math.floor((Date.now() - timerState.startTime - timerState.accumulatedPauseTime) / 1000);
             timerState.timeRemaining = timerState.plannedDuration - elapsed;
@@ -502,8 +438,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wasPomodoroWork && breakDurationMins > 0) {
             const breakCategory = breakDurationMins > 18 ? 'Leisure' : 'Break';
             startBreakSession(breakDurationMins, breakCategory);
+        } else {
+            updateAllUI();
         }
-        updateAllUI();
     }
 
     function startBreakSession(durationMins, category) {
@@ -518,6 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function resetTimerState() {
+        clearInterval(timerInterval);
         Object.assign(timerState, {
             running: false, paused: false, startTime: null, accumulatedPauseTime: 0,
             plannedDuration: 0, timeRemaining: 0, isBreak: false
@@ -550,13 +488,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateAndRenderMetrics() {
         const todayLogs = getLogsForPeriod(1);
         
-        streakDisplay.textContent = appData.activityLog.reduce((acc, log, i, arr) => 
-            (i === arr.length - 1 && log.status === 'Completed') ? acc + 1 : (log.status === 'Completed' && arr[i+1].status !== 'Completed' ? 1 : acc), 0);
+        let streak = 0;
+        const completedLogs = appData.activityLog.filter(log => log.status === 'Completed' || log.status === 'Stopped');
+        for (let i = completedLogs.length - 1; i >= 0; i--) {
+            if (completedLogs[i].status === 'Completed') {
+                streak++;
+            } else {
+                break;
+            }
+        }
+        streakDisplay.textContent = streak;
 
         interruptionsValue.textContent = todayLogs.filter(log => log.status === 'Paused').length;
         
         let totalSessionPerc = 0, workSessionCount = 0;
-        todayLogs.filter(log => log.category === 'Work' && log.plannedDuration > 0).forEach(log => {
+        todayLogs.filter(log => log.status ==='Completed' && log.category === 'Work' && log.plannedDuration > 0).forEach(log => {
             const actualDuration = (log.endTime - log.startTime);
             totalSessionPerc += (actualDuration / (log.plannedDuration * 1000));
             workSessionCount++;
@@ -585,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        todayDisplayLogs.reverse().forEach(log => {
+        todayDisplayLogs.slice().reverse().forEach(log => {
             const li = document.createElement('li');
             li.className = 'log-item';
             const startTime = new Date(log.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -612,6 +558,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (isRunning) {
             pauseTimerBtn.textContent = timerState.paused ? 'Resume' : 'Pause';
+        }
+    }
+
+    function checkLockedInStatus() {
+        const todayLogs = getLogsForPeriod(1);
+        const totalWorkSeconds = todayLogs
+            .filter(log => log.status === 'Completed' || log.status === 'Stopped')
+            .filter(log => log.category === 'Work')
+            .reduce((sum, log) => sum + ((log.endTime - log.startTime) / 1000), 0);
+
+        if (appData.goalHours && totalWorkSeconds >= appData.goalHours * 3600) {
+            document.body.classList.add('locked-in');
+        } else {
+            document.body.classList.remove('locked-in');
         }
     }
     
@@ -642,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Bar chart shows selected period
         const period = parseInt(document.querySelector('.filter-btn.active').dataset.period);
-        const trendLogs = getLogsForPeriod(period).filter(l => l.category === 'Work');
+        const trendLogs = getLogsForPeriod(period).filter(l => (l.status==='Completed' || l.status ==='Stopped') && l.category === 'Work');
         const trendData = {};
         for (let i = 0; i < period; i++) {
             const d = new Date();
@@ -723,11 +683,9 @@ document.addEventListener('DOMContentLoaded', () => {
             link.setAttribute("href", encodeURI(csvContent));
             link.setAttribute("download", "productivity_log.csv");
             link.click();
+            link.remove();
         });
     }
-    
-    function checkGreeting() { /* ... same as before ... */ }
-    function checkLockedInStatus() { /* ... same as before ... */ }
     
     initializeApp();
 });
