@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notion Widgets Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .widget-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .widget-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .widget-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .widget-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .widget-description {
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .widget-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .widget-features li {
+            padding: 5px 0;
+            opacity: 0.8;
+        }
+
+        .widget-features li:before {
+            content: "✓ ";
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .widget-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .coming-soon-badge {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            display: inline-block;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.8;
+        }
+
+        .embed-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .embed-instructions h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .embed-instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .embed-instructions code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .widgets-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .widget-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Notion Widgets</h1>
+            <p>Beautiful, functional widgets designed specifically for embedding in your Notion pages. Free and open source.</p>
+        </div>
+
+        <div class="embed-instructions">
+            <h3>🔧 How to Embed in Notion</h3>
+            <ol>
+                <li>Copy the widget URL from below</li>
+                <li>In your Notion page, type <code>/embed</code></li>
+                <li>Paste the widget URL and press Enter</li>
+                <li>Resize the embed as needed</li>
+            </ol>
+        </div>
+
+        <div class="widgets-grid">
+            <!-- Pomodoro Timer -->
+            <div class="widget-card">
+                <div class="widget-icon">🍅</div>
+                <div class="widget-title">Pomodoro Timer</div>
+                <div class="widget-description">
+                    A beautiful, functional Pomodoro timer with work sessions, breaks, and progress tracking.
+                </div>
+                <ul class="widget-features">
+                    <li>25/5/15 minute intervals</li>
+                    <li>Visual progress ring</li>
+                    <li>Session counter</li>
+                    <li>Auto-break suggestions</li>
+                    <li>Modern glassmorphism design</li>
+                </ul>
+                <div class="widget-actions">
+                    <a href="pomodoro-timer.html" class="btn btn-primary" target="_blank">Open Widget</a>
+                    <button class="btn btn-secondary" onclick="copyToClipboard('https://spiceymangoo.github.io/pomodoro-timer/pomodoro-timer.html')">Copy URL</button>
+                </div>
+            </div>
+
+            <!-- Habit Tracker - Coming Soon -->
+            <div class="widget-card coming-soon">
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="widget-icon">✅</div>
+                <div class="widget-title">Habit Tracker</div>
+                <div class="widget-description">
+                    Track your daily habits with a beautiful grid view and streak counters.
+                </div>
+                <ul class="widget-features">
+                    <li>Daily habit checking</li>
+                    <li>Streak tracking</li>
+                    <li>Monthly view</li>
+                    <li>Progress statistics</li>
+                </ul>
+                <div class="widget-actions">
+                    <button class="btn btn-primary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <!-- Pomodoro Timer Pro -->
+            <div class="widget-card">
+                <div class="widget-icon">✨</div>
+                <div class="widget-title">Pomodoro Timer Pro</div>
+                <div class="widget-description">
+                    A beautiful, functional Pomodoro timer with automated work sessions, breaks, and progress tracking.
+                </div>
+                <ul class="widget-features">
+                    <li>25/5/15 minute intervals</li>
+                    <li>Visual progress ring</li>
+                    <li>Session counter</li>
+                    <li>Auto-break suggestions</li>
+                    <li>Modern glassmorphism design</li>
+                </ul>
+                <div class="widget-actions">
+                    <a href="pomodoro-timer-proV2.html" class="btn btn-primary" target="_blank">Open Widget</a>
+                    <button class="btn btn-secondary" onclick="copyToClipboard('https://spiceymangoo.github.io/pomodoro-timer-pro/pomodoro-timer-proV2.html')">Copy URL</button>
+                </div>
+            </div>
+
+            <!-- Quote of the Day - Coming Soon -->
+            <div class="widget-card coming-soon">
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="widget-icon">💭</div>
+                <div class="widget-title">Daily Quote</div>
+                <div class="widget-description">
+                    Inspirational quotes that change daily to motivate your work.
+                </div>
+                <ul class="widget-features">
+                    <li>Daily rotating quotes</li>
+                    <li>Multiple categories</li>
+                    <li>Share functionality</li>
+                    <li>Minimal design</li>
+                </ul>
+                <div class="widget-actions">
+                    <button class="btn btn-primary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <!-- Calendar Widget - Coming Soon -->
+            <div class="widget-card coming-soon">
+                <div class="coming-soon-badge">Coming Soon</div>
+                <div class="widget-icon">📅</div>
+                <div class="widget-title">Mini Calendar</div>
+                <div class="widget-description">
+                    Compact calendar view perfect for quick date reference.
+                </div>
+                <ul class="widget-features">
+                    <li>Current month view</li>
+                    <li>Today highlighting</li>
+                    <li>Week numbers</li>
+                    <li>Responsive design</li>
+                </ul>
+                <div class="widget-actions">
+                    <button class="btn btn-primary" disabled>Coming Soon</button>
+                </div>
+            </div>
+
+            <!-- Progress Bar - Coming Soon -->
+            <div class="widget-card">
+                <div class="widget-icon">📊</div>
+                <div class="widget-title">Progress Tracker</div>
+                <div class="widget-description">
+                    Visual progress bars for tracking goals and milestones.
+                </div>
+                <ul class="widget-features">
+                    <li>Multiple progress bars</li>
+                    <li>Custom labels</li>
+                    <li>Percentage display</li>
+                    <li>Animated updates</li>
+                </ul>
+                <div class="widget-actions">
+                    <a href="progressTracker.html" class="btn btn-primary" target="_blank">Open Widget</a>
+                    <button class="btn btn-secondary" onclick="copyToClipboard('https://spiceymangoo.github.io/progressTracker/progressTracker.html')">Copy URL</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Built with ❤️ for the Notion community</p>
+            <p>Open source • MIT License • <a href="https://github.com/spiceymangoo/pomodoro-timer" style="color: white; text-decoration: underline;">View on GitHub</a></p>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Show a temporary success message
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'rgba(74, 222, 128, 0.3)';
+                button.style.borderColor = 'rgba(74, 222, 128, 0.5)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '';
+                    button.style.borderColor = '';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                alert('URL: ' + text);
+            });
+        }
+
+        // Add some subtle animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.widget-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
