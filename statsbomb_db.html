@@ -1,0 +1,5310 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>StatsBomb Data Dictionary</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; margin: 0; padding: 20px; }
+        h1, h2 { color: #1a1a1a; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .container { max-width: 1200px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .collapsible { background-color: #f1f1f1; color: #444; cursor: pointer; padding: 12px 18px; width: 100%; border: none; text-align: left; outline: none; font-size: 18px; font-weight: bold; margin-top: 10px; border-radius: 5px; }
+        .collapsible:after { content: '\002B'; color: #777; font-weight: bold; float: right; margin-left: 5px; }
+        .collapsible.active:after { content: "\2212"; }
+        .content { padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; background-color: white; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; text-align: left; border: 1px solid #ddd; vertical-align: top; }
+        th { background-color: #f8f8f8; font-weight: bold; }
+        pre { background-color: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word; font-family: "Courier New", Courier, monospace; font-size: 14px; margin: 0; }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <h1>StatsBomb Data Dictionary</h1>
+        <p>A comprehensive breakdown of all event types and their specific attributes from Match ID 3895302.</p>
+        
+        <h2>Common Attributes</h2>
+        <p>These attributes appear in the majority of events.</p>
+        
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+        </table>
+        
+
+        <h2>Event-Specific Attributes</h2>
+        <p>These attributes are unique to a specific event type.</p>
+        <button type="button" class="collapsible">50/50</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>50_50</strong></td>
+                <td>50_50</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "outcome": {
+    "id": 1,
+    "name": "Lost"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"b795f04f-2f2a-466e-9d46-8ecb0ff0453c"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>4098</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  100.0,
+  55.1
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>86</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Exequiel Alejandro Palacios"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>28268.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Defensive Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>135</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "fa44f8e9-dd03-4cc9-bd1f-f8d24d0a5de6"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>27</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:41:27.096"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"50/50"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Bad Behaviour</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>bad_behaviour</strong></td>
+                <td>bad_behaviour</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "card": {
+    "id": 7,
+    "name": "Yellow Card"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"a3d7c89d-209a-4afa-a1d4-6b2e09ecd3e6"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>2382</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>46</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Kick Off"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Leonardo Bittencourt"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>8826.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Center Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>70</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>4</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:01:04.682"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Bad Behaviour"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Ball Receipt*</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>ball_receipt</strong></td>
+                <td>ball_receipt</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "outcome": {
+    "id": 9,
+    "name": "Incomplete"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"c52922ef-7ae2-465b-8843-a88bed2c9ef9"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>985</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  29.1,
+  46.3
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>18</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Amine Adli"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>33401.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Attacking Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>38</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "888a1fd0-0d76-4f1d-8e4f-8bf3bc9dc426",
+  "bf4a643a-e893-452c-b56c-c9675f786029"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>25</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:18:25.985"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Ball Receipt*"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Ball Recovery</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"1da0bc9f-2291-4657-8f74-68c97e47d406"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>441</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  24.6,
+  43.4
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>6</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Granit Xhaka"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>3500.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Defensive Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>14</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "6bfe5ed3-06f0-4775-b502-f7f9f4434c39"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>50</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:06:50.739"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Ball Recovery"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Block</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"da0d142b-d253-4a0d-8d79-75d36b05c952"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>2006</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  14.5,
+  15.9
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>43</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>out</strong></td>
+                <td>out</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Milos Veljkovic"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>6321.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>64</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "48513ce2-f532-40a3-961f-536a683dc9ff"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:43:01.891"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Block"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Carry</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>carry</strong></td>
+                <td>carry</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "end_location": [
+    32.7,
+    65.3
+  ]
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>1.31567</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"e9648006-8cd2-43f2-8615-c4cd3f583f05"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>13</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  33.2,
+  63.8
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Kick Off"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Juli\u00e1n Malatini"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>51769.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "4f4800c3-368a-457f-8a4e-46c9946e3aae",
+  "b88bbf46-30c8-4c60-b8cc-6d855f94f990",
+  "cfa1f5e1-4e8e-4fc2-bbc8-4df5fdef8283"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>9</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:00:09.037"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Carry"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Clearance</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>clearance</strong></td>
+                <td>clearance</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "left_foot": true,
+  "body_part": {
+    "id": 38,
+    "name": "Left Foot"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"2f1ac398-fc93-4969-9e3f-cbbefd3e6db4"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>681</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  8.6,
+  46.8
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>12</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>out</strong></td>
+                <td>out</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Milos Veljkovic"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>6321.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>25</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "4fc638eb-444a-4966-9dbe-bacdd46ada2b"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>46</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:12:46.625"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Clearance"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Dispossessed</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"9cb98ccc-86f5-432a-b5f9-90fc834ea114"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>181</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  70.5,
+  74.6
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Nathan Tella"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>41411.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Wing Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>7</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "09235279-f899-4c76-a65e-30bc9dfba954"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>54</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:02:54.503"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Dispossessed"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Dribble</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>dribble</strong></td>
+                <td>dribble</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "outcome": {
+    "id": 9,
+    "name": "Incomplete"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"1016adda-13c0-4584-871d-8a0f46daf79a"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>134</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  63.0,
+  4.7
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Goal Kick"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Romano Schmid"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>8784.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Center Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>6</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "dfaa154d-c645-467a-aa34-bd4c9b622fc9"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>13</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:02:13.865"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Dribble"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Dribbled Past</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"4ff7d368-4821-40f4-8dc7-828fba191c48"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>996</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  104.5,
+  52.0
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>18</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Marvin Ducksch"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>12299.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Center Forward"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>39</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "5fdfa9e2-e8f4-42f5-b7f2-723245462de0",
+  "7bf27e25-2296-4a54-998d-4f8b1f3df184",
+  "8cbac372-1329-4057-8ba1-15fb5326c23b"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>30</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:18:30.324"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Dribbled Past"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Duel</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duel</strong></td>
+                <td>duel</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "type": {
+    "id": 11,
+    "name": "Tackle"
+  },
+  "outcome": {
+    "id": 4,
+    "name": "Won"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"dfaa154d-c645-467a-aa34-bd4c9b622fc9"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>135</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  57.1,
+  75.4
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Odilon Kossonou"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>27133.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>7</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "1016adda-13c0-4584-871d-8a0f46daf79a"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>13</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:02:13.865"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Duel"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Error</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"80ed7c2a-2f7b-4d56-aa69-4a8a3b14bc2f"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>432</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  13.7,
+  49.2
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>6</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Free Kick"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Odilon Kossonou"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>27133.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>13</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "588a9296-c2bb-4342-ab24-a9718b4e1e46"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>47</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:06:47.545"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Error"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Foul Committed</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>foul_committed</strong></td>
+                <td>foul_committed</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "advantage": true
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"3bc80974-5c34-4692-8051-671d6311d89d"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>778</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  76.9,
+  49.2
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>14</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Amine Adli"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>33401.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Attacking Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>30</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "166d1cf1-76dd-4a48-b8aa-ec3996ce05d6"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>48</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:14:48.166"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Foul Committed"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Foul Won</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>foul_won</strong></td>
+                <td>foul_won</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "defensive": true
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"06715acb-0dee-4516-94b3-28113d31ff6d"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>496</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  56.4,
+  26.6
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>8</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Romano Schmid"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>8784.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Center Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>18</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "85eec3d3-ce3b-4aac-ad98-18d3768012b5"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>49</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:08:49.271"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Foul Won"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Goal Keeper</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>goalkeeper</strong></td>
+                <td>goalkeeper</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "end_location": [
+    1.7,
+    41.6
+  ],
+  "position": {
+    "id": 44,
+    "name": "Set"
+  },
+  "type": {
+    "id": 32,
+    "name": "Shot Faced"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"bd9ad186-bdde-4678-8bed-50ab1d9c62ae"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>439</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  1.7,
+  41.6
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>6</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Free Kick"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Luk\u00e1\u0161 Hr\u00e1deck\u00fd"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>8667.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Goalkeeper"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>13</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "c577e730-b9f5-44f2-9257-9e7730c23d7b"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>49</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:06:49.152"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Goal Keeper"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Half End</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"c15517b5-d7e1-4ed3-82b2-3b669be58d35"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>2342</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>49</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>69</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "a6dcc38c-0299-442a-bdf2-da967a8695a0"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:49:02.192"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Half End"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Half Start</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"1f956a2b-ece0-475b-8802-e82ed922c307"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>3</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "79b90fbb-2cfd-419b-90f4-f0e5980c47d3"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:00:00.000"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Half Start"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Injury Stoppage</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"ffd87796-f52e-4803-98b0-fc08c52a228a"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>482</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>injury_stoppage</strong></td>
+                <td>injury_stoppage</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "in_chain": true
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>7</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Michael Zetterer"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>23198.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Goalkeeper"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>15</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>47</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:07:47.891"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Injury Stoppage"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Interception</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"88e5a51f-192e-416b-b315-6a5061d2c5da"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>2655</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>interception</strong></td>
+                <td>interception</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "outcome": {
+    "id": 4,
+    "name": "Won"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  31.1,
+  73.8
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>52</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Juli\u00e1n Malatini"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>51769.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>84</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "b03411d0-a5ed-41d4-a75f-19b485a4719a",
+  "beb78604-935b-44cf-9eea-f46be3ef058b"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>42</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:07:42.714"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Interception"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Miscontrol</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"a2b55298-2e71-4860-8236-7b3ca0ff26bc"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>103</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  109.7,
+  53.8
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>out</strong></td>
+                <td>out</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Amine Adli"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>33401.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Attacking Midfield"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>5</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "cdddc9d6-c5ae-4c39-b250-6e8c00ff7ac7"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>25</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:01:25.030"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Miscontrol"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Offside</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"12fbd2d7-502a-4edc-8d7c-858544819770"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>600</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  110.8,
+  58.3
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>11</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Free Kick"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Mitchell Weiser"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>8576.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Wing Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>22</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>10</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:11:10.297"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Offside"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Pass</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.712449</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"7fd797d5-530c-4e27-bac7-8fa097c95abc"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>28</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  66.4,
+  63.8
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>pass</strong></td>
+                <td>pass</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "recipient": {
+    "id": 8576,
+    "name": "Mitchell Weiser"
+  },
+  "length": 7.0092797,
+  "angle": -2.3057323,
+  "height": {
+    "id": 1,
+    "name": "Ground Pass"
+  },
+  "end_location": [
+    61.7,
+    58.6
+  ],
+  "body_part": {
+    "id": 38,
+    "name": "Left Foot"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Kick Off"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Marvin Ducksch"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>12299.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Center Forward"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "533ffee0-b9fc-4065-a9db-cb729523d926",
+  "8bad257e-432e-4054-bf83-7e43d9e61327"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>16</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:00:16.035"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Pass"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Player Off</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"9f769610-b555-4729-9d10-9267d2219c6a"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>1505</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>34</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Goal Kick"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Nathan Tella"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>41411.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Wing Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>54</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "406a0c70-3071-47f2-a34d-e04ee648df51"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>36</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:34:36.320"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Player Off"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Player On</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"406a0c70-3071-47f2-a34d-e04ee648df51"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>1540</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>35</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Free Kick"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Nathan Tella"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>41411.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Wing Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>55</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "9f769610-b555-4729-9d10-9267d2219c6a"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>8</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:35:08.119"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Player On"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Pressure</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>counterpress</strong></td>
+                <td>counterpress</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.897024</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"eb855940-022b-44a6-968d-389f8165c721"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>78</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  74.8,
+  46.6
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Counter"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Jonathan Tah"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>8221.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>4</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "7215ae54-4650-4cf9-9de7-2398009715f8"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>4</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:01:04.417"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Pressure"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Referee Ball-Drop</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"a5cb7474-80de-4361-9d0f-b94dbaf4ed7e"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>483</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  113.3,
+  35.6
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>8</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Other"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>16</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>23</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:08:23.037"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Referee Ball-Drop"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Shield</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"d1f836b5-a2b1-4067-9480-3e8eee7bc99b"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>3308</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  3.6,
+  67.4
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>69</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Kick Off"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Odilon Kossonou"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>27133.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Right Center Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>107</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>4</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:24:04.669"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Shield"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Shot</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.217872</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"bbc2c68d-c096-483d-abf4-32c0175a0f55"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>480</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>location</strong></td>
+                <td>location</td>
+                <td>List</td>
+                <td><pre>[
+  114.6,
+  33.5
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>7</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Piero Mart\u00edn Hincapi\u00e9 Reyna"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>38004.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Wing Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>14</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>related_events</strong></td>
+                <td>related_events</td>
+                <td>List</td>
+                <td><pre>[
+  "735d168e-bdc9-4ffa-a979-ae74e3046b7e",
+  "7ccfdcc6-e1d3-41bb-895a-fb70c2be7f44"
+]</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>40</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>shot</strong></td>
+                <td>shot</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "statsbomb_xg": 0.14338115,
+  "end_location": [
+    118.1,
+    35.7,
+    0.2
+  ],
+  "key_pass_id": "95ee2820-c4dc-44f2-9fe7-d24cb6edd881",
+  "technique": {
+    "id": 93,
+    "name": "Normal"
+  },
+  "body_part": {
+    "id": 38,
+    "name": "Left Foot"
+  },
+  "type": {
+    "id": 87,
+    "name": "Open Play"
+  },
+  "outcome": {
+    "id": 100,
+    "name": "Saved"
+  },
+  "first_time": true,
+  "freeze_frame": [
+    {
+      "location": [
+        92.1,
+        63.8
+      ],
+      "player": {
+        "id": 8784,
+        "name": "Romano Schmid"
+      },
+      "position": {
+        "id": 15,
+        "name": "Left Center Midfield"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        92.9,
+        39.4
+      ],
+      "player": {
+        "id": 8826,
+        "name": "Leonardo Bittencourt"
+      },
+      "position": {
+        "id": 13,
+        "name": "Right Center Midfield"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        113.6,
+        39.8
+      ],
+      "player": {
+        "id": 32289,
+        "name": "Victor Okoh Boniface"
+      },
+      "position": {
+        "id": 23,
+        "name": "Center Forward"
+      },
+      "teammate": true
+    },
+    {
+      "location": [
+        113.2,
+        58.8
+      ],
+      "player": {
+        "id": 41411,
+        "name": "Nathan Tella"
+      },
+      "position": {
+        "id": 7,
+        "name": "Right Wing Back"
+      },
+      "teammate": true
+    },
+    {
+      "location": [
+        98.9,
+        48.8
+      ],
+      "player": {
+        "id": 9195,
+        "name": "Robert Andrich"
+      },
+      "position": {
+        "id": 11,
+        "name": "Left Defensive Midfield"
+      },
+      "teammate": true
+    },
+    {
+      "location": [
+        99.1,
+        60.1
+      ],
+      "player": {
+        "id": 8804,
+        "name": "Jonas Hofmann"
+      },
+      "position": {
+        "id": 18,
+        "name": "Right Attacking Midfield"
+      },
+      "teammate": true
+    },
+    {
+      "location": [
+        104.3,
+        41.0
+      ],
+      "player": {
+        "id": 33401,
+        "name": "Amine Adli"
+      },
+      "position": {
+        "id": 20,
+        "name": "Left Attacking Midfield"
+      },
+      "teammate": true
+    },
+    {
+      "location": [
+        114.6,
+        39.1
+      ],
+      "player": {
+        "id": 31100,
+        "name": "Christian Gro\u00df"
+      },
+      "position": {
+        "id": 4,
+        "name": "Center Back"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        118.3,
+        36.4
+      ],
+      "player": {
+        "id": 23198,
+        "name": "Michael Zetterer"
+      },
+      "position": {
+        "id": 1,
+        "name": "Goalkeeper"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        113.8,
+        55.6
+      ],
+      "player": {
+        "id": 6321,
+        "name": "Milos Veljkovic"
+      },
+      "position": {
+        "id": 5,
+        "name": "Left Center Back"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        110.8,
+        61.0
+      ],
+      "player": {
+        "id": 28573,
+        "name": "Felix Agu"
+      },
+      "position": {
+        "id": 8,
+        "name": "Left Wing Back"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        109.3,
+        48.1
+      ],
+      "player": {
+        "id": 21865,
+        "name": "Senne Lynen"
+      },
+      "position": {
+        "id": 10,
+        "name": "Center Defensive Midfield"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        113.0,
+        37.1
+      ],
+      "player": {
+        "id": 51769,
+        "name": "Juli\u00e1n Malatini"
+      },
+      "position": {
+        "id": 3,
+        "name": "Right Center Back"
+      },
+      "teammate": false
+    },
+    {
+      "location": [
+        114.3,
+        34.6
+      ],
+      "player": {
+        "id": 8576,
+        "name": "Mitchell Weiser"
+      },
+      "position": {
+        "id": 7,
+        "name": "Right Wing Back"
+      },
+      "teammate": false
+    }
+  ]
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:07:40.953"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Shot"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>under_pressure</strong></td>
+                <td>under_pressure</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Starting XI</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"794ec549-5288-4d1a-93e8-0fc6d3968784"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"Regular Play"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>1</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>tactics</strong></td>
+                <td>tactics</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "formation": 3421,
+  "lineup": [
+    {
+      "player": {
+        "id": 8667,
+        "name": "Luk\u00e1\u0161 Hr\u00e1deck\u00fd"
+      },
+      "position": {
+        "id": 1,
+        "name": "Goalkeeper"
+      },
+      "jersey_number": 1
+    },
+    {
+      "player": {
+        "id": 27133,
+        "name": "Odilon Kossonou"
+      },
+      "position": {
+        "id": 3,
+        "name": "Right Center Back"
+      },
+      "jersey_number": 6
+    },
+    {
+      "player": {
+        "id": 8221,
+        "name": "Jonathan Tah"
+      },
+      "position": {
+        "id": 4,
+        "name": "Center Back"
+      },
+      "jersey_number": 4
+    },
+    {
+      "player": {
+        "id": 30606,
+        "name": "Edmond Fay\u00e7al Tapsoba"
+      },
+      "position": {
+        "id": 5,
+        "name": "Left Center Back"
+      },
+      "jersey_number": 12
+    },
+    {
+      "player": {
+        "id": 41411,
+        "name": "Nathan Tella"
+      },
+      "position": {
+        "id": 7,
+        "name": "Right Wing Back"
+      },
+      "jersey_number": 19
+    },
+    {
+      "player": {
+        "id": 38004,
+        "name": "Piero Mart\u00edn Hincapi\u00e9 Reyna"
+      },
+      "position": {
+        "id": 8,
+        "name": "Left Wing Back"
+      },
+      "jersey_number": 3
+    },
+    {
+      "player": {
+        "id": 3500,
+        "name": "Granit Xhaka"
+      },
+      "position": {
+        "id": 9,
+        "name": "Right Defensive Midfield"
+      },
+      "jersey_number": 34
+    },
+    {
+      "player": {
+        "id": 9195,
+        "name": "Robert Andrich"
+      },
+      "position": {
+        "id": 11,
+        "name": "Left Defensive Midfield"
+      },
+      "jersey_number": 8
+    },
+    {
+      "player": {
+        "id": 8804,
+        "name": "Jonas Hofmann"
+      },
+      "position": {
+        "id": 18,
+        "name": "Right Attacking Midfield"
+      },
+      "jersey_number": 7
+    },
+    {
+      "player": {
+        "id": 33401,
+        "name": "Amine Adli"
+      },
+      "position": {
+        "id": 20,
+        "name": "Left Attacking Midfield"
+      },
+      "jersey_number": 21
+    },
+    {
+      "player": {
+        "id": 32289,
+        "name": "Victor Okoh Boniface"
+      },
+      "position": {
+        "id": 23,
+        "name": "Center Forward"
+      },
+      "jersey_number": 22
+    }
+  ]
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:00:00.000"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Starting XI"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Substitution</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"99cc0537-4d36-4026-a5fb-5a9d518968ae"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>3286</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>68</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>off_camera</strong></td>
+                <td>off_camera</td>
+                <td>Boolean</td>
+                <td><pre>true</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Throw In"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player</strong></td>
+                <td>player</td>
+                <td>String</td>
+                <td><pre>"Felix Agu"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>player_id</strong></td>
+                <td>player_id</td>
+                <td>Float</td>
+                <td><pre>28573.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>position</strong></td>
+                <td>position</td>
+                <td>String</td>
+                <td><pre>"Left Wing Back"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>106</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>25</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>substitution</strong></td>
+                <td>substitution</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "outcome": {
+    "id": 103,
+    "name": "Tactical"
+  },
+  "replacement": {
+    "id": 24179,
+    "name": "Olivier Deman"
+  }
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:23:25.559"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Substitution"</pre></td>
+            </tr>
+            
+        </table>
+        </div><button type="button" class="collapsible">Tactical Shift</button><div class="content">
+        <table>
+            <tr><th>Source Attribute</th><th>Suggested Canonical Name</th><th>Data Type</th><th>Example Value</th></tr>
+            
+            <tr>
+                <td><strong>duration</strong></td>
+                <td>duration</td>
+                <td>Float</td>
+                <td><pre>0.0</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>id</strong></td>
+                <td>id</td>
+                <td>String</td>
+                <td><pre>"32a65be5-91ac-4743-b4e8-75003bd305ed"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>index</strong></td>
+                <td>index</td>
+                <td>Integer</td>
+                <td><pre>3293</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>match_id</strong></td>
+                <td>match_id</td>
+                <td>Integer</td>
+                <td><pre>3895302</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>minute</strong></td>
+                <td>minute</td>
+                <td>Integer</td>
+                <td><pre>68</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>period</strong></td>
+                <td>period</td>
+                <td>Integer</td>
+                <td><pre>2</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>play_pattern</strong></td>
+                <td>play_pattern</td>
+                <td>String</td>
+                <td><pre>"From Kick Off"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession</strong></td>
+                <td>possession</td>
+                <td>Integer</td>
+                <td><pre>107</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team</strong></td>
+                <td>possession_team</td>
+                <td>String</td>
+                <td><pre>"Werder Bremen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>possession_team_id</strong></td>
+                <td>possession_team_id</td>
+                <td>Integer</td>
+                <td><pre>176</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>second</strong></td>
+                <td>second</td>
+                <td>Integer</td>
+                <td><pre>47</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>tactics</strong></td>
+                <td>tactics</td>
+                <td>Dictionary</td>
+                <td><pre>{
+  "formation": 3421,
+  "lineup": [
+    {
+      "player": {
+        "id": 8667,
+        "name": "Luk\u00e1\u0161 Hr\u00e1deck\u00fd"
+      },
+      "position": {
+        "id": 1,
+        "name": "Goalkeeper"
+      },
+      "jersey_number": 1
+    },
+    {
+      "player": {
+        "id": 27133,
+        "name": "Odilon Kossonou"
+      },
+      "position": {
+        "id": 3,
+        "name": "Right Center Back"
+      },
+      "jersey_number": 6
+    },
+    {
+      "player": {
+        "id": 8221,
+        "name": "Jonathan Tah"
+      },
+      "position": {
+        "id": 4,
+        "name": "Center Back"
+      },
+      "jersey_number": 4
+    },
+    {
+      "player": {
+        "id": 30606,
+        "name": "Edmond Fay\u00e7al Tapsoba"
+      },
+      "position": {
+        "id": 5,
+        "name": "Left Center Back"
+      },
+      "jersey_number": 12
+    },
+    {
+      "player": {
+        "id": 32712,
+        "name": "Jeremie Frimpong"
+      },
+      "position": {
+        "id": 7,
+        "name": "Right Wing Back"
+      },
+      "jersey_number": 30
+    },
+    {
+      "player": {
+        "id": 38004,
+        "name": "Piero Mart\u00edn Hincapi\u00e9 Reyna"
+      },
+      "position": {
+        "id": 8,
+        "name": "Left Wing Back"
+      },
+      "jersey_number": 3
+    },
+    {
+      "player": {
+        "id": 9195,
+        "name": "Robert Andrich"
+      },
+      "position": {
+        "id": 9,
+        "name": "Right Defensive Midfield"
+      },
+      "jersey_number": 8
+    },
+    {
+      "player": {
+        "id": 3500,
+        "name": "Granit Xhaka"
+      },
+      "position": {
+        "id": 11,
+        "name": "Left Defensive Midfield"
+      },
+      "jersey_number": 34
+    },
+    {
+      "player": {
+        "id": 8804,
+        "name": "Jonas Hofmann"
+      },
+      "position": {
+        "id": 18,
+        "name": "Right Attacking Midfield"
+      },
+      "jersey_number": 7
+    },
+    {
+      "player": {
+        "id": 40724,
+        "name": "Florian Wirtz"
+      },
+      "position": {
+        "id": 20,
+        "name": "Left Attacking Midfield"
+      },
+      "jersey_number": 10
+    },
+    {
+      "player": {
+        "id": 7044,
+        "name": "Patrik Schick"
+      },
+      "position": {
+        "id": 23,
+        "name": "Center Forward"
+      },
+      "jersey_number": 14
+    }
+  ]
+}</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team</strong></td>
+                <td>team</td>
+                <td>String</td>
+                <td><pre>"Bayer Leverkusen"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>team_id</strong></td>
+                <td>team_id</td>
+                <td>Integer</td>
+                <td><pre>904</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>timestamp</strong></td>
+                <td>timestamp</td>
+                <td>String</td>
+                <td><pre>"00:23:47.066"</pre></td>
+            </tr>
+            
+            <tr>
+                <td><strong>type</strong></td>
+                <td>type</td>
+                <td>String</td>
+                <td><pre>"Tactical Shift"</pre></td>
+            </tr>
+            
+        </table>
+        </div>
+    </div>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+    </body>
+    </html>
